@@ -9,9 +9,84 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
   <body>
-    <header class="bannerTitulo">
-      <a><%= image_tag "LogoNuevoTransp.png", class: "logoTitulo", alt: "Logo" %></a>
+    <header class="bannerTitulo d-flex justify-content-between align-items-center p-3">
+      <div>
+        <%= image_tag "LogoNuevoTransp.png", class: "logoTitulo", alt: "Logo" %>
+      </div>
+      <% if user_signed_in? %>
+        <ul class="nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center"
+         href="#"
+         role="button"
+         data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-2 text-dark fs-2"></i>
+              <%# current_user.email %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                  <i class="bi bi-person-gear me-2"></i>
+                  Mi perfil
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <%= link_to destroy_user_session_path,
+              class: "dropdown-item text-danger",
+              data: { turbo_method: :delete } do %>
+                  <i class="bi bi-box-arrow-right me-2"></i>
+                  Cerrar sesión
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      <% else %>
+        <%= link_to new_user_session_path, class: "btn-login" do %>
+          <i class="bi bi-person-circle"></i>
+          Iniciar sesión
+        <% end %>
+      <% end %>
     </header>
-    <%= yield %>
+    <%= yield  %>
+    <footer class="bg-dark text-white mt-auto">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <h5 class="fw-bold">
+              <i class="bi bi-hospital me-2 text-success"></i>
+              Servicios de Salud de San Luis Potosí
+            </h5>
+            <p class="text-light mb-0">
+              Comprometidos con la salud y el bienestar de la población.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="mb-2">
+              <i class="bi bi-geo-alt-fill text-success me-2"></i>
+              Prolongación Calzada de Guadalupe #5850,
+              Lomas de la Virgen, C.P. 78380
+            </div>
+            <div>
+              <i class="bi bi-telephone-fill text-success me-2"></i>
+              (444) 834-1100
+            </div>
+          </div>
+        </div>
+        <hr class="border-secondary my-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <small class="text-secondary mb-2 mb-md-0">
+            © <%= Date.current.year %> Servicios de Salud de San Luis Potosí.
+            Toda la información proporcionada es para uso exclusivo de la dependencia.
+          </small>
+          <!--<a href="#"
+         class="text-decoration-none text-success fw-semibold">
+            <i class="bi bi-shield-lock-fill me-1"></i>
+            Aviso de Privacidad
+          </a>-->
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

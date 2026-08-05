@@ -1,7 +1,40 @@
+@import "login"; 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 /* Tu CSS original intacto */
+
+.btn-login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  color: #3c8b41;
+  font-weight: 400;
+  padding: 12px 13px;
+  border-radius: 30px;
+  text-decoration: none;
+  border: 2px solid white;
+  transition: all .3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+}
+
+.btn-login i {
+  font-size: 15px;
+}
+
+.btn-login:hover {  
+  background: linear-gradient(to right, #8BC34A, #3c8b41);
+  color: white;
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+
+.icono-usuario {
+  color: black;
+  font-size: 30px;
+}
 .bannerTitulo {
   background: linear-gradient(to right, #8BC34A, #3c8b41);
   display: flex;
@@ -12,7 +45,7 @@
   gap: 20px;
   flex-wrap: nowrap; 
   flex-direction: row;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .logoTitulo {
@@ -163,4 +196,29 @@
   #boton-hamburguesa {
     display: block;
   }
+}
+
+footer {
+    background: linear-gradient(90deg, #1f2937, #111827);
+}
+
+footer h5 {
+    letter-spacing: .5px;
+}
+
+footer i {
+    font-size: 1.1rem;
+}
+
+footer a {
+    transition: .3s;
+}
+
+footer a:hover {
+    color: #8BC34A !important;
+    text-decoration: underline !important;
+}
+
+footer hr {
+    opacity: .2;
 }
