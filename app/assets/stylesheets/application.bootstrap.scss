@@ -1,6 +1,6 @@
-@import "login"; 
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+@import "login";
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
 
 /* Tu CSS original intacto */
 
@@ -15,35 +15,56 @@
   border-radius: 30px;
   text-decoration: none;
   border: 2px solid white;
-  transition: all .3s ease;
-  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
-
+.btn-inicio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgb(4, 109, 25);
+  color: #ffffff;
+  font-weight: 400;
+  padding: 12px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-inicio:hover {
+  background: linear-gradient(to right, #8bc34a, #3c8b41);
+  color: rgb(12, 65, 2);
+  border-color: white;
+  transform: translateY(-2px);
+}
 .btn-login i {
   font-size: 15px;
 }
-
-.btn-login:hover {  
-  background: linear-gradient(to right, #8BC34A, #3c8b41);
+.inicio_ul {
+  display: flex;
+  gap: 5px;
+}
+.btn-login:hover {
+  background: linear-gradient(to right, #8bc34a, #3c8b41);
   color: white;
   border-color: white;
   transform: translateY(-2px);
 }
-
 
 .icono-usuario {
   color: black;
   font-size: 30px;
 }
 .bannerTitulo {
-  background: linear-gradient(to right, #8BC34A, #3c8b41);
+  background: linear-gradient(to right, #8bc34a, #3c8b41);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 60px;
   box-sizing: border-box;
   gap: 20px;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
   flex-direction: row;
   overflow: visible;
 }
@@ -57,7 +78,7 @@
 }
 
 .logoTitulo:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .navHeader {
@@ -76,7 +97,7 @@
 .link-faq {
   color: #fff;
   font-weight: bold;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   text-decoration: none;
   font-size: 20px;
   padding: 10px 16px;
@@ -87,7 +108,7 @@
 .link-faq:hover {
   text-decoration: none;
   color: #fff;
-  background-color: rgba(255,255,255,0.1); 
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .btn-agendar {
@@ -98,7 +119,7 @@
   font-weight: bold;
   font-size: 20px;
   text-decoration: none;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   transition: background-color 0.3s ease;
   line-height: 1.5;
 }
@@ -124,7 +145,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: none;
   z-index: 900;
 }
@@ -143,12 +164,12 @@
   display: flex;
   flex-direction: column;
   padding: 40px 20px;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.3);
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
   transition: right 0.3s ease;
   z-index: 1000;
-  align-items: center; 
+  align-items: center;
   justify-content: flex-start;
-  text-align: center; 
+  text-align: center;
 }
 
 #menu-lateral.activo {
@@ -160,7 +181,7 @@
   text-decoration: none;
   font-weight: bold;
   margin-bottom: 20px;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 20px;
 }
 
@@ -197,28 +218,349 @@
     display: block;
   }
 }
-
-footer {
-    background: linear-gradient(90deg, #1f2937, #111827);
+.seccion-requisitos {
+  margin-top: 100px;
+  padding: 60px 30px;
+  background: #f8f9fa;
+  border-radius: 15px;
+}
+.seccion-requisitos h2 {
+  color: #1f4e79;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+.seccion-requisitos h2 i {
+  margin-right: 10px;
+}
+.requisitos-contenido {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.requisitos-contenido li {
+  margin-bottom: 10px;
+}
+.btn-requisitos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #ffffff;
+  color: #1f4e79 !important;
+  padding: 16px 35px;
+  min-width: 220px;
+  border: 2px solid #1f4e79;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+.btn-requisitos i {
+  font-size: 24px;
+} /* Cuando pasas el mouse */
+.btn-requisitos:hover {
+  background: #1f4e79;
+  color: #ffffff !important;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(31, 78, 121, 0.3);
+} /* Cuando haces clic */
+.btn-requisitos:active {
+  transform: translateY(-1px);
+}
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenido {
+  flex: 1;
+}
+
+.footer {
+  width: 100%;
+}
 footer h5 {
-    letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 
 footer i {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 footer a {
-    transition: .3s;
+  transition: 0.3s;
 }
 
 footer a:hover {
-    color: #8BC34A !important;
-    text-decoration: underline !important;
+  color: #8bc34a !important;
+  text-decoration: underline !important;
 }
 
 footer hr {
-    opacity: .2;
+  opacity: 0.2;
+}
+
+.hero-inicio {
+  width: 100%;
+  height: 90vh;
+  background-image: url("bannerPerros.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenido-hero {
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+.contenido-hero h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.contenido-hero p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.bloque-hero {
+  transition:
+    opacity 0.6s ease,
+    visibility 0.6s ease;
+}
+
+.bloque-hero.oculto {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.titulo-requisitos {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 25px;
+  color: #2e7d32;
+  border-left: 6px solid #2e7d32;
+  padding-left: 16px;
+}
+
+.bloque-central {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.requisitos {
+  text-align: left;
+}
+
+.lista-requisitos {
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 22px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.lista-requisitos li {
+  margin-bottom: 12px;
+}
+
+.lista-requisitos li::marker {
+  color: #2e7d32;
+  font-size: 20px;
+}
+
+.registro-medico {
+  width: 100%;
+  height: 90vh;
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.25)),
+    url("bannerGatos.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenido-registro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registro-medico h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+  font-family: "Josefin Sans", sans-serif;
+  color: #fff;
+}
+
+.btn-registro {
+  background-color: #fff;
+  color: #212121;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  font-family: "Josefin Sans", sans-serif;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+}
+
+.btn-registro:hover {
+  background-color: #212121;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .contenido-hero h1 {
+    font-size: 28px;
+  }
+
+  .contenido-hero p {
+    font-size: 16px;
+  }
+
+  .bloque-central {
+    padding: 0 20px;
+  }
+
+  .lista-requisitos {
+    font-size: 16px;
+  }
+
+  .registro-medico h1 {
+    font-size: 28px;
+  }
+
+  .btn-registro {
+    font-size: 18px;
+    padding: 10px 24px;
+  }
+}
+
+/* Botón del usuario */
+.usuario-menu {
+  color: white !important;
+}
+
+/* Icono de usuario */
+.usuario-menu i.bi-person-circle {
+  font-size: 22px;
+}
+
+/* Flecha */
+.usuario-menu .bi-chevron-down {
+  font-size: 12px;
+}
+
+/* Efecto al pasar el mouse */
+.usuario-menu:hover,
+.usuario-menu:focus {
+  background: #2f7134;
+  color: white !important;
+  border-color: #2f7134;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Menú desplegable */
+.usuario-menu + .dropdown-menu {
+  margin-top: 8px;
+  min-width: 230px;
+  border: none;
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Elementos del menú */
+.dropdown-menu .dropdown-item {
+  padding: 10px 12px;
+  border-radius: 7px;
+  transition: background 0.2s ease;
+}
+
+/* Hover de los elementos */
+.dropdown-menu .dropdown-item:hover {
+  background: #e8f5e9;
+}
+
+/* Iconos */
+.dropdown-menu .bi {
+  font-size: 18px;
+}
+
+.contenedor-agendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 80px auto;
+}
+.btn-agendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: #ffffff;
+  color: #1f4e79 !important;
+  padding: 20px 50px;
+  min-width: 280px;
+  border: 2px solid #1f4e79;
+  border-radius: 14px;
+  font-size: 21px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  transition: all 0.3s ease;
+}
+.btn-agendar i {
+  font-size: 30px;
+} /* Al pasar el mouse */
+.btn-agendar:hover {
+  background: #1f4e79;
+  color: #ffffff !important;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(31, 78, 121, 0.35);
+} /* Al presionar */
+.btn-agendar:active {
+  transform: translateY(-1px);
 }

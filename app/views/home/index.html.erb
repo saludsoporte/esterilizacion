@@ -1,4 +1,36 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<%= image_tag "LogoNuevoTransp.png", class: "logoTitulo", alt: "Logo" %>
-<%= link_to "Go to About", "" ,class: "btn btn-primary" %>
+<div class="hero-inicio" >
+  <div class="overlay">
+    <div class="contenido-hero">
+      <div id="bloqueHero" class="bloque-hero">
+        <h1>Agenda tu cita de esterilización</h1>
+        <div class="contenedor-botones">
+          <%= link_to "#requisitos", class: "btn-requisitos" do %>
+            <i class="bi bi-list-check"></i>
+            <span> Consulta requisitos, fechas disponibles y registra tu mascota. </span>
+          <% end %>
+          <%= link_to "#", class: "btn-agendar" do %>
+            <i class="bi bi-calendar-check-fill"></i>
+            <span>Agendar cita</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="requisitos" class="seccion-requisitos">
+  <div id="contenido" class="bloque-central">
+    <h1 class="titulo-requisitos">Requisitos para esterilización (perros y gatos)</h1>
+    <div class="requisitos">
+      <ul class="lista-requisitos">
+        <li>Mayores de 6 meses.</li>
+        <li>Ayuno total de 12 horas de alimento y agua.</li>
+        <li>Solo se operarán pacientes sanos.</li>
+        <li>No se operan hembras embarazadas o lactando.</li>
+        <li>Perros: presentar con collar y correa.</li>
+        <li>Gatos: traer en transportadora, bolsa o costal.</li>
+        <li>El manejo de la mascota es responsabilidad del propietario.</li>
+        <li>La persona responsable debe ser mayor de edad.</li>
+      </ul>
+    </div>
+  </div>
+</section>
