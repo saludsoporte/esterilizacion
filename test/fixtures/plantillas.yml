@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  dia: MyString
+  mesa: one
+  detalle_extra: one
+
+two:
+  nombre: MyString
+  dia: MyString
+  mesa: two
+  detalle_extra: two

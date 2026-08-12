@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :agendas
   get 'home/index'
   devise_for :users
     root "home#index"

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  paciente: MyString
+  sexo: MyString
+  horario: 2026-08-12 14:28:26
+  mesa: one
+  agenda: one
+
+two:
+  paciente: MyString
+  sexo: MyString
+  horario: 2026-08-12 14:28:26
+  mesa: two
+  agenda: two
