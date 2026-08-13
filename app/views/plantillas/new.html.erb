@@ -1,0 +1,80 @@
+<div class="container plantilla-form-container">
+  <div class="plantilla-form-header">
+    <div>
+      <h1>
+        <i class="bi bi-file-earmark-plus-fill"></i>
+        Nueva plantilla
+      </h1>
+      <p>
+        Configura la plantilla y agrega las mesas necesarias.
+      </p>
+    </div>
+    <%= link_to plantillas_path, class: "btn-volver-plantilla" do %>
+      <i class="bi bi-arrow-left"></i>
+      Volver
+    <% end %>
+  </div>
+  <div class="plantilla-form-card">
+    <%= form_with model: @plantilla do |f| %>
+      <div class="mb-4">
+        <%= f.label :nombre, "Nombre de la plantilla" %>
+        <%= f.text_field :nombre,
+            class: "form-control",
+            value: "Plantilla #{Plantilla.count + 1}",
+            readonly: true %>
+      </div>
+      <div class="mb-4">
+        <%= f.label :dia, "Día" %>
+        <%= f.select :dia,
+            [
+              ["Lunes", "Lunes"],
+              ["Martes", "Martes"],
+              ["Miércoles", "Miércoles"],
+              ["Jueves", "Jueves"],
+              ["Viernes", "Viernes"]
+            ],
+            { prompt: "Selecciona un día" },
+            class: "form-select" %>
+      </div>
+      <hr>
+      <div data-controller="mesas">
+        <div class="mesas-header">
+          <div>
+            <h3>
+              <i class="bi bi-grid-3x3-gap-fill"></i>
+              Mesas
+            </h3>
+            <p>
+              Agrega las mesas que formarán parte de esta plantilla.
+            </p>
+          </div>
+          <button type="button"
+            class="btn-agregar-mesa"
+            data-action="click->mesas#agregar">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Agregar mesa</span>
+          </button>
+        </div><br>
+        <!-- Aquí aparecerán las mesas -->
+        <div id="mesas" data-mesas-target="contenedor">
+          <%= f.fields_for :mesas do |mesa_form| %>
+            <%= render "mesa_fields", f: mesa_form %>
+          <% end %>
+        </div>
+        <!-- Plantilla oculta para nuevas mesas -->
+        <template data-mesas-target="template">
+          <%= f.fields_for :mesas,Mesa.new,child_index: "NEW_RECORD" do |mesa_form| %>
+            <%= render "mesa_fields", f: mesa_form %>
+          <% end %>
+        </template>
+      </div>      
+      <div class="plantilla-form-footer">
+        <%= link_to "Cancelar",
+            plantillas_path,
+            class: "btn-cancelar-plantilla" %>
+        <%= f.submit "Guardar plantilla",
+            class: "btn-guardar-plantilla" %>
+      </div>
+    <% end %>
+  </div>
+</div>

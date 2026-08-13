@@ -1,0 +1,24 @@
+<div class="mesa-card">
+  <div class="mesa-card-header">
+    <div class="mesa-title">
+      <i class="bi bi-grid-3x3-gap-fill"></i>
+      <strong>
+        Mesa
+      </strong>
+    </div>
+    <button type="button"
+            class="btn-eliminar-mesa"
+            data-action="click->mesas#eliminar">
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+  <div class="mesa-card-body">
+    <%= f.label :nombre_mesa, "Nombre de la mesa" %>
+    <%= f.text_field :nombre_mesa,
+        class: "form-control",
+        placeholder: "Ej. Mesa 1" %>
+  </div>
+  <%= f.hidden_field :_destroy,
+      value: "0",
+      class: "destroy-field" %>
+</div>

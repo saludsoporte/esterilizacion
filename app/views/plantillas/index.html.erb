@@ -1,0 +1,67 @@
+<div class="container plantillas-container">
+  <div class="plantillas-header">
+    <div>
+      <h1>
+        <i class="bi bi-file-earmark-text-fill"></i>
+        Plantillas
+      </h1>
+      <p>
+        Administra las plantillas disponibles en el sistema.
+      </p>
+    </div>
+    <%= link_to new_plantilla_path, class: "btn-nueva-plantilla" do %>
+      <i class="bi bi-plus-lg"></i>
+      Crear plantilla
+    <% end %>
+  </div>
+  <% if @plantillas.any? %>
+    <div class="row g-4">
+      <% @plantillas.each do |plantilla| %>
+        <div class="col-md-6 col-lg-4">
+          <div class="plantilla-card">
+            <div class="plantilla-card-header">
+              <div class="plantilla-icon">
+                <i class="bi bi-file-earmark-text"></i>
+              </div>
+              <div class="plantilla-actions">
+                <%= link_to plantilla_path(plantilla),
+                    class: "btn-icon",
+                    title: "Ver plantilla" do %>
+                  <i class="bi bi-eye"></i>
+                <% end %>
+                <%= link_to edit_plantilla_path(plantilla),
+                    class: "btn-icon",
+                    title: "Editar plantilla" do %>
+                  <i class="bi bi-pencil"></i>
+                <% end %>
+              </div>
+            </div>
+            <div class="plantilla-card-body">
+              <h3>
+                <%= plantilla.nombre %>
+              </h3>
+              <p>
+                <%= plantilla.descripcion.presence || "Sin descripción" %>
+              </p>
+            </div>
+            <div class="plantilla-card-footer">
+              <%= link_to plantilla_path(plantilla),
+                  class: "btn-ver-plantilla" do %>
+                Ver plantilla
+                <i class="bi bi-arrow-right"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="sin-plantillas">
+      <i class="bi bi-file-earmark-x"></i>
+      <h3>No hay plantillas</h3>
+      <p>
+        Actualmente no existen plantillas registradas.
+      </p>
+    </div>
+  <% end %>
+</div>

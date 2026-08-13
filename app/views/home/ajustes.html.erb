@@ -1,0 +1,124 @@
+<div class="container ajustes-container">
+  <div class="ajustes-header">
+    <div>
+      <h1>
+        <i class="bi bi-gear-fill"></i>
+        Ajustes
+      </h1>
+      <p>Administra la configuración del sistema</p>
+    </div>
+    <%= link_to root_path, class: "btn-volver" do %>
+      <i class="bi bi-arrow-left"></i>
+      Volver
+    <% end %>
+  </div>
+  <div class="row g-4">    
+    <div class="col-md-6 col-lg-4">
+      <div class="ajuste-card">
+        <div class="ajuste-icon">
+          <i class="bi bi-sliders"></i>
+        </div>
+        <div class="ajuste-content">
+          <h3>Ver Plantillas</h3>
+          <p>
+            Configura y administra las plantillas de agendas.
+          </p>
+          <%= link_to plantillas_path, class: "btn-ajuste" do %>
+            Plantillas
+            <i class="bi bi-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Usuarios -->
+    <div class="col-md-6 col-lg-4">
+      <div class="ajuste-card">
+        <div class="ajuste-icon">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="ajuste-content">
+          <h3>Usuarios</h3>
+          <p>
+            Administra usuarios, permisos y cuentas del sistema.
+          </p>
+          <%= link_to "#", class: "btn-ajuste" do %>
+            Administrar
+            <i class="bi bi-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Perfil -->
+    <div class="col-md-6 col-lg-4">
+      <div class="ajuste-card">
+        <div class="ajuste-icon">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <div class="ajuste-content">
+          <h3>Mi perfil</h3>
+          <p>
+            Modifica tu información personal y contraseña.
+          </p>
+          <%= link_to "#", class: "btn-ajuste" do %>
+            Ver perfil
+            <i class="bi bi-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Notificaciones -->
+    <div class="col-md-6 col-lg-4">
+      <div class="ajuste-card">
+        <div class="ajuste-icon">
+          <i class="bi bi-bell-fill"></i>
+        </div>
+        <div class="ajuste-content">
+          <h3>Notificaciones</h3>
+          <p>
+            Configura las notificaciones y avisos del sistema.
+          </p>
+          <%= link_to "#", class: "btn-ajuste" do %>
+            Configurar
+            <i class="bi bi-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Seguridad -->
+    <div class="col-md-6 col-lg-4">
+      <div class="ajuste-card">
+        <div class="ajuste-icon">
+          <i class="bi bi-shield-lock-fill"></i>
+        </div>
+        <div class="ajuste-content">
+          <h3>Seguridad</h3>
+          <p>
+            Administra las opciones de seguridad y acceso.
+          </p>
+          <%= link_to "#", class: "btn-ajuste" do %>
+            Administrar
+            <i class="bi bi-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Sistema -->
+    <div class="col-md-6 col-lg-4">
+      <div class="ajuste-card">
+        <div class="ajuste-icon">
+          <i class="bi bi-cpu-fill"></i>
+        </div>
+        <div class="ajuste-content">
+          <h3>Sistema</h3>
+          <p>
+            Consulta y configura los parámetros del sistema.
+          </p>
+          <%= link_to "#", class: "btn-ajuste" do %>
+            Configurar
+            <i class="bi bi-chevron-right"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
