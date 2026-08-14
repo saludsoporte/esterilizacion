@@ -5,5 +5,6 @@ class PlantillasController < ApplicationController
 
   def new
     @plantilla = Plantilla.new
+    @mesas = Mesa.all
   end
 end

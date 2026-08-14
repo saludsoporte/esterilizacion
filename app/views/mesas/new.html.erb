@@ -1,0 +1,51 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="configurar-mesa">
+  
+    <%= form_with url: @mesa,method: :post, data: {turbo_frame: "tabla_mesas"} do |f| %>
+      <div class="form-mesa hstack gap-3">        
+        <!-- FH / FM -->
+        <div class="campo-mesa">
+          <label>Felino Hembra (FH) / Felino Macho (FM)</label>
+          <div class="horario-row">
+            <div class="switch-opcion" data-mesas-fh-value="FH" data-mesas-fm-value="FM">
+              <input type="hidden" name="agenda_mesa[fh_fm]" value="FH" data-mesas-target="valor">
+              <label class="switch">
+                <input type="checkbox" data-mesas-target="caja" data-action="change->mesas#cambiar">
+                  <span class="slider">
+                  <span class="slider-label-left">FH</span>
+                  <span class="slider-label-right">FM</span>
+                </span>
+              </label>
+            </div>
+            <%= time_field_tag "agenda_mesa[hora_fh_fm]",
+              nil,
+              class: "hora-mesa" %>
+          </div>
+        </div>
+        <!-- CH / CM -->
+        <div class="campo-mesa">
+          <label>Canino Hembra (CH) / Canino Macho (CM)</label>
+          <div class="horario-row">
+            <div class="switch-opcion" data-mesas-fh-value="CH" data-mesas-fm-value="CM">
+              <input type="hidden" name="agenda_mesa[ch_cm]" value="CH" data-mesas-target="valor">
+              <label class="switch">
+                <input type="checkbox" data-mesas-target="caja" data-action="change->mesas#cambiar">
+                <span class="slider">
+                  <span class="slider-label-left">CH</span>
+                  <span class="slider-label-right">CM</span>
+                </span>
+              </label>
+            </div>
+            <%= time_field_tag "agenda_mesa[hora_ch_cm]",
+              nil,
+              class: "hora-mesa" %>
+          </div>
+        </div>
+        <div class="campo-mesa boton-mesa">
+          <%= f.submit "Agregar mesa",
+            class: "btn-agregar-mesa" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

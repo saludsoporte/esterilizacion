@@ -1,0 +1,22 @@
+<%= turbo_stream.prepend "mesas_lista" do %>
+  <div class="mesa-card">
+    <div class="mesa-icono">
+      <i class="bi bi-grid-3x3-gap-fill"></i>
+    </div>
+    <div class="mesa-info">
+      <h4>
+        <%= @mesa.nombre %>
+      </h4>
+      <span>
+        <i class="bi bi-calendar3"></i>
+        <%= @mesa.dia %>
+      </span>
+      <span>
+        <i class="bi bi-clock"></i>
+        <%= @mesa.hora_inicio.strftime("%H:%M") if @mesa.hora_inicio %>
+      </span>
+    </div>
+  </div>
+<% end %>
+<%= turbo_stream.update "modal" do %>
+<% end %>

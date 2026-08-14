@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'mesas/new'
   resources :agendas
   resources :plantillas
+  resources :mesas
   get 'home/index'
   devise_for :users, controllers: {
     sessions: 'users/sessions'

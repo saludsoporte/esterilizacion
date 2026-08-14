@@ -119,3 +119,191 @@
   }
 
 }
+
+.select-dia-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-dia-label {
+  margin: 0;
+  font-weight: 600;
+  color: #343a40;
+  white-space: nowrap;
+}
+
+.select-dia {
+  min-width: 210px;
+  height: 42px;
+  padding: 0 40px 0 14px;
+
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+
+  background-color: #fff;
+  color: #495057;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.select-dia:hover {
+  border-color: #8bc34a;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.select-dia:focus {
+  border-color: #6fa83b;
+  box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, 0.25);
+  outline: none;
+}
+
+.select-dia option {
+  padding: 10px;
+}
+.wizard {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Indicador */
+
+.wizard-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+
+.wizard-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #adb5bd;
+  min-width: 120px;
+}
+
+.wizard-step span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e9ecef;
+  font-weight: 600;
+}
+
+.wizard-step.active {
+  color: #3c8b41;
+}
+
+.wizard-step.active span,
+.wizard-step.completed span {
+  background: #8bc34a;
+  color: white;
+}
+
+.wizard-step small {
+  font-weight: 600;
+}
+
+.wizard-line {
+  width: 100px;
+  height: 2px;
+  background: #dee2e6;
+}
+
+/* Páginas */
+
+.wizard-page {
+  display: none;
+
+  background: white;
+  border-radius: 16px;
+  padding: 35px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+}
+
+.wizard-page.active {
+  display: block;
+}
+
+.wizard-header {
+  margin-bottom: 30px;
+}
+
+.wizard-header h2 {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.wizard-header p {
+  margin: 0;
+  color: #6c757d;
+}
+
+/* Botones */
+
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.btn-siguiente,
+.btn-guardar,
+.btn-atras {
+  border: none;
+  border-radius: 10px;
+  padding: 11px 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-siguiente,
+.btn-guardar {
+  background: #8bc34a;
+  color: white;
+}
+
+.btn-siguiente:hover,
+.btn-guardar:hover {
+  background: #75aa3b;
+}
+
+.btn-atras {
+  background: #f1f3f5;
+  color: #495057;
+}
+
+.btn-atras:hover {
+  background: #e9ecef;
+}
+
+/* Confirmación */
+
+.confirmacion {
+  text-align: center;
+  padding: 40px;
+}
+
+.confirmacion i {
+  font-size: 60px;
+  color: #8bc34a;
+}
+
+.confirmacion h3 {
+  margin-top: 15px;
+}

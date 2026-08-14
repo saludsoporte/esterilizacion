@@ -1,80 +1,153 @@
-<div class="container plantilla-form-container">
-  <div class="plantilla-form-header">
-    <div>
-      <h1>
-        <i class="bi bi-file-earmark-plus-fill"></i>
-        Nueva plantilla
-      </h1>
-      <p>
-        Configura la plantilla y agrega las mesas necesarias.
-      </p>
+<div class="wizard" data-controller="mesas">
+  <!-- Indicador de pasos -->
+  <div class="wizard-steps">
+    <div class="wizard-step active" data-mesas-target="stepIndicator">
+      <span>1</span>
+      <small>Nombre de la Plantilla</small>
     </div>
-    <%= link_to plantillas_path, class: "btn-volver-plantilla" do %>
-      <i class="bi bi-arrow-left"></i>
-      Volver
-    <% end %>
+    <div class="wizard-line"></div>
+    <div class="wizard-step" data-mesas-target="stepIndicator">
+      <span>2</span>
+      <small>Agregar o seleccionar mesas</small>
+    </div>
+    <div class="wizard-line"></div>
+    <div class="wizard-step" data-mesas-target="stepIndicator">
+      <span>3</span>
+      <small>Confirmar</small>
+    </div>
   </div>
-  <div class="plantilla-form-card">
-    <%= form_with model: @plantilla do |f| %>
-      <div class="mb-4">
-        <%= f.label :nombre, "Nombre de la plantilla" %>
-        <%= f.text_field :nombre,
-            class: "form-control",
-            value: "Plantilla #{Plantilla.count + 1}",
-            readonly: true %>
+  <%= form_with model: @agenda do |f| %>
+    <!-- PASO 1 -->
+    <div class="wizard-page active" data-mesas-target="page">
+      <div class="wizard-header">
+        <p>Nombre de la Plantilla</p>
       </div>
-      <div class="mb-4">
-        <%= f.label :dia, "Día" %>
-        <%= f.select :dia,
-            [
-              ["Lunes", "Lunes"],
-              ["Martes", "Martes"],
-              ["Miércoles", "Miércoles"],
-              ["Jueves", "Jueves"],
-              ["Viernes", "Viernes"]
-            ],
-            { prompt: "Selecciona un día" },
-            class: "form-select" %>
+      <div class="form-group">
+        <%= f.text_field :nombre, class: "form-control" %>
       </div>
-      <hr>
-      <div data-controller="mesas">
+      <div class="wizard-actions">
+        <button type="button"
+                class="btn-siguiente"
+                data-action="click->mesas#siguiente">
+          Siguiente
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <!-- PASO 2 -->
+    <div class="wizard-page" data-mesas-target="page">
+      <div class="wizard-header">
+        <h2>Configuración de mesas</h2>
+      </div>
+      <div class="mesas-container">
         <div class="mesas-header">
-          <div>
-            <h3>
+          <div class="hstack gap-2">
+            <h2>
               <i class="bi bi-grid-3x3-gap-fill"></i>
               Mesas
-            </h3>
-            <p>
-              Agrega las mesas que formarán parte de esta plantilla.
-            </p>
+            </h2>
+            <%= link_to new_mesa_path,
+            class: "btn-agregar-mesa",
+            data: { turbo_frame: "modal" } do %>
+              <i class="bi bi-plus-circle-fill"></i>
+              <span>Agregar mesa</span>
+            <% end %>
           </div>
-          <button type="button"
-            class="btn-agregar-mesa"
-            data-action="click->mesas#agregar">
-            <i class="bi bi-plus-circle-fill"></i>
-            <span>Agregar mesa</span>
-          </button>
-        </div><br>
-        <!-- Aquí aparecerán las mesas -->
-        <div id="mesas" data-mesas-target="contenedor">
-          <%= f.fields_for :mesas do |mesa_form| %>
-            <%= render "mesa_fields", f: mesa_form %>
+        </div>
+      </div>
+      <%= turbo_frame_tag "modal" %>
+      <%= turbo_frame_tag "lista_mesas" do %>
+        <div class="mesas-lista" id="mesas_lista">
+          <% if @mesas.any? %>
+            <% @mesas.each do |mesa| %>
+              <div class="mesa-card">
+                <div class="mesa-seleccion">
+                  <%= check_box_tag "mesa_ids[]",
+            mesa.id,
+            false,
+            class: "mesa-checkbox",
+            id: "mesa_#{mesa.id}" %>
+                  <%= label_tag "mesa_#{mesa.id}", class: "mesa-check-label" do %>
+                    <span class="check-custom">
+                      <i class="bi bi-check"></i>
+                    </span>
+                  <% end %>
+                </div>
+                <div class="mesa-icono">
+                  <i class="bi bi-grid-3x3-gap-fill"></i>
+                </div>
+                <div class="mesa-info">
+                  <h4>
+                    <%= mesa.nombre %>
+                  </h4>
+                  <div class="mesa-datos">
+                    <span>
+                      <i class="bi bi-calendar3"></i>
+                      <%= mesa.dia %>
+                    </span>
+                    <span>
+                      <i class="bi bi-clock"></i>
+                      <%= mesa.hora_inicio.strftime("%H:%M") if mesa.hora_inicio %>
+                    </span>
+                  </div>
+                </div>
+                <div class="mesa-acciones">
+                  <%= link_to edit_mesa_path(mesa),
+                      class: "btn-editar",
+                      data: { turbo_frame: "modal" } do %>
+                    <i class="bi bi-pencil"></i>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="mesas-vacio">
+              <h3>No hay mesas registradas</h3>
+              <p>
+                Agrega una mesa para comenzar.
+              </p>
+            </div>
           <% end %>
         </div>
-        <!-- Plantilla oculta para nuevas mesas -->
-        <template data-mesas-target="template">
-          <%= f.fields_for :mesas,Mesa.new,child_index: "NEW_RECORD" do |mesa_form| %>
-            <%= render "mesa_fields", f: mesa_form %>
-          <% end %>
-        </template>
-      </div>      
-      <div class="plantilla-form-footer">
-        <%= link_to "Cancelar",
-            plantillas_path,
-            class: "btn-cancelar-plantilla" %>
-        <%= f.submit "Guardar plantilla",
-            class: "btn-guardar-plantilla" %>
+      <% end %>
+      <div class="wizard-actions">
+        <button type="button"
+                class="btn-atras"
+                data-action="click->mesas#anterior">
+          <i class="bi bi-arrow-left"></i>
+          Atrás
+        </button>
+        <button type="button"
+                class="btn-siguiente"
+                data-action="click->mesas#siguiente">
+          Siguiente
+          <i class="bi bi-arrow-right"></i>
+        </button>
       </div>
-    <% end %>
-  </div>
+    </div>
+    <!-- PASO 3 -->
+    <div class="wizard-page" data-mesas-target="page">
+      <div class="wizard-header">
+        <h2>Confirmar información</h2>
+        <p>Revisa los datos antes de guardar.</p>
+      </div>
+      <div class="confirmacion">
+        <i class="bi bi-check-circle-fill"></i>
+        <h3>Todo listo</h3>
+        <p>
+          Revisa que la información de las mesas sea correcta.
+        </p>
+      </div>
+      <div class="wizard-actions">
+        <button type="button"
+                class="btn-atras"
+                data-action="click->mesas#anterior">
+          <i class="bi bi-arrow-left"></i>
+          Atrás
+        </button>
+        <%= f.submit "Guardar agenda",
+            class: "btn-guardar" %>
+      </div>
+    </div>
+  <% end %>
 </div>
