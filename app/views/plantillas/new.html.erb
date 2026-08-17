@@ -1,24 +1,24 @@
-<div class="wizard" data-controller="mesas">
+<div class="wizard"  data-controller="plantillas">
   <!-- Indicador de pasos -->
   <div class="wizard-steps">
-    <div class="wizard-step active" data-mesas-target="stepIndicator">
+    <div class="wizard-step active" data-plantillas-target="stepIndicator">
       <span>1</span>
       <small>Nombre de la Plantilla</small>
     </div>
     <div class="wizard-line"></div>
-    <div class="wizard-step" data-mesas-target="stepIndicator">
+    <div class="wizard-step" data-plantillas-target="stepIndicator">
       <span>2</span>
       <small>Agregar o seleccionar mesas</small>
     </div>
     <div class="wizard-line"></div>
-    <div class="wizard-step" data-mesas-target="stepIndicator">
+    <div class="wizard-step" data-plantillas-target="stepIndicator">
       <span>3</span>
       <small>Confirmar</small>
     </div>
   </div>
   <%= form_with model: @agenda do |f| %>
     <!-- PASO 1 -->
-    <div class="wizard-page active" data-mesas-target="page">
+    <div class="wizard-page active" data-plantillas-target="page">
       <div class="wizard-header">
         <p>Nombre de la Plantilla</p>
       </div>
@@ -28,14 +28,14 @@
       <div class="wizard-actions">
         <button type="button"
                 class="btn-siguiente"
-                data-action="click->mesas#siguiente">
+                data-action="click->plantillas#siguiente">
           Siguiente
           <i class="bi bi-arrow-right"></i>
         </button>
       </div>
     </div>
     <!-- PASO 2 -->
-    <div class="wizard-page" data-mesas-target="page">
+    <div class="wizard-page" data-plantillas-target="page">
       <div class="wizard-header">
         <h2>Configuración de mesas</h2>
       </div>
@@ -56,7 +56,7 @@
         </div>
       </div>
       <%= turbo_frame_tag "modal" %>
-      <%= turbo_frame_tag "lista_mesas" do %>
+      <%# turbo_frame_tag "lista_mesas" do %>
         <div class="mesas-lista" id="mesas_lista">
           <% if @mesas.any? %>
             <% @mesas.each do |mesa| %>
@@ -109,24 +109,24 @@
             </div>
           <% end %>
         </div>
-      <% end %>
+      <%# end %>
       <div class="wizard-actions">
         <button type="button"
                 class="btn-atras"
-                data-action="click->mesas#anterior">
+                data-action="click->plantillas#anterior">
           <i class="bi bi-arrow-left"></i>
           Atrás
         </button>
         <button type="button"
                 class="btn-siguiente"
-                data-action="click->mesas#siguiente">
+                data-action="click->plantillas#siguiente">
           Siguiente
           <i class="bi bi-arrow-right"></i>
         </button>
       </div>
     </div>
     <!-- PASO 3 -->
-    <div class="wizard-page" data-mesas-target="page">
+    <div class="wizard-page" data-plantillas-target="page">
       <div class="wizard-header">
         <h2>Confirmar información</h2>
         <p>Revisa los datos antes de guardar.</p>
@@ -141,7 +141,7 @@
       <div class="wizard-actions">
         <button type="button"
                 class="btn-atras"
-                data-action="click->mesas#anterior">
+                data-action="click->plantillas#anterior">
           <i class="bi bi-arrow-left"></i>
           Atrás
         </button>

@@ -7,5 +7,11 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import LoadingMesasController from "./loading_mesas_controller"
+application.register("loading-mesas", LoadingMesasController)
+
 import MesasController from "./mesas_controller"
 application.register("mesas", MesasController)
+
+import PlantillasController from "./plantillas_controller"
+application.register("plantillas", PlantillasController)

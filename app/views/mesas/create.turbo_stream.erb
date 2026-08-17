@@ -5,16 +5,8 @@
     </div>
     <div class="mesa-info">
       <h4>
-        <%= @mesa.nombre %>
-      </h4>
-      <span>
-        <i class="bi bi-calendar3"></i>
-        <%= @mesa.dia %>
-      </span>
-      <span>
-        <i class="bi bi-clock"></i>
-        <%= @mesa.hora_inicio.strftime("%H:%M") if @mesa.hora_inicio %>
-      </span>
+        <%= @mesa.nombre_mesa %>
+      </h4>      
     </div>
   </div>
 <% end %>

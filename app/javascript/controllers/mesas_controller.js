@@ -7,56 +7,45 @@ export default class extends Controller {
     "template",
     "page",
     "stepIndicator",
-    "caja",
-    "valor",
+    "button",
+    "detalles",
+    "template",
+    "horario",
   ];
-  static values = {
-    fh: String,
-    fm: String,
-  };
   connect() {
-    this.currentStep = 0;
-    this.mostrarPaso();
-    console.log(this.valorTarget);
-    this.actualizar();
-  }
-  cambiar() {
-    this.actualizar();
-  }
-  actualizar() {
-    if (this.cajaTarget.checked) {
-      this.valorTarget.value = this.fmValue;
-    } else {
-      this.valorTarget.value = this.fhValue;
-    }
-  }
-  cerrar() {
-    console.log("Cerrando modal");
-    $("#modal").empty();
-  }
-  siguiente() {
-    if (this.currentStep < this.pageTargets.length - 1) {
-      this.currentStep++;
-      this.mostrarPaso();
-    }
+    console.log("MESAS CONTROLLER CONECTADO");
+    this.index2 = 0;
   }
 
-  anterior() {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-      this.mostrarPaso();
-    }
+  agregarDetalle() {
+    console.log("Índice actual:", this.index2);
+
+    let html = this.templateTarget.innerHTML;
+
+    html = html.replaceAll("INDEX", this.index2);
+
+    //console.log("HTML generado:", html);
+
+    this.detallesTarget.insertAdjacentHTML("beforeend", html);
+
+    this.index2++;
+  }
+  cambiarHorario() {
+    this.actualizarHorarios();
   }
 
-  mostrarPaso() {
-    this.pageTargets.forEach((page, index) => {
-      page.classList.toggle("active", index === this.currentStep);
-    });
-    console.log(" Step:", this.stepIndicatorTargets);
-    this.stepIndicatorTargets.forEach((step, index) => {
-      console.log("Current Step:", this.currentStep, "Index:", index);
-      step.classList.toggle("active", index === this.currentStep);
-      step.classList.toggle("completed", index < this.currentStep);
+  actualizarHorarios() {
+    const seleccionados = this.horarioTargets
+      .map((select) => select.value)
+      .filter((value) => value !== "");
+
+    this.horarioTargets.forEach((select) => {
+      Array.from(select.options).forEach((option) => {
+        if (option.value === "") return;
+
+        option.disabled =
+          seleccionados.includes(option.value) && option.value !== select.value;
+      });
     });
   }
 }

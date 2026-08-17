@@ -650,3 +650,36 @@
   border-color: #8bc34a;
   box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.15);
 }
+
+
+.opciones-checkbox {
+  display: flex;
+  gap: 10px;
+}
+
+.opcion-checkbox {
+  cursor: pointer;
+}
+
+.opcion-checkbox input {
+  display: none;
+}
+
+.opcion-checkbox span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  padding: 8px 14px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.opcion-checkbox input:checked + span {
+  background: #198754;
+  border-color: #198754;
+  color: white;
+}

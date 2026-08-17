@@ -1,0 +1,47 @@
+<div class="form-mesa hstack gap-3 mb-3 p-3 border rounded">
+  <div class="opciones-checkbox">
+    <label class="opcion-checkbox">
+      <%= detalle.radio_button :tipo, "F_H" %>
+      <span>
+        Felino Hembra
+      </span>
+    </label>
+    <label class="opcion-checkbox">
+      <%= detalle.radio_button :tipo, "F_M" %>
+      <span>
+        Felino Macho
+      </span>
+    </label>
+    <label class="opcion-checkbox">
+      <%= detalle.radio_button :tipo, "C_H" %>
+      <span>
+        Canino Hembra
+      </span>
+    </label>
+    <label class="opcion-checkbox">
+      <%= detalle.radio_button :tipo, "C_M" %>
+      <span>
+        Canino Macho
+      </span>
+    </label>
+    <%= detalle.select :horario,
+      [
+        ["08:00", "08:00"],
+        ["09:00", "09:00"],
+        ["10:00", "10:00"],
+        ["11:00", "11:00"],
+        ["12:00", "12:00"],
+        ["13:00", "13:00"],
+        ["14:00", "14:00"],
+        ["15:00", "15:00"]
+      ],
+      { include_blank: "Selecciona horario" },
+      {
+        class: "form-select",
+        data: {
+          action: "change->mesas#cambiarHorario",
+          mesas_target: "horario"
+        }
+      } %>
+  </div>
+</div>

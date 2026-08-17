@@ -1,50 +1,42 @@
 <%= turbo_frame_tag "modal" do %>
-  <div class="configurar-mesa">
-  
-    <%= form_with url: @mesa,method: :post, data: {turbo_frame: "tabla_mesas"} do |f| %>
-      <div class="form-mesa hstack gap-3">        
-        <!-- FH / FM -->
-        <div class="campo-mesa">
-          <label>Felino Hembra (FH) / Felino Macho (FM)</label>
-          <div class="horario-row">
-            <div class="switch-opcion" data-mesas-fh-value="FH" data-mesas-fm-value="FM">
-              <input type="hidden" name="agenda_mesa[fh_fm]" value="FH" data-mesas-target="valor">
-              <label class="switch">
-                <input type="checkbox" data-mesas-target="caja" data-action="change->mesas#cambiar">
-                  <span class="slider">
-                  <span class="slider-label-left">FH</span>
-                  <span class="slider-label-right">FM</span>
-                </span>
-              </label>
-            </div>
-            <%= time_field_tag "agenda_mesa[hora_fh_fm]",
-              nil,
-              class: "hora-mesa" %>
+  <div class="configurar-mesa" data-controller="mesas">
+    <%= form_with model: @mesa,method: :post, data: {turbo_frame: "tabla_mesas" }     do |f| %>
+      <div class="mb-3">
+        <%= f.label :nombre, "Nombre de la mesa", class: "form-label fw-bold" %>
+        <%= f.text_field :nombre,
+        class: "form-control",
+        placeholder: "Ej. Mesa 1" %>
+      </div>
+      <br>
+      <!-- DETALLES -->
+      <div class="card" >
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">
+            Detalles de la mesa
+          </h5>
+          <button type="button"
+                class="btn btn-primary"
+                data-action="click->mesas#agregarDetalle">
+            <i class="bi bi-plus-lg"></i>
+            Agregar detalle
+          </button>
+        </div>
+        <div class="card-body">
+          <!-- DETALLES EXISTENTES -->
+          <div data-mesas-target="detalles">
+            <%= f.fields_for :detalle_mesas do |detalle| %>
+              <%= render "detalle_mesa",
+                  detalle: detalle %>
+            <% end %>
           </div>
         </div>
-        <!-- CH / CM -->
-        <div class="campo-mesa">
-          <label>Canino Hembra (CH) / Canino Macho (CM)</label>
-          <div class="horario-row">
-            <div class="switch-opcion" data-mesas-fh-value="CH" data-mesas-fm-value="CM">
-              <input type="hidden" name="agenda_mesa[ch_cm]" value="CH" data-mesas-target="valor">
-              <label class="switch">
-                <input type="checkbox" data-mesas-target="caja" data-action="change->mesas#cambiar">
-                <span class="slider">
-                  <span class="slider-label-left">CH</span>
-                  <span class="slider-label-right">CM</span>
-                </span>
-              </label>
-            </div>
-            <%= time_field_tag "agenda_mesa[hora_ch_cm]",
-              nil,
-              class: "hora-mesa" %>
-          </div>
-        </div>
-        <div class="campo-mesa boton-mesa">
-          <%= f.submit "Agregar mesa",
-            class: "btn-agregar-mesa" %>
-        </div>
+        <%= render "template_detalle_mesa" %>
+      </div>
+      <!-- GUARDAR -->
+      <div class="mt-3">
+        <%= f.submit "Guardar mesa",
+          class: "btn-agregar-mesa"
+        %>
       </div>
     <% end %>
   </div>
