@@ -1,0 +1,87 @@
+<%= turbo_stream.replace "lista_mesas" do %>
+  <%= turbo_frame_tag "lista_mesas" do %>
+    <div class="container ">
+      <div class="accordion" id="mesasAccordion">
+        <% @mesas.each do |mesa| %>
+          <div class="accordion-item mb-4">
+            <!-- CABECERA DE LA MESA -->
+            <div class="accordion-header d-flex align-items-center" id="headingMesa<%= mesa.id %>">
+              <div class="form-check ms-3 me-2">
+                <%= check_box_tag "plantilla[mesa_ids][]",
+                      mesa.id,
+                      false,
+                      class: "form-check-input",
+                      id: "mesa_select_#{mesa.id}",
+                      data: {
+                        plantillas_target: "mesa",
+                        nombre:mesa.nombre_mesa
+                        }
+                      %>
+              </div>
+              <button
+                      class="accordion-button collapsed flex-grow-1"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#mesa<%= mesa.id %>"
+                      aria-expanded="false"
+                      aria-controls="mesa<%= mesa.id %>">
+                <span class="fw-bold">
+                  <i class="bi bi-grid-3x3-gap-fill me-2"></i>
+                  <%= mesa.nombre_mesa %>
+                </span>
+              </button>
+              <%= button_to mesa_path(mesa),
+                method: :delete,
+                class: "btn btn-danger btn-eliminar-mesa",
+                form: {
+                  data: {
+                    turbo_confirm: "¿Estás seguro de eliminar esta mesa?"
+                  }
+                } do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </div>
+            <!-- DETALLES DE LA MESA -->
+            <div
+                id="mesa<%= mesa.id %>"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingMesa<%= mesa.id %>"
+                data-bs-parent="#mesasAccordion">
+              <div class="accordion-body">
+                <% if mesa.detalle_mesas.any? %>
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                      <thead>
+                        <tr>
+                          <th>Tipo</th>
+                          <th>Horario</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% mesa.detalle_mesas.each do |detalle| %>
+                          <tr>
+                            <td>
+                              <%= detalle.paciente+detalle.sexo%>
+                            </td>
+                            <td>
+                              <i class="bi bi-clock"></i>
+                              <%= detalle.horario.strftime("%H:%M") %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                <% else %>
+                  <div class="alert alert-secondary mb-0">
+                    Esta mesa no tiene detalles registrados.
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

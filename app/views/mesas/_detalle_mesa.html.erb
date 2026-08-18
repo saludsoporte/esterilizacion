@@ -1,6 +1,12 @@
 <div class="form-mesa hstack gap-3 mb-3 p-3 border rounded">
   <div class="opciones-checkbox">
     <label class="opcion-checkbox">
+      <%= detalle.radio_button :tipo, "P" %>
+      <span>
+        Protector
+      </span>
+    </label>
+    <label class="opcion-checkbox">
       <%= detalle.radio_button :tipo, "F_H" %>
       <span>
         Felino Hembra

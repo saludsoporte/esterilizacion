@@ -33,6 +33,13 @@ export default class extends Controller {
   cambiarHorario() {
     this.actualizarHorarios();
   }
+  eliminarDetalle(event) {
+    const detalle = event.currentTarget.closest(".form-mesa");
+
+    detalle.remove();
+
+    this.actualizarHorarios();
+  }
 
   actualizarHorarios() {
     const seleccionados = this.horarioTargets

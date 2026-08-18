@@ -25,8 +25,7 @@
           <!-- DETALLES EXISTENTES -->
           <div data-mesas-target="detalles">
             <%= f.fields_for :detalle_mesas do |detalle| %>
-              <%= render "detalle_mesa",
-                  detalle: detalle %>
+              <%= render "detalle_mesa",detalle: detalle %>
             <% end %>
           </div>
         </div>
