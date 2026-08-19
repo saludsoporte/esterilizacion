@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 import $ from "jquery";
-
+//import "jquery_ujs";
+//import "popper";
+import "select2";
 // Connects to data-controller="plantillas"
 export default class extends Controller {
   static targets = [
@@ -25,8 +27,8 @@ export default class extends Controller {
   cerrar() {
     $("#modal").empty();
   }
-  siguiente() {    
-    if (this.currentStep === 1) {      
+  siguiente() {
+    if (this.currentStep === 1) {
       this.cargarMesasSeleccionadas();
     }
     if (this.currentStep < this.pageTargets.length - 1) {
@@ -73,5 +75,36 @@ export default class extends Controller {
     const frame = document.getElementById("mesas_seleccionadas");
 
     frame.src = frame.dataset.url;
+  }
+  eliminarMesa(event) {
+    const boton = event.currentTarget;
+    const mesaId = boton.dataset.mesaId;
+
+    if (!confirm("¿Estás seguro de eliminar esta mesa?")) {
+      return;
+    }
+
+    fetch(`/mesas/${mesaId}`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
+          .content,
+        Accept: "text/vnd.turbo-stream.html",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al eliminar la mesa");
+        }
+
+        return response.text();
+      })
+      .then((html) => {
+        Turbo.renderStreamMessage(html);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("No se pudo eliminar la mesa.");
+      });
   }
 }

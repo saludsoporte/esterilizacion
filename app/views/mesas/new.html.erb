@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "modal" do %>
   <div class="configurar-mesa" data-controller="mesas">
-    <%= form_with model: @mesa,method: :post, data: {turbo_frame: "tabla_mesas" }     do |f| %>
+    <%= form_with model: @mesa,method: :post, data: {turbo_frame: "tabla_mesas" },id: "mesa-form"     do |f| %>
       <div class="mb-3">
         <%= f.label :nombre, "Nombre de la mesa", class: "form-label fw-bold" %>
         <%= f.text_field :nombre,
@@ -33,9 +33,11 @@
       </div>
       <!-- GUARDAR -->
       <div class="mt-3">
-        <%= f.submit "Guardar mesa",
-          class: "btn-agregar-mesa"
-        %>
+        <button type="submit"
+          form="mesa-form"
+          class="btn-agregar-mesa">
+          Guardar mesa
+        </button>       
       </div>
     <% end %>
   </div>

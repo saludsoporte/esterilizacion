@@ -27,15 +27,11 @@ class MesasController < ApplicationController
   def destroy
     @mesa = Mesa.find(params[:id])
     @mesa.destroy
-    @mesas = Mesa.includes(:detalle_mesas).order(:id)
+    @mesas = Mesa.all
     respond_to do |format|
-    format.turbo_stream
-
-    format.html do
-      redirect_to mesas_lista_path,
-                  notice: "Mesa eliminada correctamente."
-    end 
-  end  
+      format.turbo_stream
+      format.html { redirect_to mesas_path, notice: "Mesa eliminada correctamente." }
+    end
   end
   def seleccionar
 

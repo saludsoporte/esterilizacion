@@ -1,25 +1,43 @@
 <%= turbo_frame_tag "mesas_seleccionadas" do %>
-  <% if @mesas_seleccionadas.any? %>
-    <div class="dias-mesas">
-      <% dias = {
+  <div class="dias-mesas">
+    <% dias = {
         lunes: "Lunes",
         martes: "Martes",
         miercoles: "Miércoles",
         jueves: "Jueves",
         viernes: "Viernes"
       } %>
-      <% dias.each do |valor, nombre| %>
-        <div class="dia-mesa card mb-3">
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-4">
-                <label class="form-label fw-bold">
-                  <i class="bi bi-calendar-day me-2"></i>
-                  <%= nombre %>
-                </label>
-              </div>
-              <div class="col-md-8">
-                <%= select_tag "agenda[dias][#{valor}][mesa_id]",
+    <% dias.each do |valor, nombre| %>
+      <div class="dia-mesa card mb-4">
+        <div class="card-header">
+          <div class="dia-titulo">
+            <i class="bi bi-calendar-day"></i>
+            <div>
+              <strong><%= nombre %></strong>
+              <small>Selecciona las mesas</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mesas-opciones">
+            <% @mesas_seleccionadas.each do |mesa| %>
+              <label class="mesa-option">
+                <%= check_box_tag(
+                    "plantilla[dias][#{valor}][mesa_ids][]",
+                    mesa.id,
+                    false,
+                    class: "mesa-checkbox"
+                  ) %>
+                <span class="mesa-option-contenido">
+                  <i class="bi bi-card-list"></i>
+                  <span>
+                    <%= mesa.nombre_mesa %>
+                  </span>
+                </span>
+                <i class="bi bi-check-circle-fill mesa-check"></i>
+              </label>
+            <% end %>
+            <%# select_tag "plantilla[dias][#{valor}][mesa_id]",
                       options_from_collection_for_select(
                         @mesas_seleccionadas,
                         :id,
@@ -27,15 +45,10 @@
                       ),multiple:true,
                       include_blank: "Selecciona una mesa",
                       class: "form-select" %>
-              </div>
-            </div>
           </div>
         </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="alert alert-warning">
-      No hay mesas seleccionadas.
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 <% end %>

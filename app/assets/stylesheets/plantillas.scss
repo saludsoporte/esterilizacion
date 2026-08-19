@@ -688,3 +688,97 @@
   margin-left: 5px;
   white-space: nowrap;
 }
+.dias-mesas {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dia-mesa {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dia-mesa .card-header {
+  background: #f8f9fa;
+  padding: 15px 20px;
+}
+
+.dia-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dia-titulo > i {
+  font-size: 1.4rem;
+}
+
+.dia-titulo strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.dia-titulo small {
+  display: block;
+  color: #6c757d;
+}
+
+.mesas-opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.mesa-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.mesa-option:hover {
+  border-color: #6c757d;
+  transform: translateY(-1px);
+}
+
+.mesa-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.mesa-option-contenido {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.mesa-option-contenido i {
+  font-size: 1.2rem;
+}
+
+.mesa-check {
+  margin-left: auto;
+  opacity: 0;
+  font-size: 1.2rem;
+}
+
+.mesa-checkbox:checked + .mesa-option-contenido {
+  font-weight: 600;
+}
+
+.mesa-checkbox:checked ~ .mesa-check {
+  opacity: 1;
+}
+
+.mesa-option:has(.mesa-checkbox:checked) {
+  border-width: 2px;
+  background: #f8f9fa;
+}

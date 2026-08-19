@@ -21,7 +21,8 @@
       <small>Confirmar</small>
     </div>
   </div>
-  <%= form_with model: @agenda do |f| %>
+  <%= form_with model: @plantilla,id: "plantilla-form" do |f| %>
+    
     <!-- PASO 1 -->
     <div class="wizard-page active" data-plantillas-target="page">
       <div class="wizard-header">
@@ -52,10 +53,10 @@
               Mesas
             </h2>
             <%= link_to new_mesa_path,
-            class: "btn-agregar-mesa",
-            data: { turbo_frame: "modal" } do %>
-              <i class="bi bi-plus-circle-fill"></i>
-              <span>Agregar mesa</span>
+              class: "btn-agregar-mesa",
+              data: { turbo_frame: "modal" } do %>
+                <i class="bi bi-plus-circle-fill"></i>
+                <span>Agregar mesa</span>
             <% end %>
           </div>
         </div>
@@ -92,21 +93,10 @@
       </div>
     </div>
     <!-- PASO 3 -->
-    <!-- PASO 3 -->
     <div class="wizard-page" data-plantillas-target="page">
       <div class="wizard-header">
         <h2>Configuración de días</h2>
         <p>Estas son las mesas seleccionadas.</p>
-      </div>
-      <div class="mesas-container">
-        <div class="mesas-header">
-          <div class="hstack gap-2">
-            <h2>
-              <i class="bi bi-grid-3x3-gap-fill"></i>
-              Mesas seleccionadas
-            </h2>
-          </div>
-        </div>
       </div>
       <br>
       <%= turbo_frame_tag "mesas_seleccionadas",
@@ -146,16 +136,11 @@
           Revisa que la información de las mesas sea correcta.
         </p>
       </div>
-      <div class="wizard-actions">
-        <button type="button"
-                class="btn-atras"
-                data-action="click->plantillas#anterior">
-          <i class="bi bi-arrow-left"></i>
-          Atrás
-        </button>
-        <%= f.submit "Guardar agenda",
-            class: "btn-guardar" %>
-      </div>
+      <button type="button" class="btn-atras" data-action="click->plantillas#anterior">
+        <i class="bi bi-arrow-left"></i>
+        Atrás
+      </button>
+      <%= f.submit "Guardar agenda",class: "btn-guardar" %>
     </div>
   <% end %>
 </div>

@@ -13,4 +13,7 @@ class PlantillasController < ApplicationController
     .where(seleccionada: true)
     .includes(:detalle_mesas)   
   end
+  def create
+    asdasdas
+  end
 end

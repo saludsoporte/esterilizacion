@@ -29,56 +29,61 @@
               <%= mesa.nombre_mesa %>
             </span>
           </button>
-          <%= button_to mesa_path(mesa),
-        method: :delete,
-        class: "btn btn-danger btn-eliminar-mesa",
-        form: {
-          data: {
-            turbo_confirm: "¿Estás seguro de eliminar esta mesa?"
-          }
-        } do %>
-            <i class="bi bi-trash"></i>
-          <% end %>
-        </div>
-        <!-- DETALLES DE LA MESA -->
-        <div
+          <%# button_to mesa_path(mesa),
+              method: :delete,
+              class: "btn btn-danger btn-eliminar-mesa",
+              form: {
+                data: {
+                  turbo_confirm: "¿Estás seguro de eliminar esta mesa?"
+                }
+              } do %>            
+            <%# end %>
+            <button type="button"
+              class="btn btn-danger btn-eliminar-mesa"
+              data-action="click->plantillas#eliminarMesa"
+              data-mesa-id="<%= mesa.id %>">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+          <!-- DETALLES DE LA MESA -->
+          <div
           id="mesa<%= mesa.id %>"
           class="accordion-collapse collapse"
           aria-labelledby="headingMesa<%= mesa.id %>"
           data-bs-parent="#mesasAccordion">
-          <div class="accordion-body">
-            <% if mesa.detalle_mesas.any? %>
-              <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th>Tipo</th>
-                      <th>Horario</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% mesa.detalle_mesas.each do |detalle| %>
+            <div class="accordion-body">
+              <% if mesa.detalle_mesas.any? %>
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead>
                       <tr>
-                        <td>
-                          <%= detalle.paciente=="P" ? "Protector" : "#{detalle.paciente}#{detalle.sexo}" %>                          
-                        </td>
-                        <td>
-                          <i class="bi bi-clock"></i>
-                          <%= detalle.horario.nil? ? "No asignado" : detalle.horario.strftime("%H:%M") %>
-                        </td>
+                        <th>Tipo</th>
+                        <th>Horario</th>
                       </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-            <% else %>
-              <div class="alert alert-secondary mb-0">
-                Esta mesa no tiene detalles registrados.
-              </div>
-            <% end %>
+                    </thead>
+                    <tbody>
+                      <% mesa.detalle_mesas.each do |detalle| %>
+                        <tr>
+                          <td>
+                            <%= detalle.paciente=="P" ? "Protector" : "#{detalle.paciente}#{detalle.sexo}" %>
+                          </td>
+                          <td>
+                            <i class="bi bi-clock"></i>
+                            <%= detalle.horario.nil? ? "No asignado" : detalle.horario.strftime("%H:%M") %>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              <% else %>
+                <div class="alert alert-secondary mb-0">
+                  Esta mesa no tiene detalles registrados.
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
