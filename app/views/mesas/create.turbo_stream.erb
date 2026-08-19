@@ -10,9 +10,10 @@
                       class: "form-check-input",
                       id: "mesa_select_#{@mesa.id}",
                       data: {
-plantillas_target: "mesa",
-nombre:@mesa.nombre_mesa
-}
+                      action: "change->plantillas#seleccionarMesa",
+                      plantillas_target: "mesa",
+                      nombre:@mesa.nombre_mesa
+                      }
                     %>
         </div>
         <button

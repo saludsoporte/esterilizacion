@@ -1,0 +1,41 @@
+<%= turbo_frame_tag "mesas_seleccionadas" do %>
+  <% if @mesas_seleccionadas.any? %>
+    <div class="dias-mesas">
+      <% dias = {
+        lunes: "Lunes",
+        martes: "Martes",
+        miercoles: "Miércoles",
+        jueves: "Jueves",
+        viernes: "Viernes"
+      } %>
+      <% dias.each do |valor, nombre| %>
+        <div class="dia-mesa card mb-3">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="form-label fw-bold">
+                  <i class="bi bi-calendar-day me-2"></i>
+                  <%= nombre %>
+                </label>
+              </div>
+              <div class="col-md-8">
+                <%= select_tag "agenda[dias][#{valor}][mesa_id]",
+                      options_from_collection_for_select(
+                        @mesas_seleccionadas,
+                        :id,
+                        :nombre_mesa
+                      ),multiple:true,
+                      include_blank: "Selecciona una mesa",
+                      class: "form-select" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-warning">
+      No hay mesas seleccionadas.
+    </div>
+  <% end %>
+<% end %>

@@ -25,13 +25,13 @@ export default class extends Controller {
   cerrar() {
     $("#modal").empty();
   }
-  siguiente() {
+  siguiente() {    
+    if (this.currentStep === 1) {      
+      this.cargarMesasSeleccionadas();
+    }
     if (this.currentStep < this.pageTargets.length - 1) {
       this.currentStep++;
-      this.mostrarPaso();      
-      if (this.currentStep == 2) {
-       this.mostrarMesasSeleccionadas();
-      }
+      this.mostrarPaso();
     }
   }
 
@@ -51,33 +51,27 @@ export default class extends Controller {
       step.classList.toggle("completed", index < this.currentStep);
     });
   }
-  mostrarMesasSeleccionadas() {
-    const seleccionadas = this.mesaTargets.filter((mesa) => mesa.checked);
 
-    this.mesasSeleccionadasTarget.innerHTML = "";
-
-    if (seleccionadas.length === 0) {
-      this.mesasSeleccionadasTarget.innerHTML = `
-        <div class="alert alert-warning">
-          No has seleccionado ninguna mesa.
-        </div>
-      `;
-
-      return;
-    }
-    seleccionadas.forEach((mesa) => {
-      const div = document.createElement("div");
-      const nombre = mesa.dataset.nombre;
-      div.classList.add("mesa-seleccionada", "card", "mb-2");
-
-      div.innerHTML = `
-        <div class="card-body">
-          <i class="bi bi-grid-3x3-gap-fill"></i>
-          Mesa ${nombre}
-        </div>
-      `;
-
-      this.mesasSeleccionadasTarget.appendChild(div);
+  seleccionarMesa(event) {
+    const checkbox = event.currentTarget;
+    const mesaId = checkbox.value;
+    const seleccionada = checkbox.checked;
+    fetch(`/mesas/${mesaId}/seleccionar`, {
+      method: "PATCH",
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
+          .content,
+        "Content-Type": "application/json",
+        Accept: "text/vnd.turbo-stream.html",
+      },
+      body: JSON.stringify({
+        seleccionada: seleccionada,
+      }),
     });
+  }
+  cargarMesasSeleccionadas() {
+    const frame = document.getElementById("mesas_seleccionadas");
+
+    frame.src = frame.dataset.url;
   }
 }

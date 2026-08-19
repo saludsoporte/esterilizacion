@@ -96,100 +96,28 @@
     <div class="wizard-page" data-plantillas-target="page">
       <div class="wizard-header">
         <h2>Configuración de días</h2>
-        <p>Selecciona qué mesa utilizarás cada día.</p>
+        <p>Estas son las mesas seleccionadas.</p>
       </div>
-      <div class="dias-container">
-        <!-- LUNES -->
-        <div class="dia-item">
-          <div class="dia-info">
-            <i class="bi bi-calendar-day"></i>
-            <div>
-              <strong>Lunes</strong>
-              <small>Selecciona una mesa</small>
-            </div>
+      <div class="mesas-container">
+        <div class="mesas-header">
+          <div class="hstack gap-2">
+            <h2>
+              <i class="bi bi-grid-3x3-gap-fill"></i>
+              Mesas seleccionadas
+            </h2>
           </div>
-          <%= select_tag "agenda[dias][lunes][mesa_id]",
-            options_from_collection_for_select(
-              @mesas_seleccionadas,
-              :id,
-              :nombre
-            ),
-            include_blank: "Selecciona una mesa",
-            class: "form-select" %>
-        </div>
-        <!-- MARTES -->
-        <div class="dia-item">
-          <div class="dia-info">
-            <i class="bi bi-calendar-day"></i>
-            <div>
-              <strong>Martes</strong>
-              <small>Selecciona una mesa</small>
-            </div>
-          </div>
-          <%= select_tag "agenda[dias][martes][mesa_id]",
-            options_from_collection_for_select(
-              @mesas_seleccionadas,
-              :id,
-              :nombre
-            ),
-            include_blank: "Selecciona una mesa",
-            class: "form-select" %>
-        </div>
-        <!-- MIÉRCOLES -->
-        <div class="dia-item">
-          <div class="dia-info">
-            <i class="bi bi-calendar-day"></i>
-            <div>
-              <strong>Miércoles</strong>
-              <small>Selecciona una mesa</small>
-            </div>
-          </div>
-          <%= select_tag "agenda[dias][miercoles][mesa_id]",
-            options_from_collection_for_select(
-              @mesas_seleccionadas,
-              :id,
-              :nombre
-            ),
-            include_blank: "Selecciona una mesa",
-            class: "form-select" %>
-        </div>
-        <!-- JUEVES -->
-        <div class="dia-item">
-          <div class="dia-info">
-            <i class="bi bi-calendar-day"></i>
-            <div>
-              <strong>Jueves</strong>
-              <small>Selecciona una mesa</small>
-            </div>
-          </div>
-          <%= select_tag "agenda[dias][jueves][mesa_id]",
-            options_from_collection_for_select(
-              @mesas_seleccionadas,
-              :id,
-              :nombre
-            ),
-            include_blank: "Selecciona una mesa",
-            class: "form-select" %>
-        </div>
-        <!-- VIERNES -->
-        <div class="dia-item">
-          <div class="dia-info">
-            <i class="bi bi-calendar-day"></i>
-            <div>
-              <strong>Viernes</strong>
-              <small>Selecciona una mesa</small>
-            </div>
-          </div>
-          <%= select_tag "agenda[dias][viernes][mesa_id]",
-            options_from_collection_for_select(
-              @mesas_seleccionadas,
-              :id,
-              :nombre
-            ),
-            include_blank: "Selecciona una mesa",
-            class: "form-select" %>
         </div>
       </div>
+      <br>
+      <%= turbo_frame_tag "mesas_seleccionadas",
+      data: { url: mesas_seleccionadas_plantillas_path } do %>
+        <div class="text-center py-4">
+          <div class="spinner-border"></div>
+          <p class="mt-2">
+            Cargando mesas seleccionadas...
+          </p>
+        </div>
+      <% end %>
       <div class="wizard-actions">
         <button type="button"
             class="btn-atras"
