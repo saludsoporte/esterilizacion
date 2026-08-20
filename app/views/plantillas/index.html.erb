@@ -17,41 +17,106 @@
   <% if @plantillas.any? %>
     <div class="row g-4">
       <% @plantillas.each do |plantilla| %>
-        <div class="col-md-6 col-lg-4">
-          <div class="plantilla-card">
-            <div class="plantilla-card-header">
-              <div class="plantilla-icon">
-                <i class="bi bi-file-earmark-text"></i>
-              </div>
-              <div class="plantilla-actions">
-                <%= link_to plantilla_path(plantilla),
-                    class: "btn-icon",
-                    title: "Ver plantilla" do %>
-                  <i class="bi bi-eye"></i>
-                <% end %>
-                <%= link_to edit_plantilla_path(plantilla),
-                    class: "btn-icon",
-                    title: "Editar plantilla" do %>
-                  <i class="bi bi-pencil"></i>
-                <% end %>
-              </div>
-            </div>
-            <div class="plantilla-card-body">
-              <h3>
+        <div class="container py-4">
+          <!-- ENCABEZADO DE LA PLANTILLA -->
+          <div class="plantilla-header mb-4">
+            <div>
+              <h1>
+                <i class="bi bi-grid-3x3-gap-fill"></i>
                 <%= plantilla.nombre %>
-              </h3>
-              <p>
-                <%= plantilla.descripcion.presence || "Sin descripción" %>
+              </h1>
+              <p class="text-muted mb-0">
+                Detalle de mesas y distribución por día
               </p>
             </div>
-            <div class="plantilla-card-footer">
-              <%= link_to plantilla_path(plantilla),
-                  class: "btn-ver-plantilla" do %>
-                Ver plantilla
-                <i class="bi bi-arrow-right"></i>
-              <% end %>
-            </div>
+            <%= link_to plantillas_path, class: "btn btn-secondary" do %>
+              <i class="bi bi-arrow-left"></i>
+              Regresar
+            <% end %>
           </div>
+          <!-- DÍAS -->
+          <% dias = plantilla.detalle_plantillas.group_by(&:dia) %>
+          <% dias.each do |dia, detalles| %>
+            <div class="dia-card mb-4">
+              <!-- TÍTULO DEL DÍA -->
+              <div class="dia-header">
+                <h3>
+                  <i class="bi bi-calendar3"></i>
+                  <%= dia.upcase %>
+                </h3>
+                <span class="badge bg-primary">
+                  <%= detalles.count %> mesas
+                </span>
+              </div>
+              <!-- MESAS -->
+              <div class="row g-3 p-3">
+                <% detalles.each do |detalle| %>
+                  <% mesa = detalle.mesa %>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="mesa-card">
+                      <!-- ENCABEZADO MESA -->
+                      <div class="mesa-header">
+                        <div>
+                          <span class="mesa-label">
+                            MESA
+                          </span>
+                          <h4>
+                            <%= mesa.nombre_mesa %>
+                          </h4>
+                        </div>
+                        <i class="bi bi-table"></i>
+                      </div>
+                      <!-- INFORMACIÓN DE LA MESA -->
+                      <div class="mesa-body">
+                        <div class="mesa-dato">
+                          <span>
+                            <i class="bi bi-hash"></i>
+                            ID
+                          </span>
+                          <strong>
+                            <%= mesa.id %>
+                          </strong>
+                        </div>
+                        <% if mesa.respond_to?(:fh_fm) %>
+                          <div class="mesa-dato">
+                            <span>
+                              <i class="bi bi-toggle-on"></i>
+                              FH / FM
+                            </span>
+                            <strong>
+                              <%= mesa.fh_fm %>
+                            </strong>
+                          </div>
+                        <% end %>
+                        <% if mesa.respond_to?(:ch_cm) %>
+                          <div class="mesa-dato">
+                            <span>
+                              <i class="bi bi-toggle-on"></i>
+                              CH / CM
+                            </span>
+                            <strong>
+                              <%= mesa.ch_cm %>
+                            </strong>
+                          </div>
+                        <% end %>
+                        <% if mesa.respond_to?(:hora_inicio) %>
+                          <div class="mesa-dato">
+                            <span>
+                              <i class="bi bi-clock"></i>
+                              Hora inicio
+                            </span>
+                            <strong>
+                              <%= mesa.hora_inicio&.strftime("%H:%M") %>
+                            </strong>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

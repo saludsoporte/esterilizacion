@@ -1,4 +1,3 @@
 class Plantilla < ApplicationRecord
-  belongs_to :mesa
-  belongs_to :detalle_extra
+  has_many :detalle_plantillas, dependent: :destroy
 end

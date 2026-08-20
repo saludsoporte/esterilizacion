@@ -782,3 +782,139 @@
   border-width: 2px;
   background: #f8f9fa;
 }
+
+.plantilla-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+
+/* =========================
+   DÍA
+========================= */
+
+.dia-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 20px;
+
+  background: #f5f7f9;
+  border-bottom: 1px solid #ddd;
+
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+
+/* =========================
+   MESA
+========================= */
+
+.mesa-card {
+  border: 1px solid #e1e5e8;
+  border-radius: 10px;
+  overflow: hidden;
+
+  background: white;
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+.mesa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px;
+
+  background: #f8f9fa;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  h4 {
+    margin: 2px 0 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  > i {
+    font-size: 28px;
+    opacity: 0.6;
+  }
+}
+
+
+.mesa-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #777;
+}
+
+
+/* =========================
+   DATOS
+========================= */
+
+.mesa-body {
+  padding: 12px 15px;
+}
+
+.mesa-dato {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 8px 0;
+
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  span {
+    color: #666;
+    font-size: 14px;
+  }
+
+  strong {
+    font-size: 14px;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
