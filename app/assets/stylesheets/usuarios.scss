@@ -1,0 +1,296 @@
+.usuarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+  padding: 20px 25px;
+
+  background: white;
+  border-radius: 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+  h1 {
+    margin: 0;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  p {
+    margin: 5px 0 0;
+    color: #777;
+  }
+}
+
+
+/* ==========================
+   NUEVO USUARIO
+========================== */
+
+.btn-nuevo-usuario {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 11px 18px;
+
+  background: #212529;
+  color: white;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: all .2s ease;
+
+  &:hover {
+    background: #343a40;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  i {
+    font-size: 18px;
+  }
+}
+
+
+/* ==========================
+   CARD
+========================== */
+
+.usuarios-card {
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .08);
+
+  overflow: hidden;
+}
+
+
+.usuarios-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 17px 22px;
+
+  border-bottom: 1px solid #eee;
+
+  h5 {
+    margin: 0;
+
+    font-weight: 700;
+
+    i {
+      margin-right: 7px;
+    }
+  }
+}
+
+
+.usuarios-total {
+  padding: 5px 12px;
+
+  background: #f1f3f5;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ==========================
+   TABLA
+========================== */
+
+.tabla-usuarios {
+  margin: 0;
+
+  vertical-align: middle;
+
+  thead {
+    background: #f8f9fa;
+
+    th {
+      padding: 14px 20px;
+
+      color: #666;
+
+      font-size: 13px;
+      text-transform: uppercase;
+
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+
+  tbody {
+
+    tr {
+      transition: background .15s ease;
+
+      &:hover {
+        background: #f8f9fa;
+      }
+    }
+
+    td {
+      padding: 15px 20px;
+
+      border-bottom: 1px solid #eee;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+
+/* ==========================
+   USUARIO
+========================== */
+
+.usuario-nombre {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.usuario-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: #e9ecef;
+
+  color: #495057;
+
+  i {
+    font-size: 18px;
+  }
+}
+
+
+.usuario-nombre strong {
+  font-size: 14px;
+}
+
+
+/* ==========================
+   EMAIL
+========================== */
+
+.usuario-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #555;
+
+  i {
+    color: #777;
+  }
+}
+
+
+/* ==========================
+   ROLES
+========================== */
+
+.badge-rol {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 6px 11px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+.rol-admin {
+  background: #e9ecef;
+  color: #212529;
+}
+
+
+.rol-usuario {
+  background: #f1f3f5;
+  color: #495057;
+}
+
+
+.rol-otro {
+  background: #dee2e6;
+  color: #343a40;
+}
+
+
+/* ==========================
+   ACCIONES
+========================== */
+
+.acciones-usuario {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+
+.btn-accion {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 7px;
+
+  text-decoration: none;
+
+  transition: all .2s ease;
+}
+
+
+.btn-editar {
+  background: #f1f3f5;
+  color: #343a40;
+
+  &:hover {
+    background: #dee2e6;
+    color: #212529;
+  }
+}
+
+
+.btn-eliminar {
+  background: #f8f9fa;
+  color: #dc3545;
+
+  &:hover {
+    background: #f1d0d3;
+    color: #b02a37;
+  }
+}

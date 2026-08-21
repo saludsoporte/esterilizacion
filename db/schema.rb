@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_08_20_190858) do
+ActiveRecord::Schema[7.1].define(version: 2026_08_21_184101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "agendas", force: :cascade do |t|
-    t.date "fecha"
-    t.string "medico"
-    t.integer "citas"
+    t.date "fecha_inicio"
+    t.integer "num_citas"
     t.time "hora_inicio"
     t.boolean "activo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "fecha_fin"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_agendas_on_user_id"
   end
 
   create_table "detalle_extras", force: :cascade do |t|
@@ -107,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_20_190858) do
     t.index ["rols_id"], name: "index_users_on_rols_id"
   end
 
+  add_foreign_key "agendas", "users"
   add_foreign_key "detalle_extras", "agendas"
   add_foreign_key "detalle_extras", "mesas"
   add_foreign_key "detalle_mesas", "mesas"

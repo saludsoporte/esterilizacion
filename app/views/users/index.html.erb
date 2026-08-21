@@ -1,0 +1,107 @@
+<div class="container-fluid py-4">
+  <!-- ENCABEZADO -->
+  <div class="usuarios-header">
+    <div>
+      <h1>
+        <i class="bi bi-people-fill"></i>
+        Administración de usuarios
+      </h1>
+      <p>
+        Administra los usuarios, sus datos y roles del sistema.
+      </p>
+    </div>
+    <%= link_to new_user_path, class: "btn-nuevo-usuario" do %>
+      <i class="bi bi-person-plus-fill"></i>
+      Nuevo usuario
+    <% end %>
+  </div>
+  <!-- TABLA -->
+  <div class="usuarios-card">
+    <div class="usuarios-card-header">
+      <h5>
+        <i class="bi bi-person-lines-fill"></i>
+        Usuarios registrados
+      </h5>
+      <span class="usuarios-total">
+        <%= @users.count %> usuarios
+      </span>
+    </div>
+    <div class="table-responsive">
+      <table class="table tabla-usuarios">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo electrónico</th>
+            <th>Rol</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <!-- NOMBRE -->
+              <td>
+                <div class="usuario-nombre">
+                  <div class="usuario-avatar">
+                    <i class="bi bi-person-fill"></i>
+                  </div>
+                  <div>
+                    <strong>
+                      <%= user.nombre %> <%= user.apellidos %>
+                    </strong>
+                  </div>
+                </div>
+              </td>
+              <!-- CORREO -->
+              <td>
+                <div class="usuario-email">
+                  <i class="bi bi-envelope"></i>
+                  <%= user.email %>
+                </div>
+              </td>
+              <!-- ROL -->
+              <td>               
+                  <% case user.rols_id %>
+                  <% when 1 %>
+                    <span class="badge-rol rol-admin">
+                      <i class="bi bi-shield-fill-check"></i>
+                      <%= user.rol.rol %>
+                    </span>
+                  <% when 2 %>
+                    <span class="badge-rol rol-usuario">
+                      <i class="bi bi-person-fill"></i>
+                      <%= user.rol.rol %>
+                    </span>
+                  <% else %>
+                    <span class="badge-rol rol-otro">
+                      <i class="bi bi-person-badge"></i>
+                      <%= user.rol.rol %>
+                    </span>
+                  <% end %>                
+              </td>
+              <!-- ACCIONES -->
+              <td>
+                <div class="acciones-usuario">
+                  <%= link_to edit_user_path(user),
+                      class: "btn-accion btn-editar",
+                      title: "Editar usuario" do %>
+                    <i class="bi bi-pencil-fill"></i>
+                  <% end %>
+                  <%= link_to user_path(user),
+                      class: "btn-accion btn-eliminar",
+                      title: "Eliminar usuario",
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "¿Estás seguro de eliminar este usuario?"
+                      } do %>
+                    <i class="bi bi-trash-fill"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

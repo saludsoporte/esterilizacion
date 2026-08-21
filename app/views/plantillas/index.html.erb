@@ -37,7 +37,7 @@
           <!-- DÍAS -->
           <% dias = plantilla.detalle_plantillas.group_by(&:dia) %>
           <% dias.each do |dia, detalles| %>
-            <div class="dia-card mb-4">
+            <div class="dia-card mb-4 ">
               <!-- TÍTULO DEL DÍA -->
               <div class="dia-header">
                 <h3>
@@ -53,65 +53,69 @@
                 <% detalles.each do |detalle| %>
                   <% mesa = detalle.mesa %>
                   <div class="col-md-6 col-lg-4">
-                    <div class="mesa-card">
+                    <div class="mesa-card ">
+                      <div class="accordion-item">
                       <!-- ENCABEZADO MESA -->
-                      <div class="mesa-header">
-                        <div>
-                          <span class="mesa-label">
-                            MESA
-                          </span>
-                          <h4>
+                      <div class="accordion-header">
+                        <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#acordion<%= detalle.id %>"
+                            aria-expanded="false"
+                            aria-controls="acordion<%= detalle.id %>">
+                          <h6>
                             <%= mesa.nombre_mesa %>
-                          </h4>
-                        </div>
-                        <i class="bi bi-table"></i>
+                          </h6>
+                        </button>
                       </div>
                       <!-- INFORMACIÓN DE LA MESA -->
-                      <div class="mesa-body">
-                        <div class="mesa-dato">
-                          <span>
-                            <i class="bi bi-hash"></i>
-                            ID
-                          </span>
-                          <strong>
-                            <%= mesa.id %>
-                          </strong>
+                      <div
+                          id="acordion<%= detalle.id %>"
+                          class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                          <!-- ENCABEZADOS -->
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="mesa-dato">
+                                <span>
+                                  Paciente
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mesa-dato">
+                                <span>
+                                  Horario
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- DETALLES DE LA MESA -->
+                          <% mesa.detalle_mesas.each do |detalle_mesa|%>
+                            <div class="row">
+                              <!-- PACIENTE -->
+                              <div class="col-md-6">
+                                <div class="mesa-dato">
+                                  <strong>
+                                    <%= detalle_mesa.paciente+detalle_mesa.sexo %>
+                                  </strong>
+                                </div>
+                              </div>
+                              <!-- HORARIO -->
+                              <div class="col-md-6">
+                                <div class="mesa-dato">
+                                  <strong>
+                                    <%= detalle_mesa.horario&.strftime("%H:%M") %>
+                                  </strong>
+                                </div>
+                              </div>
+                            </div>
+                          <% end %>
                         </div>
-                        <% if mesa.respond_to?(:fh_fm) %>
-                          <div class="mesa-dato">
-                            <span>
-                              <i class="bi bi-toggle-on"></i>
-                              FH / FM
-                            </span>
-                            <strong>
-                              <%= mesa.fh_fm %>
-                            </strong>
-                          </div>
-                        <% end %>
-                        <% if mesa.respond_to?(:ch_cm) %>
-                          <div class="mesa-dato">
-                            <span>
-                              <i class="bi bi-toggle-on"></i>
-                              CH / CM
-                            </span>
-                            <strong>
-                              <%= mesa.ch_cm %>
-                            </strong>
-                          </div>
-                        <% end %>
-                        <% if mesa.respond_to?(:hora_inicio) %>
-                          <div class="mesa-dato">
-                            <span>
-                              <i class="bi bi-clock"></i>
-                              Hora inicio
-                            </span>
-                            <strong>
-                              <%= mesa.hora_inicio&.strftime("%H:%M") %>
-                            </strong>
-                          </div>
-                        <% end %>
                       </div>
                     </div>
+                  </div>
                   </div>
                 <% end %>
               </div>

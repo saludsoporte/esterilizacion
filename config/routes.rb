@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'users/index'
+  get 'users/new'
+  get 'users/edit'
   get 'mesas/new'
   resources :plantillas do
     collection do
@@ -18,10 +21,12 @@ Rails.application.routes.draw do
   get "mesas/agregar_detalle", to: "mesas#agregar_detalle"
   get 'home/index'
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+      sessions: 'users/sessions',
+      registrations: 'users/registrations'
   }
   root "home#index"
   get 'home/ajustes', as: :admin
+  get 'home/usuarios', to: "home#usuarios"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -30,4 +35,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :users
 end

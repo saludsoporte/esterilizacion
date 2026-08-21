@@ -1,6 +1,7 @@
 @import "login";
 @import "ajustes";
 @import "plantillas";
+@import "usuarios";
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
 
@@ -69,6 +70,34 @@
   flex-wrap: nowrap;
   flex-direction: row;
   overflow: visible;
+}
+.btn-ajustes {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+
+  background: #f5f5f5;
+  color: #333;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+
+  i {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background: #e9ecef;
+    color: #111;
+    transform: translateY(-1px);
+  }
 }
 
 .logoTitulo {
