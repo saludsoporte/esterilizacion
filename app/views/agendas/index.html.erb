@@ -1,14 +1,131 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Agendas</h1>
-
-<div id="agendas">
-  <% @agendas.each do |agenda| %>
-    <%= render agenda %>
-    <p>
-      <%= link_to "Show this agenda", agenda %>
-    </p>
-  <% end %>
+<div class="container-fluid py-4">
+  <!-- ENCABEZADO -->
+  <div class="agendas-header hstack justify-content-between">
+    <div>
+      <h1 class="mb-0">
+        <i class="bi bi-calendar2-week"></i>
+        Agendas
+      </h1>
+      <p class="mb-0">
+        Consulta y administra las agendas registradas.
+      </p>
+    </div>
+    <%= link_to new_agenda_path, class: "btn-nueva-agenda" do %>
+      <i class="bi bi-calendar-plus"></i>
+      Nueva agenda
+    <% end %>
+  </div>
+  <!-- LISTADO -->
+  <div class="agendas-card">
+    <div class="agendas-card-header">
+      <h5>
+        <i class="bi bi-calendar-check"></i>
+        Agendas registradas
+      </h5>
+      <span class="agendas-total">
+        <%= @agendas.count %> agendas
+      </span>
+    </div>
+    <div class="table-responsive">
+      <table class="table tabla-agendas">
+        <thead>
+          <tr>
+            <th>Periodo</th>
+            <th>Hora de inicio</th>
+            <th>Número de citas</th>
+            <th>Usuario</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @agendas.each do |agenda| %>
+            <tr>
+              <!-- FECHAS -->
+              <td>
+                <div class="agenda-fecha">
+                  <div class="agenda-fecha-icon">
+                    <i class="bi bi-calendar3"></i>
+                  </div>
+                  <div>
+                    <strong>
+                      <%= agenda.fecha_inicio.strftime("%d/%m/%Y") %>
+                    </strong>
+                    <% if agenda.fecha_fin.present? %>
+                      <small>
+                        al
+                        <%= agenda.fecha_fin.strftime("%d/%m/%Y") %>
+                      </small>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+              <!-- HORA -->
+              <td>
+                <span class="agenda-hora">
+                  <i class="bi bi-clock"></i>
+                  <%= agenda.hora_inicio&.strftime("%H:%M") %>
+                </span>
+              </td>
+              <!-- CITAS -->
+              <td>
+                <span class="agenda-citas">
+                  <i class="bi bi-people"></i>
+                  <%= agenda.num_citas %>
+                </span>
+              </td>
+              <!-- USUARIO -->
+              <td>
+                <div class="agenda-usuario">
+                  <i class="bi bi-person"></i>
+                  <span>
+                    <%= agenda.user.nombre %>
+                    <%= agenda.user.apellidos %>
+                  </span>
+                </div>
+              </td>
+              <!-- ESTADO -->
+              <td>
+                <% if agenda.activo %>
+                  <span class="estado-agenda estado-activa">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Activa
+                  </span>
+                <% else %>
+                  <span class="estado-agenda estado-inactiva">
+                    <i class="bi bi-x-circle-fill"></i>
+                    Inactiva
+                  </span>
+                <% end %>
+              </td>
+              <!-- ACCIONES -->
+              <td>
+                <div class="acciones-agenda">
+                  <%= link_to agenda_path(agenda),
+                      class: "btn-accion-agenda",
+                      title: "Ver agenda" do %>
+                    <i class="bi bi-eye-fill"></i>
+                  <% end %>
+                  <%= link_to edit_agenda_path(agenda),
+                      class: "btn-accion-agenda",
+                      title: "Editar agenda" do %>
+                    <i class="bi bi-pencil-fill"></i>
+                  <% end %>
+                  <%= link_to agenda_path(agenda),
+                      class: "btn-accion-agenda btn-eliminar-agenda",
+                      title: "Eliminar agenda",
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "¿Estás seguro de eliminar esta agenda?"
+                      } do %>
+                    <i class="bi bi-trash-fill"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New agenda", new_agenda_path %>

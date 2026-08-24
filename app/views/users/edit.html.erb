@@ -1,2 +1,139 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="container py-4">
+  <!-- ENCABEZADO -->
+  <div class="usuarios-header mb-4">
+    <div>
+      <h1>
+        <i class="bi bi-person-gear"></i>
+        Editar usuario
+      </h1>
+      <p>
+        Modifica la información y permisos del usuario.
+      </p>
+    </div>
+    <%= link_to users_path, class: "btn-regresar" do %>
+      <i class="bi bi-arrow-left"></i>
+      Regresar
+    <% end %>
+  </div>
+  <!-- FORMULARIO -->
+  <div class="usuario-form-card">
+    <div class="usuario-form-header">
+      <div class="usuario-form-icon">
+        <i class="bi bi-person-fill"></i>
+      </div>
+      <div>
+        <h4>
+          <%= @user.nombre %> <%= @user.apellidos %>
+        </h4>
+        <span>
+          Editar información del usuario
+        </span>
+      </div>
+    </div>
+    <%= form_with model: @user, local: true do |form| %>
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <strong>
+            No se pudo actualizar el usuario:
+          </strong>
+          <ul class="mb-0 mt-2">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row g-4">
+        <!-- NOMBRE -->
+        <div class="col-md-6">
+          <%= form.label :nombre, "Nombre", class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-person"></i>
+            <%= form.text_field :nombre,
+                class: "form-control",
+                placeholder: "Nombre" %>
+          </div>
+        </div>
+        <!-- APELLIDO PATERNO -->
+        <div class="col-md-6">
+          <%= form.label :apellido_p, "Apellido paterno", class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-person"></i>
+            <%= form.text_field :apellido_p,
+                class: "form-control",
+                placeholder: "Apellido paterno" %>
+          </div>
+        </div>
+        <!-- APELLIDO MATERNO -->
+        <div class="col-md-6">
+          <%= form.label :apellido_m, "Apellido materno", class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-person"></i>
+            <%= form.text_field :apellido_m,
+                class: "form-control",
+                placeholder: "Apellido materno" %>
+          </div>
+        </div>
+        <!-- CORREO -->
+        <div class="col-md-6">
+          <%= form.label :email, "Correo electrónico", class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-envelope"></i>
+            <%= form.email_field :email,
+                class: "form-control",
+                placeholder: "correo@ejemplo.com" %>
+          </div>
+        </div>
+        <!-- ROL -->
+        <div class="col-md-6">
+          <%= form.label :rol_id, "Rol", class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-shield-check"></i>
+            <%= form.collection_select :rol_id,
+                Rol.all,
+                :id,
+                :rol,
+                { prompt: "Selecciona un rol" },
+                { class: "form-select" } %>
+          </div>
+        </div>
+        <% if current_user.admin? %>
+            <!-- CONTRASEÑA -->
+            <div class="col-md-6">
+            <%= form.label :password, "Nueva contraseña", class: "form-label" %>
+            <div class="input-icon">
+                <i class="bi bi-lock"></i>
+                <%= form.password_field :password,
+                    class: "form-control",
+                    placeholder: "Dejar vacío para conservarla" %>
+            </div>
+            <small class="text-muted">
+                Déjalo vacío si no deseas cambiar la contraseña.
+            </small>
+            </div>
+            <!-- CONFIRMAR CONTRASEÑA -->
+            <div class="col-md-6">
+            <%= form.label :password_confirmation,
+                "Confirmar contraseña",
+                class: "form-label" %>
+            <div class="input-icon">
+                <i class="bi bi-lock-fill"></i>
+                <%= form.password_field :password_confirmation,
+                    class: "form-control",
+                    placeholder: "Repite la nueva contraseña" %>
+            </div>
+            </div>
+        <% end %>
+      </div>
+      <!-- BOTONES -->
+      <div class="form-actions">
+        <%= link_to users_path, class: "btn-cancelar" do %>
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        <% end %>
+        <%= form.submit "Guardar cambios",
+            class: "btn-guardar" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -294,3 +294,354 @@
     color: #b02a37;
   }
 }
+
+.usuarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 25px;
+
+  background: white;
+  border-radius: 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .08);
+
+  h1 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 5px 0 0;
+    color: #777;
+  }
+}
+
+.btn-regresar {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 10px 16px;
+
+  color: #343a40;
+  background: #f1f3f5;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    background: #dee2e6;
+    color: #212529;
+  }
+}
+
+
+.usuario-form-card {
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .08);
+}
+
+
+.usuario-form-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid #eee;
+
+  h4 {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  span {
+    color: #777;
+    font-size: 14px;
+  }
+}
+
+
+.usuario-form-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+
+  background: #f1f3f5;
+
+  font-size: 22px;
+}
+
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+
+.input-icon {
+  position: relative;
+
+  i {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #777;
+
+    z-index: 2;
+  }
+
+  .form-control,
+  .form-select {
+    padding-left: 40px;
+  }
+}
+
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-top: 30px;
+  padding-top: 20px;
+
+  border-top: 1px solid #eee;
+}
+
+
+.btn-cancelar,
+.btn-guardar {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+  text-decoration: none;
+
+  border: none;
+}
+
+
+.btn-cancelar {
+  background: #f1f3f5;
+  color: #343a40;
+
+  &:hover {
+    background: #dee2e6;
+  }
+}
+
+
+.btn-guardar {
+  background: #212529;
+  color: white;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #343a40;
+  }
+}
+
+.agenda-form-card {
+  margin-top: 25px;
+
+  padding: 25px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .08);
+}
+
+
+.agenda-form-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid #eee;
+
+  > i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    background: #f1f3f5;
+
+    border-radius: 50%;
+
+    font-size: 22px;
+  }
+
+  h4 {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  span {
+    color: #777;
+    font-size: 14px;
+  }
+}
+
+
+/* CAMPOS */
+
+.form-label {
+  margin-bottom: 7px;
+
+  font-weight: 600;
+}
+
+
+.input-icon {
+  position: relative;
+
+  i {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #777;
+
+    z-index: 2;
+  }
+
+  .form-control,
+  .form-select {
+    padding-left: 40px;
+  }
+}
+
+
+/* ESTADO */
+
+.agenda-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-height: 42px;
+
+  padding: 8px 12px;
+
+  background: #f8f9fa;
+
+  border: 1px solid #dee2e6;
+
+  border-radius: 8px;
+
+  .form-check-input {
+    width: 2.5em;
+    height: 1.3em;
+
+    margin: 0;
+
+    cursor: pointer;
+  }
+
+  strong {
+    display: block;
+  }
+
+  small {
+    display: block;
+    color: #777;
+  }
+}
+
+
+/* BOTONES */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-top: 30px;
+  padding-top: 20px;
+
+  border-top: 1px solid #eee;
+}
+
+
+.btn-regresar-agenda,
+.btn-cancelar-agenda,
+.btn-guardar-agenda {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: all .2s ease;
+}
+
+
+.btn-regresar-agenda,
+.btn-cancelar-agenda {
+  background: #f1f3f5;
+  color: #343a40;
+
+  &:hover {
+    background: #dee2e6;
+    color: #212529;
+  }
+}
+
+
+.btn-guardar-agenda {
+  border: none;
+
+  background: #212529;
+  color: white;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #343a40;
+  }
+}

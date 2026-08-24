@@ -1,9 +1,108 @@
-<h1>New agenda</h1>
-
-<%= render "form", agenda: @agenda %>
-
-<br>
-
-<div>
-  <%= link_to "Back to agendas", agendas_path %>
+<div class="container-fluid py-4" data-controller="agenda">
+  <!-- ENCABEZADO -->
+  <div class="agendas-header d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+      <h1 class="mb-0">
+        <i class="bi bi-calendar-plus"></i>
+        Nueva agenda
+      </h1>
+      <p class="mb-0">
+        Registra una nueva agenda.
+      </p>
+    </div>
+    <%= link_to agendas_path, class: "btn-regresar-agenda" do %>
+      <i class="bi bi-arrow-left"></i>
+      Regresar
+    <% end %>
+  </div>
+  <!-- FORMULARIO -->
+  <div class="agenda-form-card">
+    <div class="agenda-form-header">
+      <i class="bi bi-calendar2-week"></i>
+      <div>
+        <h4>Información de la agenda</h4>
+        <span>Completa los datos para registrar la agenda.</span>
+      </div>
+    </div>
+    <%= form_with model: @agenda do |form| %>
+      <% if @agenda.errors.any? %>
+        <div class="alert alert-danger">
+          <strong>
+            No se pudo crear la agenda:
+          </strong>
+          <ul class="mb-0 mt-2">
+            <% @agenda.errors.full_messages.each do |message| %>
+              <li>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row g-4">
+        <!-- FECHA INICIO -->
+        <div class="col-md-6">
+          <%= form.label :fecha_inicio,
+                         "Fecha de inicio",
+                         class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-calendar-event"></i>
+            <%= form.date_field :fecha_inicio,
+                                class: "form-control" %>
+          </div>
+        </div>
+        <!-- FECHA FIN -->
+        <div class="col-md-6">
+          <%= form.label :fecha_fin,
+                         "Fecha de finalización",
+                         class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-calendar-check"></i>
+            <%= form.date_field :fecha_fin,
+                                class: "form-control" %>
+          </div>
+        </div>
+        <!-- USUARIO -->
+        <div class="col-md-6">
+          <%= form.label :user_id,
+                         "Usuario",
+                         class: "form-label" %>
+          <div class="input-icon">
+            <i class="bi bi-person"></i>
+            <%= form.collection_select :user_id,
+                                       User.where("rols_id != 1 and id = ?",current_user.id),
+                                       :id,
+                                       :nombre ,{selected:current_user.id},
+                                       { class: "form-select",disabled: true  } %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+          </div>
+        </div>
+        <!-- ESTADO -->
+        <div class="col-md-6">
+          <%= form.label :activo,
+                         "Estado",
+                         class: "form-label" %>
+          <div class="agenda-switch">
+            <%= form.check_box :activo,
+                               class: "form-check-input" %>
+            <div>
+              <strong>Agenda activa</strong>
+              <small>
+                La agenda estará disponible para utilizarse.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- BOTONES -->
+      <div class="form-actions">
+        <%= link_to agendas_path, class: "btn-cancelar-agenda" do %>
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        <% end %>
+        <%= form.submit "Guardar agenda",
+                        class: "btn-guardar-agenda" %>
+      </div>
+    <% end %>
+  </div>
 </div>

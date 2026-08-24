@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AgendaController from "./agenda_controller"
+application.register("agenda", AgendaController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
