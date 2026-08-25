@@ -18,7 +18,7 @@
           <li class="nav-item"> <%= link_to root_path, class: "btn-inicio", title: "Inicio" do %> <i class="bi bi-house-door-fill"></i> <% end %> </li>
           <li class="nav-item dropdown"> <a class="nav-link usuario-menu d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person-circle me-2"></i> <span><%= current_user.email %></span> <i class="bi bi-chevron-down ms-2"></i> </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li> <%= link_to edit_user_path(current_user), class: "dropdown-item" do %> <i class="bi bi-person-gear me-2"></i> Mi perfil <% end %> </li>
+              <li> <%= link_to edit_user_registration_path(current_user), class: "dropdown-item" do %> <i class="bi bi-person-gear me-2"></i> Mi perfil <% end %> </li>
               <li> <hr class="dropdown-divider"> </li>
               <%= link_to admin_path, class: "dropdown-item", title: "Ajustes" do %>
                 <i class="bi bi-gear-fill"></i>

@@ -4,10 +4,18 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def new
+  def new        
     @user = User.new
   end
+  def nuevo_usuario
+     @user = User.new(user_params)
 
+    if @user.save
+      redirect_to users_path, notice: "Usuario creado correctamente."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
   def create
     @user = User.new(user_params)
 
@@ -22,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def update
+  def update    
     @user = User.find(params[:id])
 
     if @user.update(user_params)
@@ -38,17 +46,18 @@ class UsersController < ApplicationController
 
     redirect_to users_path, notice: "Usuario eliminado correctamente."
   end
+private
 
-  private
-
-  def user_params
-    params.require(:user).permit(
-      :nombre,
-      :apellidos,
-      :email,
-      :password,
-      :password_confirmation,
-      :rol
-    )
-  end
+def user_params
+  params.require(:user).permit(
+    :nombre,
+    :apellido_p,
+    :apellido_m,
+    :email,
+    :password,
+    :password_confirmation,
+    :rols_id
+  )
+end
+  
 end

@@ -1,2 +1,105 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div class="usuarios-container">
+  <div class="usuarios-header">
+    <div>
+      <h1>
+        <i class="bi bi-person-plus-fill"></i>
+        Nuevo usuario
+      </h1>
+      <p>Registra un nuevo usuario en el sistema.</p>
+    </div>
+    <%= link_to users_path, class: "btn-regresar" do %>
+      <i class="bi bi-arrow-left"></i>
+      Regresar
+    <% end %>
+  </div>
+  <div class="usuario-card">
+    <%= form_with model: @user,url: users_nuevo_usuario_path, local: true do |f| %>
+      <% if @user.errors.any? %>
+        <div class="alerta-errores">
+          <div class="alerta-errores-header">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <strong>Corrige los siguientes errores:</strong>
+          </div>
+          <ul>
+            <% @user.errors.full_messages.each do |mensaje| %>
+              <li><%= mensaje %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="campo">
+        <%= f.label :email, "Correo electrónico" %>
+        <div class="input-icon">
+          <i class="bi bi-envelope"></i>
+          <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                class: "form-control",
+                placeholder: "correo@ejemplo.com" %>
+        </div>
+      </div>
+      <div class="campo">
+        <%= f.label :nombre, "Nombre" %>
+        <div class="input-icon">
+          <i class="bi bi-person"></i>
+          <%= f.text_field :nombre,
+                class: "form-control",
+                placeholder: "Nombre" %>
+        </div>
+      </div>
+      <div class="campo">
+        <%= f.label :apellido_p, "Apellido Paterno" %>
+        <div class="input-icon">
+          <%= f.text_field :apellido_p,
+                class: "form-control",
+                placeholder: "Apellido paterno" %>
+        </div>
+      </div>
+      <div class="campo">
+        <%= f.label :apellido_m, "Apellido Materno" %>
+        <div class="input-icon">
+          <%= f.text_field :apellido_m,
+                class: "form-control",
+                placeholder: "Apellido materno" %>
+        </div>
+      </div>
+      <div class="campo">
+        <%= f.label :rols_id, "Rol" %>
+        <div class="input-icon">
+          <i class="bi bi-person-badge"></i>
+          <%= f.select :rols_id,
+                Rol.where.not(id: 1).map { |rol| [rol.rol, rol.id] },
+                { prompt: "Selecciona un rol" },
+                { class: "form-control" } %>
+        </div>
+      </div>
+      <div class="campo">
+        <%= f.label :password, "Contraseña" %>
+        <div class="input-icon">
+          <i class="bi bi-lock"></i>
+          <%= f.password_field :password,
+                autocomplete: "new-password",
+                class: "form-control",
+                placeholder: "Contraseña" %>
+        </div>
+      </div>
+      <div class="campo">
+        <%= f.label :password_confirmation, "Confirmar contraseña" %>
+        <div class="input-icon">
+          <i class="bi bi-lock-fill"></i>
+          <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                class: "form-control",
+                placeholder: "Confirmar contraseña" %>
+        </div>
+      </div>
+      <div class="acciones-form">
+        <%= link_to users_path, class: "btn-cancelar" do %>
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        <% end %>
+        <%= f.submit "Crear usuario", class: "btn-crear-usuario" %>
+      </div>
+    <% end %>
+  </div>
+</div>
