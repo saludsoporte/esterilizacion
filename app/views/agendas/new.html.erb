@@ -5,10 +5,7 @@
       <h1 class="mb-0">
         <i class="bi bi-calendar-plus"></i>
         Nueva agenda
-      </h1>
-      <p class="mb-0">
-        Registra una nueva agenda.
-      </p>
+      </h1>      
     </div>
     <%= link_to agendas_path, class: "btn-regresar-agenda" do %>
       <i class="bi bi-arrow-left"></i>
@@ -70,7 +67,7 @@
           <div class="input-icon">
             <i class="bi bi-person"></i>
             <%= form.collection_select :user_id,
-                                       User.where("rols_id != 1 and id = ?",current_user.id),
+                                       User.where("id = ?",current_user.id),
                                        :id,
                                        :nombre ,{selected:current_user.id},
                                        { class: "form-select",disabled: true  } %>

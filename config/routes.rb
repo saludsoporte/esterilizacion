@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   # Usuarios
   # La creación (new/create) la maneja Devise.
   # Estas acciones las maneja UsersController.
-   resources :users
+  resources :users
+  resources :relacion_agenda_plantillas
 
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check

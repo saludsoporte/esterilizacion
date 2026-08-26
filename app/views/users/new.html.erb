@@ -47,17 +47,17 @@
                 placeholder: "Nombre" %>
         </div>
       </div>
-      <div class="campo">
+      <div class="campo hstack ">
         <%= f.label :apellido_p, "Apellido Paterno" %>
         <div class="input-icon">
+          <i class="bi bi-person"></i>
           <%= f.text_field :apellido_p,
                 class: "form-control",
                 placeholder: "Apellido paterno" %>
         </div>
-      </div>
-      <div class="campo">
         <%= f.label :apellido_m, "Apellido Materno" %>
         <div class="input-icon">
+          <i class="bi bi-person"></i>
           <%= f.text_field :apellido_m,
                 class: "form-control",
                 placeholder: "Apellido materno" %>

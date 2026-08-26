@@ -1,6 +1,5 @@
 class AgendasController < ApplicationController
-  before_action :set_agenda, only: %i[ show edit update destroy ]
-
+  before_action  :authenticate_user!,:set_agenda, only: %i[ show edit update destroy ]
   # GET /agendas or /agendas.json
   def index
     @agendas = Agenda.all
@@ -25,7 +24,7 @@ class AgendasController < ApplicationController
 
     respond_to do |format|
       if @agenda.save
-        format.html { redirect_to @agenda, notice: "Agenda was successfully created." }
+        format.html { redirect_to new_relacion_agenda_plantilla_path(agenda:@agenda.id), notice: "Agenda was successfully created." }
         format.json { render :show, status: :created, location: @agenda }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -65,6 +64,6 @@ class AgendasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def agenda_params
-      params.require(:agenda).permit(:fecha, :medico, :citas, :hora_inicio, :activo)
+      params.require(:agenda).permit(:fecha_inicio, :fecha_fin,:activo,:user_id)
     end
 end

@@ -1,0 +1,23 @@
+es:
+  errors:
+    messages:
+      blank: "no puede estar vacío"
+      required: "es obligatorio"
+      taken: "ya está registrado"
+      invalid: "no es válido"
+      too_short: "es demasiado corto"
+      too_long: "es demasiado largo"
+      confirmation: "no coincide"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "El correo electrónico es obligatorio"
+              taken: "Este correo electrónico ya está registrado"
+              invalid: "El correo electrónico no es válido"
+            password:
+              blank: "La contraseña es obligatoria"
+              too_short: "La contraseña es demasiado corta"
