@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   # Devise
   devise_for :users, controllers: {sessions: "users/sessions"}
   post "users/nuevo_usuario", to: "users#nuevo_usuario"
-
+  post "relacion_agenda_plantilla/agregar_medico",
+     to: "relacion_agenda_plantillas#agregar_medico",
+     as: :agregar_medico_relacion_agenda
   # Usuarios
   # La creación (new/create) la maneja Devise.
   # Estas acciones las maneja UsersController.

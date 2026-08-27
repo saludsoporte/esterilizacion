@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @agenda %>
-
-<div>
-  <%= link_to "Edit this agenda", edit_agenda_path(@agenda) %> |
-  <%= link_to "Back to agendas", agendas_path %>
-
-  <%= button_to "Destroy this agenda", @agenda, method: :delete %>
+<div class="agenda-form-container">
+  <div class="agenda-form-header ">
+    <div>
+      <h1>        
+        Agenda
+      </h1>
+    </div>
+    <div class="agenda-form-actions">
+      <%= link_to agenda_path(@agenda), class: "btn-agenda-secondary" do %>
+        <i class="bi bi-eye"></i>
+        Ver agenda
+      <% end %>
+      <%= link_to agendas_path, class: "btn-agenda-secondary" do %>
+        <i class="bi bi-arrow-left"></i>
+        Volver a agendas
+      <% end %>
+    </div>
+  </div>
+  <div class="agenda-form-card">
+    <%= render @agenda %>
+  </div>
 </div>

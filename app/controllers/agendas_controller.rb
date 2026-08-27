@@ -21,7 +21,7 @@ class AgendasController < ApplicationController
   # POST /agendas or /agendas.json
   def create
     @agenda = Agenda.new(agenda_params)
-
+    @agenda.hora_inicio = '8:00'
     respond_to do |format|
       if @agenda.save
         format.html { redirect_to new_relacion_agenda_plantilla_path(agenda:@agenda.id), notice: "Agenda was successfully created." }

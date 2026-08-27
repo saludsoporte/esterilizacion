@@ -1,0 +1,95 @@
+<div class="relacion-container">
+  <div class="relacion-header">
+    <div>
+      <h1>
+        <i class="bi bi-link-45deg"></i>
+        Relacionar agenda
+      </h1>
+      <p>
+        Selecciona la agenda, plantilla y médicos que participarán.
+      </p>
+    </div>
+  </div>
+  <div class="relacion-card">
+    <%= form_with model: @relacion_agenda do |form| %>
+      <div class="relacion-fields">
+        <!-- Agenda -->
+        <div class="relacion-field">
+          <%= form.label :agenda_id, "Agenda" %>
+          <p><%="#{@agenda.fecha_inicio} - #{@agenda.fecha_fin}"%></p>
+          <%= form.hidden_field :agenda_id,value:@agenda.id %>
+        </div>
+        <!-- Plantilla -->
+        <div class="relacion-field">
+          <%= form.label :plantilla_id, "Plantilla" %>
+          <%= form.collection_select :plantilla_id,
+              Plantilla.all,
+              :id,
+              :nombre,
+              { prompt: "Selecciona una plantilla" },
+              { class: "form-select" } %>
+        </div>
+      </div>
+      <!-- MÉDICOS -->
+      <div class="relacion-medicos">
+        <div class="relacion-section-header">
+          <div>
+            <h6>
+              <i class="bi bi-people"></i>
+              Médicos
+            </h6>
+            <p>
+              Agrega los médicos que estarán disponibles en esta agenda.
+            </p>
+          </div>
+        </div>
+        <!-- Aquí Turbo agregará los médicos -->
+        <%= turbo_frame_tag "medicos_relacion" do %>
+          <div id="lista-medicos">
+            <div class="sin-medicos">
+              <i class="bi bi-person-plus"></i>
+              <span>
+                Aún no has agregado médicos.
+              </span>
+            </div>
+          </div>
+        <% end %>
+        <!-- AGREGAR MÉDICO -->
+        <div class="agregar-medico">
+          <%= form_with url: agregar_medico_relacion_agenda_path,
+              method: :post,
+              data: { turbo_frame: "medicos_relacion" } do |medico_form| %>
+            <div class="agregar-medico-select">
+              <%= medico_form.collection_select :user_id,
+                  User.all,
+                  :id,
+                  :nombre,
+                  { prompt: "Selecciona un médico" },
+                  { class: "form-select" } %>
+            </div>
+            <div class="agregar-medico-select">
+              <%= medico_form.collection_select :,
+                  User.all,
+                  :id,
+                  :nombre,
+                  { prompt: "Selecciona un médico" },
+                  { class: "form-select" } %>
+            </div>
+            <%= medico_form.submit "Agregar médico",
+                class: "btn-agregar-medico" %>
+          <% end %>
+        </div>
+      </div>
+      <!-- ACCIONES -->
+      <div class="relacion-actions">
+        <%= link_to agendas_path,
+            class: "btn-relacion-secondary" do %>
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        <% end %>
+        <%= form.submit "Guardar relación",
+            class: "btn-relacion-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

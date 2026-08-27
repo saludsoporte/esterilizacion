@@ -1,0 +1,362 @@
+/* ==========================================
+   RELACION AGENDA - PLANTILLA
+   ========================================== */
+
+.relacion-container {
+  width: 95%;
+  max-width: 1000px;
+
+  margin: 35px auto;
+}
+
+
+/* ---------- ENCABEZADO ---------- */
+
+.relacion-header {
+  margin-bottom: 25px;
+}
+
+.relacion-header h1 {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  color: #343a40;
+}
+
+.relacion-header h1 i {
+  font-size: 29px;
+}
+
+.relacion-header p {
+  margin: 6px 0 0 40px;
+
+  color: #6c757d;
+
+  font-size: 15px;
+}
+
+
+/* ---------- TARJETA ---------- */
+
+.relacion-card {
+  background: #ffffff;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 12px;
+
+  padding: 30px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+
+/* ---------- HEADER TARJETA ---------- */
+
+.relacion-card-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  padding-bottom: 20px;
+
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid #e9ecef;
+}
+
+.relacion-card-header > i {
+  font-size: 24px;
+
+  color: #495057;
+}
+
+.relacion-card-header h5 {
+  margin: 0;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  color: #343a40;
+}
+
+.relacion-card-header p {
+  margin: 4px 0 0;
+
+  font-size: 13px;
+
+  color: #6c757d;
+}
+
+
+/* ---------- CAMPOS ---------- */
+
+.relacion-fields {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 25px;
+}
+
+.relacion-field {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.relacion-field label {
+  margin-bottom: 7px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #495057;
+}
+
+.relacion-field .form-select {
+  min-height: 43px;
+
+  border-radius: 7px;
+
+  border: 1px solid #ced4da;
+
+  font-size: 14px;
+
+  transition: all 0.2s ease;
+}
+
+.relacion-field .form-select:focus {
+  border-color: #868e96;
+
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.12);
+}
+
+
+/* ---------- PREVISUALIZACIÓN ---------- */
+
+.relacion-preview {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-top: 25px;
+
+  padding: 18px;
+
+  border: 1px dashed #ced4da;
+
+  border-radius: 9px;
+
+  background-color: #f8f9fa;
+}
+
+.relacion-preview-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 9px;
+
+  background-color: #ffffff;
+
+  color: #495057;
+
+  font-size: 20px;
+}
+
+.relacion-preview strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 14px;
+
+  color: #343a40;
+}
+
+.relacion-preview p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #6c757d;
+}
+
+
+/* ---------- ACCIONES ---------- */
+
+.relacion-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 30px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e9ecef;
+}
+
+
+/* ---------- BOTÓN SECUNDARIO ---------- */
+
+.btn-relacion-secondary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 10px 18px;
+
+  border: 1px solid #dee2e6;
+
+  border-radius: 8px;
+
+  background-color: #ffffff;
+
+  color: #495057;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+.btn-relacion-secondary:hover {
+  background-color: #f8f9fa;
+
+  color: #343a40;
+
+  transform: translateY(-1px);
+}
+
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+
+.btn-relacion-primary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 22px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-relacion-primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ---------- ERRORES ---------- */
+
+.relacion-errors {
+  margin-bottom: 25px;
+
+  padding: 18px 20px;
+
+  border: 1px solid #f1b0b7;
+
+  border-radius: 9px;
+
+  background-color: #fff5f5;
+
+  color: #842029;
+}
+
+.relacion-error-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 8px;
+}
+
+.relacion-error-header i {
+  font-size: 18px;
+}
+
+.relacion-errors ul {
+  margin: 8px 0 0;
+
+  padding-left: 28px;
+
+  font-size: 13px;
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+
+  .relacion-container {
+    width: 92%;
+  }
+
+  .relacion-header h1 {
+    font-size: 26px;
+  }
+
+  .relacion-header p {
+    margin-left: 0;
+  }
+
+  .relacion-card {
+    padding: 20px;
+  }
+
+  .relacion-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .relacion-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn-relacion-primary,
+  .btn-relacion-secondary {
+    width: 100%;
+  }
+}

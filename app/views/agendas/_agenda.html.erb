@@ -1,27 +1,104 @@
-<div id="<%= dom_id agenda %>">
-  <p>
-    <strong>Fecha:</strong>
-    <%= agenda.fecha %>
-  </p>
-
-  <p>
-    <strong>Medico:</strong>
-    <%= agenda.medico %>
-  </p>
-
-  <p>
-    <strong>Citas:</strong>
-    <%= agenda.citas %>
-  </p>
-
-  <p>
-    <strong>Hora inicio:</strong>
-    <%= agenda.hora_inicio %>
-  </p>
-
-  <p>
-    <strong>Activo:</strong>
-    <%= agenda.activo %>
-  </p>
-
+<div id="<%= dom_id agenda %>" class="agenda-detalle">
+  <div class="agenda-detalle-header">
+    <div>
+      <h2>
+        <i class="bi bi-calendar2-week"></i>
+        Detalle de la agenda
+      </h2>      
+    </div>
+  </div>
+  <div class="agenda-detalle-card">
+    <div class="agenda-info-grid">
+      <!-- Fecha inicio -->
+      <div class="agenda-info-item">
+        <div class="agenda-info-icon">
+          <i class="bi bi-calendar-event"></i>
+        </div>
+        <div>
+          <span class="agenda-info-label">
+            Fecha de inicio
+          </span>
+          <strong>
+            <%= agenda.fecha_inicio.strftime("%d/%m/%Y") %>
+          </strong>
+        </div>
+      </div>
+      <!-- Fecha fin -->
+      <div class="agenda-info-item">
+        <div class="agenda-info-icon">
+          <i class="bi bi-calendar-check"></i>
+        </div>
+        <div>
+          <span class="agenda-info-label">
+            Fecha de fin
+          </span>
+          <strong>
+            <%= agenda.fecha_fin.strftime("%d/%m/%Y") %>
+          </strong>
+        </div>
+      </div>
+      <!-- Médico -->
+      <div class="agenda-info-item">
+        <div class="agenda-info-icon">
+          <i class="bi bi-person"></i>
+        </div>
+        <div>
+          <span class="agenda-info-label">
+            Médico
+          </span>
+          <strong>
+            <%= agenda.user.nombre %>
+          </strong>
+        </div>
+      </div>
+      <!-- Número de citas -->
+      <div class="agenda-info-item">
+        <div class="agenda-info-icon">
+          <i class="bi bi-people"></i>
+        </div>
+        <div>
+          <span class="agenda-info-label">
+            Número de citas
+          </span>
+          <strong>
+            <%= agenda.num_citas %>
+          </strong>
+        </div>
+      </div>
+      <!-- Hora -->
+      <div class="agenda-info-item">
+        <div class="agenda-info-icon">
+          <i class="bi bi-clock"></i>
+        </div>
+        <div>
+          <span class="agenda-info-label">
+            Hora de inicio
+          </span>
+          <strong>
+            <%= agenda.hora_inicio.strftime("%H:%M") %>
+          </strong>
+        </div>
+      </div>
+      <!-- Estado -->
+      <div class="agenda-info-item">
+        <div class="agenda-info-icon">
+          <i class="bi bi-toggle-on"></i>
+        </div>
+        <div>
+          <span class="agenda-info-label">
+            Estado
+          </span>
+          <% if agenda.activo %>
+            <span class="agenda-estado agenda-activa">
+              Activa
+            </span>
+          <% else %>
+            <span class="agenda-estado agenda-inactiva">
+              Inactiva
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,22 @@
+<%= turbo_stream.append "lista-medicos" do %>
+  <div class="medico-relacion-item">
+    <div class="medico-relacion-info">
+      <div class="medico-relacion-icon">
+        <i class="bi bi-person"></i>
+      </div>
+      <div>
+        <strong>
+          <%= @medico.nombre %>
+        </strong>
+        <span>
+          Médico seleccionado
+        </span>
+      </div>
+    </div>
+    <button type="button"
+            class="btn-eliminar-medico"
+            title="Eliminar médico">
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+<% end %>

@@ -1,10 +1,26 @@
-<h1>Editing agenda</h1>
-
-<%= render "form", agenda: @agenda %>
-
-<br>
-
-<div>
-  <%= link_to "Show this agenda", @agenda %> |
-  <%= link_to "Back to agendas", agendas_path %>
+<div class="agenda-form-container">
+  <div class="agenda-form-header">
+    <div>
+      <h1>
+        <i class="bi bi-pencil-square"></i>
+        Editar agenda
+      </h1>
+      <p>
+        Modifica la información de la agenda registrada.
+      </p>
+    </div>
+  </div>
+  <div class="agenda-form-card">
+    <%= render "form", agenda: @agenda %>
+  </div>
+  <div class="agenda-form-actions">
+    <%= link_to agenda_path(@agenda), class: "btn-agenda-secondary" do %>
+      <i class="bi bi-eye"></i>
+      Ver agenda
+    <% end %>
+    <%= link_to agendas_path, class: "btn-agenda-secondary" do %>
+      <i class="bi bi-arrow-left"></i>
+      Volver a agendas
+    <% end %>
+  </div>
 </div>
