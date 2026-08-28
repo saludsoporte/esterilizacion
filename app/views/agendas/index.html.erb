@@ -76,6 +76,13 @@
                         title: "Editar agenda" do %>
                       <i class="bi bi-pencil"></i>
                     <% end %>
+                    <% if agenda.relacion_agenda_plantillas.count == 0%>                      
+                      <%= link_to new_relacion_agenda_plantilla_path(agenda_id:agenda.id),
+                        class: "btn-agenda-action",
+                        title: "Agendar medicos" do %>
+                        <i class="bi bi-plus-lg"></i>
+                      <% end %>
+                    <% end %>
                   </div>
                 </td>
               </tr>

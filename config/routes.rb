@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   # Usuarios
   # La creación (new/create) la maneja Devise.
   # Estas acciones las maneja UsersController.
+  post "relacion_agenda_plantillas/setDiasMeses", to: "relacion_agenda_plantillas#setDiasMeses"
   resources :users
   resources :relacion_agenda_plantillas
 

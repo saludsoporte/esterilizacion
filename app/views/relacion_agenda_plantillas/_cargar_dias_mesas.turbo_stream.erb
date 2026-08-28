@@ -1,0 +1,34 @@
+<%= turbo_stream.append "renglones_ref" do %>
+  <div class="relacion-selectores">
+    <!-- Agenda -->
+    <div class="relacion-field">
+      <%= form.label :user_id, "Medico" %>
+      <%= form.collection_select :user_id,
+        User.all,
+        :id,
+        :id,
+        { prompt: "Selecciona un medico " },
+        { class: "form-select" } %>
+    </div>
+    <!-- Plantilla -->
+    <div class="relacion-field">
+      <%= form.label :plantilla_id, "Dias" %>
+      <%= form.collection_select :plantilla_id,
+        Plantilla.all,
+        :id,
+        :nombre,
+        { prompt: "Selecciona una plantilla" },
+        { class: "form-select" } %>
+    </div>
+    <!-- Médico -->
+    <div class="relacion-field">
+      <%= form.label :user_id, "Médico" %>
+      <%= form.collection_select :user_id,
+        User.all,
+        :id,
+        :nombre,
+        { prompt: "Selecciona un médico" },
+        { class: "form-select" } %>
+    </div>
+  </div>
+<% end %>

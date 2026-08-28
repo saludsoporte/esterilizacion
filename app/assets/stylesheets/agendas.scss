@@ -718,3 +718,96 @@
     width: 100%;
   }
 }
+/* ==========================================
+   SELECTORES DE RELACIÓN
+   ========================================== */
+
+.relacion-selectores {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+
+  padding: 20px;
+
+  margin-bottom: 25px;
+
+  background-color: #f8f9fa;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 10px;
+}
+
+
+/* ---------- CAMPOS ---------- */
+
+.relacion-selectores .relacion-field {
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+/* ---------- LABEL ---------- */
+
+.relacion-selectores .relacion-field label {
+  margin-bottom: 7px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #495057;
+}
+
+
+/* ---------- SELECT ---------- */
+
+.relacion-selectores .form-select {
+  width: 100%;
+
+  min-height: 43px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #ced4da;
+
+  border-radius: 7px;
+
+  background-color: #ffffff;
+
+  color: #343a40;
+
+  font-size: 14px;
+
+  transition: all 0.2s ease;
+}
+
+.relacion-selectores .form-select:hover {
+  border-color: #adb5bd;
+}
+
+.relacion-selectores .form-select:focus {
+  border-color: #868e96;
+
+  box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.12);
+
+  outline: none;
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+
+  .relacion-selectores {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+
+    padding: 16px;
+  }
+
+}

@@ -1,4 +1,4 @@
-<div class="relacion-container">
+<div class="relacion-container" data-controller="agenda">
   <div class="relacion-header">
     <div>
       <h1>
@@ -31,54 +31,15 @@
         </div>
       </div>
       <!-- MÉDICOS -->
-      <div class="relacion-medicos">
+      <div id="divMedicos" class="relacion-medicos">
         <div class="relacion-section-header">
           <div>
             <h6>
               <i class="bi bi-people"></i>
               Médicos
-            </h6>
-            <p>
-              Agrega los médicos que estarán disponibles en esta agenda.
-            </p>
+            </h6>            
           </div>
-        </div>
-        <!-- Aquí Turbo agregará los médicos -->
-        <%= turbo_frame_tag "medicos_relacion" do %>
-          <div id="lista-medicos">
-            <div class="sin-medicos">
-              <i class="bi bi-person-plus"></i>
-              <span>
-                Aún no has agregado médicos.
-              </span>
-            </div>
-          </div>
-        <% end %>
-        <!-- AGREGAR MÉDICO -->
-        <div class="agregar-medico">
-          <%= form_with url: agregar_medico_relacion_agenda_path,
-              method: :post,
-              data: { turbo_frame: "medicos_relacion" } do |medico_form| %>
-            <div class="agregar-medico-select">
-              <%= medico_form.collection_select :user_id,
-                  User.all,
-                  :id,
-                  :nombre,
-                  { prompt: "Selecciona un médico" },
-                  { class: "form-select" } %>
-            </div>
-            <div class="agregar-medico-select">
-              <%= medico_form.collection_select :,
-                  User.all,
-                  :id,
-                  :nombre,
-                  { prompt: "Selecciona un médico" },
-                  { class: "form-select" } %>
-            </div>
-            <%= medico_form.submit "Agregar médico",
-                class: "btn-agregar-medico" %>
-          <% end %>
-        </div>
+        </div>        
       </div>
       <!-- ACCIONES -->
       <div class="relacion-actions">
