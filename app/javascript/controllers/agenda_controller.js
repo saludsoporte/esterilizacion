@@ -4,14 +4,26 @@ import $ from "jquery";
 // Connects to data-controller="agenda"
 export default class extends Controller {
   connect() {
-    console.log("se conecto a agenda")
+    console.log("se conecto a agenda");
     //iniciarSemana();
-    $("#plantilla_id").val(null).trigger('change')
-    $("#plantilla_id").on('change',function(){      
-      if(valId != null){
-        ajaxTurbo("setDiasMeses", { agenda_id:$("#agenda_id").val(), plantilla_id:$(this).val() });
-      }      
-    })
+    $("#relacion_agenda_plantilla_plantilla_id").val(null).trigger("change");
+    $("#relacion_agenda_plantilla_plantilla_id").on("change", function () {
+      if ($(this).val() != null) {
+        ajaxTurbo("setDiasMeses", {
+          agenda_id: $("#relacion_agenda_plantilla_agenda_id").val(),
+          plantilla_id: $(this).val(),
+        });
+      }
+    });
+    $(document).on("change", "#dias", function () {
+      if ($(this).val() != null) {
+        ajaxTurbo("setMesas", {
+          agenda_id: $("#relacion_agenda_plantilla_agenda_id").val(),
+          plantilla_id: $("#relacion_agenda_plantilla_plantilla_id").val(),
+          dia: $(this).val(),
+        });
+      }
+    });    
   }
 }
 function ajaxTurbo(ruta, parametros) {
@@ -36,10 +48,10 @@ function iniciarSemana() {
   const diasHastaLunes = diaActual === 0 ? 1 : 8 - diaActual;
   const proximoLunes = new Date(hoy);
   proximoLunes.setDate(hoy.getDate() + diasHastaLunes);
-  const proximoViernes = new Date(proximoLunes)
+  const proximoViernes = new Date(proximoLunes);
   proximoViernes.setDate(proximoLunes.getDate() + 4);
-  console.log(proximoLunes.toISOString().split('T')[0])
+  console.log(proximoLunes.toISOString().split("T")[0]);
   console.log(proximoViernes.toISOString().split("T")[0]);
-  $("#agenda_fecha_inicio").val(proximoLunes.toISOString().split('T')[0])
+  $("#agenda_fecha_inicio").val(proximoLunes.toISOString().split("T")[0]);
   $("#agenda_fecha_fin").val(proximoViernes.toISOString().split("T")[0]);
 }

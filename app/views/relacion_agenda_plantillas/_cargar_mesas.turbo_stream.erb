@@ -1,0 +1,9 @@
+<%= turbo_stream.append "mesas_ref" do %>
+  <label from="mesas_id">Mesas</label>
+  <select id="mesas" name="mesas" class="form-select">
+    <option selected >Selecciona una mesa</option>
+    <% detalles.each do |detalle|%>
+      <option value="<%=detalle.mesa_id %>"><%= detalle.mesa.nombre_mesa %></option>
+    <% end %>
+  </select>
+<% end %>

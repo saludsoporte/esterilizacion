@@ -2,33 +2,26 @@
   <div class="relacion-selectores">
     <!-- Agenda -->
     <div class="relacion-field">
-      <%= form.label :user_id, "Medico" %>
-      <%= form.collection_select :user_id,
-        User.all,
-        :id,
-        :id,
-        { prompt: "Selecciona un medico " },
-        { class: "form-select" } %>
+      <label from="user_id">Medico</label>
+      <select id="user_id" name="user_id" class="form-select">
+        <% users = User.all %>
+        <% users.each do |user|%>
+          <option value="<%=user.id%>"><%= user.nombre%></option>
+        <% end %>
+      </select>
     </div>
-    <!-- Plantilla -->
+    <!-- Dias -->
     <div class="relacion-field">
-      <%= form.label :plantilla_id, "Dias" %>
-      <%= form.collection_select :plantilla_id,
-        Plantilla.all,
-        :id,
-        :nombre,
-        { prompt: "Selecciona una plantilla" },
-        { class: "form-select" } %>
+      <label from="detalles_id">Dias</label>
+      <select id="dias" name="dias" class="form-select">
+        <option selected >Selecciona un dia</option>
+        <% dias.each do |det|%>
+          <option value="<%=det[:dias]+"_"+det[:num]%>"><%= det[:dias]+" - "+det[:num].to_s %></option>
+        <% end %>
+      </select>
     </div>
-    <!-- Médico -->
-    <div class="relacion-field">
-      <%= form.label :user_id, "Médico" %>
-      <%= form.collection_select :user_id,
-        User.all,
-        :id,
-        :nombre,
-        { prompt: "Selecciona un médico" },
-        { class: "form-select" } %>
+    <!-- Mesas -->
+    <div class="relacion-field" id="mesas_ref">
     </div>
   </div>
 <% end %>
