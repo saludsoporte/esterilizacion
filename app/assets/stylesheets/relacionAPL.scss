@@ -360,3 +360,134 @@
     width: 100%;
   }
 }
+
+.agenda-relaciones {
+background: #fff;
+border-radius: 14px;
+padding: 24px;
+margin-top: 20px;
+box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.agenda-relaciones-header {
+margin-bottom: 20px;
+}
+
+.agenda-relaciones-header h3 {
+margin: 0;
+font-size: 20px;
+font-weight: 600;
+color: #343a40;
+}
+
+.agenda-relaciones-lista {
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+/* Registro completo */
+.agenda-relacion {
+display: grid;
+grid-template-columns: 2fr 2fr 1.5fr 0.8fr;
+border: 1px solid #dee2e6;
+border-radius: 10px;
+overflow: hidden;
+background: #fff;
+}
+
+/* Cada apartado */
+.agenda-relacion-seccion {
+padding: 14px 18px;
+border-right: 1px solid #dee2e6;
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 6px;
+}
+
+.agenda-relacion-seccion:last-child {
+border-right: none;
+}
+
+/* Nombre del campo */
+.agenda-relacion-label {
+font-size: 11px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+color: #8a8f98;
+}
+
+/* Valor */
+.agenda-relacion-valor {
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 15px;
+font-weight: 500;
+color: #343a40;
+}
+
+.agenda-relacion-valor i {
+font-size: 17px;
+color: #0d6efd;
+}
+
+/* Día */
+.agenda-relacion-dia {
+text-align: center;
+align-items: center;
+background: #f8f9fa;
+}
+
+.agenda-relacion-dia .agenda-relacion-valor {
+justify-content: center;
+font-size: 18px;
+font-weight: 600;
+}
+
+/* Hover */
+.agenda-relacion:hover {
+border-color: #adb5bd;
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+.agenda-relacion {
+grid-template-columns: 1fr 1fr;
+}
+
+.agenda-relacion-seccion {
+border-bottom: 1px solid #dee2e6;
+}
+
+.agenda-relacion-seccion:nth-child(2) {
+border-right: none;
+}
+
+.agenda-relacion-seccion:nth-child(3),
+.agenda-relacion-seccion:nth-child(4) {
+border-bottom: none;
+}
+
+}
+
+@media (max-width: 500px) {
+
+.agenda-relacion {
+grid-template-columns: 1fr;
+}
+
+.agenda-relacion-seccion {
+border-right: none !important;
+border-bottom: 1px solid #dee2e6 !important;
+}
+
+.agenda-relacion-seccion:last-child {
+border-bottom: none !important;
+}
+
+}

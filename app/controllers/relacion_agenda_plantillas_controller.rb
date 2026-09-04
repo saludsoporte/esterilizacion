@@ -19,9 +19,10 @@ class RelacionAgendaPlantillasController < ApplicationController
     }
     nombre_dias = []
     agenda = Agenda.find(params[:agenda_id])
+    relacion_agenda = RelacionAgendaPlantilla.where(agenda_id:params[:agenda_id],plantilla_id:params[:plantilla_id])
     dias = (agenda.fecha_inicio..agenda.fecha_fin).to_a    
     dias.each do |dia|   
-      if dia.wday != 0 && dia.wday != 6   
+      if dia.wday != 0 && dia.wday != 6  && relacion_agenda.where(dia:dia.strftime("%d")).empty? 
         nombre_dias.push({dias:dias_semana[dia.wday],num:dia.strftime("%d")})      
       end
     end

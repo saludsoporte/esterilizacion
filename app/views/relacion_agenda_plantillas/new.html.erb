@@ -29,16 +29,16 @@
               { prompt: "Selecciona una plantilla" },
               { class: "form-select" } %>
         </div>
-      </div>      
+      </div>
       <div id="renglones_ref" class="relacion-medicos">
         <div class="relacion-section-header">
           <div>
             <h6>
               <i class="bi bi-people"></i>
               Médicos
-            </h6>            
+            </h6>
           </div>
-        </div>        
+        </div>
       </div>
       <!-- ACCIONES -->
       <div class="relacion-actions">
@@ -52,4 +52,54 @@
       </div>
     <% end %>
   </div>
+  <div class="agenda-relaciones">
+  <div class="agenda-relaciones-header"> 
+    <h3>Relaciones de la agenda</h3>
+ </div>
+  <div class="agenda-relaciones-lista">
+    <% @agenda.relacion_agenda_plantillas.each do |relacion| %>
+      <div class="agenda-relacion">
+        <!-- Plantilla -->
+        <div class="agenda-relacion-seccion">
+          <span class="agenda-relacion-label">
+            Plantilla
+          </span>
+          <div class="agenda-relacion-valor">
+            <i class="bi bi-file-earmark-text"></i>
+            <%= relacion.plantilla.nombre %>
+          </div>
+        </div>
+        <!-- Usuario -->
+        <div class="agenda-relacion-seccion">
+          <span class="agenda-relacion-label">
+            Responsable
+          </span>
+          <div class="agenda-relacion-valor">
+            <i class="bi bi-person"></i>
+            <%= relacion.user.nombre %>
+          </div>
+        </div>
+        <!-- Día -->
+        <div class="agenda-relacion-seccion">
+          <span class="agenda-relacion-label">
+            Día
+          </span>
+          <div class="agenda-relacion-valor">
+            <i class="bi bi-calendar3"></i>
+            <%= relacion.dia_nombre %>
+          </div>
+        </div>
+        <!-- Número de día -->
+        <div class="agenda-relacion-seccion agenda-relacion-dia">
+          <span class="agenda-relacion-label">
+            Número
+          </span>
+          <div class="agenda-relacion-valor">
+            <%= relacion.dia %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+ </div>
 </div>
