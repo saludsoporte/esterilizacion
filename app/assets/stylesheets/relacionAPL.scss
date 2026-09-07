@@ -425,7 +425,7 @@ display: flex;
 align-items: center;
 gap: 8px;
 font-size: 15px;
-font-weight: 500;
+font-weight: 400;
 color: #343a40;
 }
 
@@ -469,7 +469,8 @@ border-right: none;
 }
 
 .agenda-relacion-seccion:nth-child(3),
-.agenda-relacion-seccion:nth-child(4) {
+.agenda-relacion-seccion:nth-child(4),
+.agenda-relacion-seccion:nth-child(5) {
 border-bottom: none;
 }
 
@@ -490,4 +491,11 @@ border-bottom: 1px solid #dee2e6 !important;
 border-bottom: none !important;
 }
 
+}
+select:invalid {
+    color: #6c757d;
+}
+
+select option {
+    color: #212529;
 }

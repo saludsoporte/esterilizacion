@@ -5,19 +5,27 @@ import $ from "jquery";
 export default class extends Controller {
   connect() {
     console.log("se conecto a agenda");
-    //iniciarSemana();
+    //iniciarSemana();    
+    $("#user_id").prop("disabled", true);
+    $("#user_id").val(0).trigger("change");
     $("#relacion_agenda_plantilla_plantilla_id").val(null).trigger("change");
     $("#relacion_agenda_plantilla_plantilla_id").on("change", function () {
-      if ($(this).val() != null) {
-        ajaxTurbo("setDiasMeses", {
+      $("#user_id").prop("disabled", false);
+    });
+    $("#user_id").on("change", function () {      
+      if ($(this).val() != 0) {
+        ajaxTurbo("setDiasMeses", {user_id: $(this).val(),
           agenda_id: $("#relacion_agenda_plantilla_agenda_id").val(),
-          plantilla_id: $(this).val(),
+          plantilla_id: $("#relacion_agenda_plantilla_plantilla_id").val(),
         });
+      }else{        
+        $("#renglones_ref").html("");
       }
     });
     $(document).on("change", "#dias", function () {
       if ($(this).val() != null) {
         ajaxTurbo("setMesas", {
+          user_id: $("#user_id").val(),
           agenda_id: $("#relacion_agenda_plantilla_agenda_id").val(),
           plantilla_id: $("#relacion_agenda_plantilla_plantilla_id").val(),
           dia: $(this).val(),

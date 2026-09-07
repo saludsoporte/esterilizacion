@@ -1,27 +1,16 @@
-<%= turbo_stream.append "renglones_ref" do %>
-  <div class="relacion-selectores">
-    <!-- Agenda -->
-    <div class="relacion-field">
-      <label from="user_id">Medico</label>
-      <select id="user_id" name="user_id" class="form-select">
-        <% users = User.all %>
-        <% users.each do |user|%>
-          <option value="<%=user.id%>"><%= user.nombre%></option>
-        <% end %>
-      </select>
-    </div>
-    <!-- Dias -->
-    <div class="relacion-field">
-      <label from="detalles_id">Dias</label>
-      <select id="dias" name="dias" class="form-select">
-        <option selected >Selecciona un dia</option>
-        <% dias.each do |det|%>
-          <option value="<%=det[:dias]+"_"+det[:num]%>"><%= det[:dias]+" - "+det[:num].to_s %></option>
-        <% end %>
-      </select>
-    </div>
-    <!-- Mesas -->
-    <div class="relacion-field" id="mesas_ref">
+<%= turbo_stream.replace "renglones_ref" do %>
+  <div id="renglones_ref" class="relacion-medicos">
+    <div class="relacion-section-header">
+      <!-- Dias -->
+      <div class="relacion-field">
+        <label from="detalles_id">Dias</label>
+        <select id="dias" name="dias" class="form-select">
+          <option selected value="" disabled >Selecciona un dia</option>
+          <% dias.each do |det|%>
+            <option value="<%=det[:dias]+"_"+det[:num]%>"><%= det[:dias]+" - "+det[:num].to_s %></option>
+          <% end %>
+        </select>
+      </div>     
     </div>
   </div>
 <% end %>

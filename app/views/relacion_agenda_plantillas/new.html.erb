@@ -30,14 +30,26 @@
               { class: "form-select" } %>
         </div>
       </div>
-      <div id="renglones_ref" class="relacion-medicos">
-        <div class="relacion-section-header">
-          <div>
-            <h6>
-              <i class="bi bi-people"></i>
-              Médicos
-            </h6>
+      <br>
+      <div class="relacion-selectores">
+        <div  class="relacion-medicos">
+          <h6>
+            <i for="user_id" class="bi bi-people"></i>
+            Médicos
+          </h6>
+          <select required id="user_id" name="user_id" class="form-select" disabled="true">
+            <option selected value='0' disabled>Selecciona un Médico</option>
+            <% @users.each do |user|%>
+              <option value="<%=user.id%>"><%= user.nombre%></option>
+            <% end %>
+          </select>
+        </div>
+        <div id="renglones_ref" class="relacion-medicos">
+          <div class="relacion-section-header">
           </div>
+        </div>
+        <!-- Mesas -->
+        <div class="relacion-field" id="mesas_ref">
         </div>
       </div>
       <!-- ACCIONES -->
@@ -53,53 +65,53 @@
     <% end %>
   </div>
   <div class="agenda-relaciones">
-  <div class="agenda-relaciones-header"> 
-    <h3>Relaciones de la agenda</h3>
- </div>
-  <div class="agenda-relaciones-lista">
-    <% @agenda.relacion_agenda_plantillas.each do |relacion| %>
-      <div class="agenda-relacion">
-        <!-- Plantilla -->
-        <div class="agenda-relacion-seccion">
-          <span class="agenda-relacion-label">
-            Plantilla
-          </span>
-          <div class="agenda-relacion-valor">
-            <i class="bi bi-file-earmark-text"></i>
-            <%= relacion.plantilla.nombre %>
+    <div class="agenda-relaciones-header">
+      <h3>Relaciones de la agenda</h3>
+    </div>
+    <div class="agenda-relaciones-lista">
+      <% @agenda.relacion_agenda_plantillas.each do |relacion| %>
+        <div class="agenda-relacion">
+          <!-- Plantilla -->
+          <div class="agenda-relacion-seccion">
+            <span class="agenda-relacion-label">
+              Plantilla
+            </span>
+            <div class="agenda-relacion-valor">
+              <i class="bi bi-file-earmark-text"></i>
+              <%= relacion.plantilla.nombre %>
+            </div>
+          </div>
+          <!-- Usuario -->
+          <div class="agenda-relacion-seccion">
+            <span class="agenda-relacion-label">
+              Responsable
+            </span>
+            <div class="agenda-relacion-valor">
+              <i class="bi bi-person"></i>
+              <%= relacion.user.nombre %>
+            </div>
+          </div>
+          <!-- Día -->
+          <div class="agenda-relacion-seccion">
+            <span class="agenda-relacion-label">
+              Día
+            </span>
+            <div class="agenda-relacion-valor">
+              <i class="bi bi-calendar3"></i>
+              <%= relacion.dia_nombre %>
+              <%= relacion.dia %>
+            </div>
+          </div>
+          <div class="agenda-relacion-seccion ">
+            <span class="agenda-relacion-label">
+              Mesa
+            </span>
+            <div class="agenda-relacion-valor">
+              <%= relacion.detalle_plantilla.mesa.nombre_mesa %>
+            </div>
           </div>
         </div>
-        <!-- Usuario -->
-        <div class="agenda-relacion-seccion">
-          <span class="agenda-relacion-label">
-            Responsable
-          </span>
-          <div class="agenda-relacion-valor">
-            <i class="bi bi-person"></i>
-            <%= relacion.user.nombre %>
-          </div>
-        </div>
-        <!-- Día -->
-        <div class="agenda-relacion-seccion">
-          <span class="agenda-relacion-label">
-            Día
-          </span>
-          <div class="agenda-relacion-valor">
-            <i class="bi bi-calendar3"></i>
-            <%= relacion.dia_nombre %>
-          </div>
-        </div>
-        <!-- Número de día -->
-        <div class="agenda-relacion-seccion agenda-relacion-dia">
-          <span class="agenda-relacion-label">
-            Número
-          </span>
-          <div class="agenda-relacion-valor">
-            <%= relacion.dia %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
- </div>
 </div>
