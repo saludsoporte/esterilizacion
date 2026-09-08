@@ -7,4 +7,7 @@ class DetalleMesa < ApplicationRecord
               scope: :mesa_id,
               message: "ya está ocupado en esta mesa"
             }
+  def detalle_hora
+    self.paciente+self.sexo+" - "+self.horario.strftime("%H:%M")
+  end
 end

@@ -1,7 +1,5 @@
 class RelacionAgendaPlantillasController < ApplicationController
   before_action :authenticate_user!
-
-
   def new
     @users = User.all 
     @relacion_agenda = RelacionAgendaPlantilla.new
@@ -9,7 +7,7 @@ class RelacionAgendaPlantillasController < ApplicationController
   end
   def agregar_medico
     @medico = User.find(params[:user_id])
-  end
+  end  
   def setDiasMeses
       dias_semana = {      
       1 => "LUNES",
@@ -68,5 +66,9 @@ class RelacionAgendaPlantillasController < ApplicationController
       end
     end    
   end
-  
+  def editar_relaciones
+    @agenda = Agenda.find(params[:agenda])
+    @relaciones = RelacionAgendaPlantilla.where(agenda_id:params[:agenda]).order(:user_id,:dia)
+    @users = User.all
+  end  
 end

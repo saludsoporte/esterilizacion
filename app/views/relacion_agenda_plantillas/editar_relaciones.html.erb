@@ -1,0 +1,16 @@
+<div class="relacion-container" data-controller="agenda">
+  <div class="relacion-header">
+    <div class="agenda-relaciones-header">
+      <div>
+        <h2>
+          <i class="bi bi-diagram-3"></i>
+          Relaciones de la agenda
+        </h2>
+        <p>
+          Plantillas y médicos asociados a esta agenda.
+        </p>
+      </div>
+    </div>
+  </div>
+  <%= render "tabla_agenda_relaciones", agenda: @agenda, relaciones: @relaciones,edit:true %>
+</div>

@@ -1,7 +1,7 @@
 <div class="agenda-form-container">
   <div class="agenda-form-header ">
     <div>
-      <h1>        
+      <h1>
         Agenda
       </h1>
     </div>
@@ -13,6 +13,11 @@
       <%= link_to agendas_path, class: "btn-agenda-secondary" do %>
         <i class="bi bi-arrow-left"></i>
         Volver a agendas
+      <% end %>
+      <%= link_to edit_relacion_agenda_plantilla_path(agenda:@agenda.id),
+            class: "btn-editar-relacion" do %>
+        <i class="bi bi-pencil-square"></i>
+        Editar Relaciones
       <% end %>
     </div>
   </div>

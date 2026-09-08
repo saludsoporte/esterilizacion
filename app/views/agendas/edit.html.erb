@@ -1,26 +1,20 @@
-<div class="agenda-form-container">
-  <div class="agenda-form-header">
-    <div>
-      <h1>
+<div id="<%= dom_id @agenda %>" class="agenda-detalle">
+  <div class="agenda-detalle-header">
+    <div class="agenda-detalle-header-title">
+    <h2>
+      <i class="bi bi-pencil-square"></i>
+      Editar agenda
+    </h2>
+    <div class="relacion-acciones">
+      <%= link_to relacion_agenda_plantillas_editar_relaciones_path(agenda: @agenda.id),
+              class: "btn-editar-relacion" do %>
         <i class="bi bi-pencil-square"></i>
-        Editar agenda
-      </h1>
-      <p>
-        Modifica la información de la agenda registrada.
-      </p>
+        Editar Relaciones
+      <% end %>
     </div>
   </div>
-  <div class="agenda-form-card">
-    <%= render "form", agenda: @agenda %>
   </div>
-  <div class="agenda-form-actions">
-    <%= link_to agenda_path(@agenda), class: "btn-agenda-secondary" do %>
-      <i class="bi bi-eye"></i>
-      Ver agenda
-    <% end %>
-    <%= link_to agendas_path, class: "btn-agenda-secondary" do %>
-      <i class="bi bi-arrow-left"></i>
-      Volver a agendas
-    <% end %>
+  <div class="agenda-detalle-card">
+    <%= render "form", agenda: @agenda %>
   </div>
 </div>

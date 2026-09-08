@@ -1,0 +1,65 @@
+<div class="agenda-relaciones">
+  <div class="agenda-relaciones-header">
+    <div class="relacion-field">
+      Agenda
+      <p><%="#{@agenda.fecha_inicio} - #{@agenda.fecha_fin}"%></p>
+    </div>
+  </div>
+  <div class="agenda-relaciones">
+    <% if @relaciones.any? %>
+      <div class="agenda-relaciones-table-container">
+        <table class="agenda-relaciones-table">
+          <thead>
+            <tr>
+              <th> <i class="bi bi-person"></i> Médico </th>
+              <th> <i class="bi bi-calendar-day"></i> Día </th>
+              <th><i class="bi bi-table"></i>Mesas</th>
+              <th class="relacion-columna-acciones"> Acciones </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @relaciones.each do |relacion| %>
+              <tr data-bs-toggle="collapse" data-bs-target="#horarios-<%= relacion.id %>" aria-expanded="false" aria-controls="horarios-<%= relacion.id %>">
+                <td>
+                  <div class="relacion-medico">
+                    <span class="relacion-expandir"> <i class="bi bi-chevron-right"></i> </span>
+                    <i class="bi bi-person-circle"></i> <%= relacion.user&.nombre || "Sin médico" %> </div>
+                </td>
+                <td> <span class="relacion-dia"> <%= relacion.dia_nombre&.capitalize+" "+relacion.dia.to_s || "Sin día" %> </span> </td>
+                <td>
+                  <div class="relacion-mesas"> <i class="bi bi-table"></i> <%= relacion.detalle_plantilla.mesa.nombre_mesa %> </div>
+                </td>
+                <td class="relacion-columna-acciones">
+                    <% if edit == true %>
+                        <%= link_to edit_relacion_agenda_plantilla_path(relacion), class: "btn-tabla-editar" do %> <i class="bi bi-pencil-square"></i> Editar <% end %> </td>
+                    <% end %>
+              </tr>
+              <!-- Renglón desplegable -->
+              <tr class="relacion-horarios-row">
+                <td colspan="4" class="p-0">
+                  <div id="horarios-<%= relacion.id %>" class="collapse">
+                    <div class="relacion-horarios">
+                      <div class="relacion-horarios-header"> <span> <i class="bi bi-clock"></i> Horarios </span> </div>
+                      <div class="relacion-horarios-list">
+                        <% relacion.horarios.each do |horario| %>
+                          <span class="horario-item"> <i class="bi bi-clock"></i>
+                            <%= horario %>
+                          </span>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="relaciones-vacio"> <i class="bi bi-diagram-3"></i>
+        <h3> No hay relaciones </h3>
+        <p> Esta agenda todavía no tiene plantillas relacionadas. </p>
+        <%= link_to edit_relacion_agenda_plantilla_path(agenda: @agenda.id), class: "btn-editar-relacion" do %> <i class="bi bi-plus-lg"></i> Agregar relaciones <% end %> </div>
+    <% end %>
+  </div>
+</div>

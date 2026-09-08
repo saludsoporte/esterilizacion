@@ -499,3 +499,348 @@ select:invalid {
 select option {
     color: #212529;
 }
+
+.agenda-relaciones {
+  margin-top: 30px;
+}
+
+.agenda-relaciones-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.agenda-relaciones-header h2 {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  color: #333;
+}
+
+.agenda-relaciones-header p {
+  margin: 5px 0 0;
+
+  color: #777;
+}
+
+
+/* CONTENEDOR DE TABLA */
+
+.agenda-relaciones-table-container {
+  width: 100%;
+
+  overflow-x: auto;
+
+  background: white;
+
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+}
+
+
+/* TABLA */
+
+.agenda-relaciones-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 650px;
+}
+
+
+/* HEADER */
+
+.agenda-relaciones-table thead {
+  background: #f8f9fa;
+}
+
+.agenda-relaciones-table th {
+  padding: 15px 18px;
+
+  text-align: left;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #666;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.agenda-relaciones-table th i {
+  margin-right: 5px;
+}
+
+
+/* FILAS */
+
+.agenda-relaciones-table tbody tr {
+  transition: background .15s ease;
+}
+
+.agenda-relaciones-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.agenda-relaciones-table td {
+  padding: 16px 18px;
+
+  border-bottom: 1px solid #eee;
+
+  font-size: 14px;
+
+  color: #444;
+}
+
+.agenda-relaciones-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* PLANTILLA */
+
+.relacion-plantilla {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.relacion-table-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #eef5ff;
+  color: #0d6efd;
+}
+
+.relacion-plantilla strong {
+  font-weight: 500;
+}
+
+
+/* MÉDICO */
+
+.relacion-medico {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.relacion-medico i {
+  font-size: 18px;
+
+  color: #777;
+}
+
+
+/* DÍA */
+
+.relacion-dia {
+  display: inline-flex;
+
+  padding: 5px 11px;
+
+  border-radius: 20px;
+
+  background: #f1f3f5;
+
+  color: #555;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* ACCIONES */
+
+.relacion-columna-acciones {
+  width: 120px;
+
+  text-align: right !important;
+}
+
+.btn-tabla-editar {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 12px;
+
+  border-radius: 7px;
+
+  background: #eef5ff;
+  color: #0d6efd;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: .2s;
+}
+
+.btn-tabla-editar:hover {
+  background: #0d6efd;
+  color: white;
+}
+
+
+/* BOTÓN EDITAR RELACIONES */
+
+.btn-editar-relacion {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 9px 15px;
+
+  border-radius: 8px;
+
+  background: #0d6efd;
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-editar-relacion:hover {
+  background: #0b5ed7;
+  color: white;
+}
+
+
+/* SIN RELACIONES */
+
+.relaciones-vacio {
+  text-align: center;
+
+  padding: 60px 20px;
+
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+
+  color: #777;
+}
+
+.relaciones-vacio > i {
+  font-size: 45px;
+
+  color: #aaa;
+}
+
+.relaciones-vacio h3 {
+  margin: 15px 0 5px;
+
+  color: #444;
+}
+
+.relaciones-vacio p {
+  margin-bottom: 20px;
+}
+
+.relacion-row {
+  cursor: pointer;
+}
+
+.relacion-row:hover {
+  background: #f8f9fa;
+}
+
+
+/* Flecha */
+
+.relacion-expandir {
+  width: 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #777;
+
+  transition: transform .2s ease;
+}
+
+.relacion-row[aria-expanded="true"] .relacion-expandir {
+  transform: rotate(90deg);
+}
+
+
+/* Renglón de horarios */
+
+.relacion-horarios-row {
+  background: #fafafa;
+}
+
+.relacion-horarios {
+  padding: 15px 25px 18px 70px;
+
+  border-bottom: 1px solid #eee;
+}
+
+
+/* Encabezado */
+
+.relacion-horarios-header {
+  margin-bottom: 12px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #666;
+}
+
+.relacion-horarios-header i {
+  margin-right: 5px;
+}
+
+
+/* Horarios */
+
+.relacion-horarios-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.horario-item {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 11px;
+
+  border-radius: 7px;
+
+  background: white;
+
+  border: 1px solid #ddd;
+
+  color: #555;
+
+  font-size: 13px;
+}
+
+.horario-item i {
+  color: #0d6efd;
+}

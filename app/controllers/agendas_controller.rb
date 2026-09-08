@@ -7,6 +7,7 @@ class AgendasController < ApplicationController
 
   # GET /agendas/1 or /agendas/1.json
   def show
+    @agenda = Agenda.find(params[:id])
   end
 
   # GET /agendas/new
@@ -16,6 +17,8 @@ class AgendasController < ApplicationController
 
   # GET /agendas/1/edit
   def edit
+    agenda = Agenda.find(params[:id])
+    @medicos = User.all
   end
 
   # POST /agendas or /agendas.json
