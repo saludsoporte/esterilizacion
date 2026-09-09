@@ -844,3 +844,31 @@ select option {
 .horario-item i {
   color: #0d6efd;
 }
+
+.btn-desplegar-horarios {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.btn-desplegar-horarios:hover {
+  color: #0d6efd;
+}
+
+.relacion-expandir {
+  display: inline-flex;
+  width: 20px;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.btn-desplegar-horarios[aria-expanded="true"] .relacion-expandir {
+  transform: rotate(90deg);
+}

@@ -1,0 +1,48 @@
+<div class="relacion-card">
+  <div class="relacion-fields">
+    Relacion de Agenda
+  </div>
+</div>
+<%= form_with model: @relacion_agenda do |form| %>
+  <div class="relacion-selectores">
+    <div  class="relacion-medicos">
+      <i for="user_id" class="bi bi-people"></i>
+      <%= label_tag @relacion_agenda.user_id,"Médicos" %>
+      <%= form.select :user_id,
+                @users.map { |user| [user.nombre, user.id] },
+                { selected: @relacion_agenda.user_id, prompt: "Selecciona un Médico" },
+                { class: "form-select" } %>
+    </div>
+    <div id="renglones_ref" class="relacion-medicos">
+      <div class="relacion-section-header">
+        <!-- Dias -->
+        <div class="relacion-field">
+          <label from="detalles_id">Dias</label>
+          <select id="dias" name="dias" class="form-select">            
+            <% @nombre_dias.each do |det|%>
+              <% if det[:dias] == @relacion_agenda.dia_nombre  && det[:num] == @relacion_agenda.dia %>
+                <option selected value="<%=det[:dias]+"_"+det[:num]%>" ><%= det[:dias]+" - "+det[:num].to_s %></option>
+              <% else %>
+                <option value="<%=det[:dias]+"_"+det[:num]%>"><%= det[:dias]+" - "+det[:num].to_s %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
+      </div>
+    </div>    
+    <!-- Mesas -->
+    <div class="relacion-field" id="mesas_ref">
+    </div>
+  </div>
+  <!-- ACCIONES -->
+  <div class="relacion-actions">
+    <%= link_to agendas_path,
+            class: "btn-relacion-secondary" do %>
+      <i class="bi bi-x-lg"></i>
+      Cancelar
+    <% end %>
+    <%= form.submit "Guardar relación",
+            class: "btn-relacion-primary" %>
+  </div>
+<% end %>
+</div>

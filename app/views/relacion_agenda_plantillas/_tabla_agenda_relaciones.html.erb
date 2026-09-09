@@ -1,4 +1,4 @@
-<div class="agenda-relaciones">
+<div class="agenda-relaciones" data-controller="relacion">
   <div class="agenda-relaciones-header">
     <div class="relacion-field">
       Agenda
@@ -19,20 +19,34 @@
           </thead>
           <tbody>
             <% @relaciones.each do |relacion| %>
-              <tr data-bs-toggle="collapse" data-bs-target="#horarios-<%= relacion.id %>" aria-expanded="false" aria-controls="horarios-<%= relacion.id %>">
+              <tr>
                 <td>
                   <div class="relacion-medico">
-                    <span class="relacion-expandir"> <i class="bi bi-chevron-right"></i> </span>
-                    <i class="bi bi-person-circle"></i> <%= relacion.user&.nombre || "Sin médico" %> </div>
-                </td>
+                    <button type="button"
+                    class="btn-desplegar-horarios"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#horarios-<%= relacion.id %>"
+                    aria-expanded="false"
+                    aria-controls="horarios-<%= relacion.id %>">
+                      <span class="relacion-expandir">
+                        <i class="bi bi-chevron-right"></i>
+                      </span>
+                      <i class="bi bi-person-circle"></i> <%= relacion.user&.nombre || "Sin médico" %>
+                    </button>
+                  </div>
+                </td>               
                 <td> <span class="relacion-dia"> <%= relacion.dia_nombre&.capitalize+" "+relacion.dia.to_s || "Sin día" %> </span> </td>
                 <td>
                   <div class="relacion-mesas"> <i class="bi bi-table"></i> <%= relacion.detalle_plantilla.mesa.nombre_mesa %> </div>
                 </td>
                 <td class="relacion-columna-acciones">
-                    <% if edit == true %>
-                        <%= link_to edit_relacion_agenda_plantilla_path(relacion), class: "btn-tabla-editar" do %> <i class="bi bi-pencil-square"></i> Editar <% end %> </td>
+                  <% if edit == true %>
+                    <%= link_to edit_relacion_agenda_plantilla_path(relacion), class: "btn-tabla-editar" do %>
+                      <i class="bi bi-pencil-square"></i>
+                      Editar 
                     <% end %>
+                  <% end %>
+                </td>
               </tr>
               <!-- Renglón desplegable -->
               <tr class="relacion-horarios-row">

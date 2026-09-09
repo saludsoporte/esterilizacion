@@ -18,3 +18,6 @@ application.register("mesas", MesasController)
 
 import PlantillasController from "./plantillas_controller"
 application.register("plantillas", PlantillasController)
+
+import RelacionController from "./relacion_controller"
+application.register("relacion", RelacionController)

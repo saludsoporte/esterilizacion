@@ -71,4 +71,24 @@ class RelacionAgendaPlantillasController < ApplicationController
     @relaciones = RelacionAgendaPlantilla.where(agenda_id:params[:agenda]).order(:user_id,:dia)
     @users = User.all
   end  
+  def edit    
+    @relacion_agenda = RelacionAgendaPlantilla.find(params[:id])
+    @detalle = DetallePlantilla.where(plantilla_id:@relacion_agenda.plantilla_id,dia:@relacion_agenda.dia_nombre).where.not(id:@relacion_agenda.detalle_plantilla_id)   
+    dias_semana = {      
+      1 => "LUNES",
+      2 => "MARTES",
+      3 => "MIERCOLES",
+      4 => "JUEVES",
+      5 => "VIERNES"      
+    }   
+    @nombre_dias = [] 
+    dias = (@relacion_agenda.agenda.fecha_inicio..@relacion_agenda.agenda.fecha_fin).to_a    
+    dias.each do |dia|   
+      if dia.wday != 0 && dia.wday != 6  
+        @nombre_dias.push({dias:dias_semana[dia.wday],num:dia.strftime("%d")})      
+      end
+    end
+    @agenda = Agenda.find(@relacion_agenda.agenda_id)
+    @users = User.all
+  end
 end
