@@ -31,11 +31,9 @@ class RelacionAgendaPlantillasController < ApplicationController
       locals: { detalles: detalles, dias: nombre_dias }}
     end
   end
-  def setMesas
+  def setMesas    
     dia = params[:dia].split('_')[0]
-    num_dia = params[:dia].split('_')[1]
-    logger.debug "********************* dIAS "+params[:dia]
-    logger.debug "********************* dIA "+dia    
+    num_dia = params[:dia].split('_')[1]   
     relacion = RelacionAgendaPlantilla.where(agenda_id:params[:agenda_id])   
     logger.debug "********************* relacion "+relacion.to_s
     detalle = DetallePlantilla.where(plantilla_id:params[:plantilla_id],dia:dia).where.not(id:relacion.pluck(:detalle_plantilla_id))
@@ -45,7 +43,21 @@ class RelacionAgendaPlantillasController < ApplicationController
       locals: { detalles: detalle}}
     end
   end
-
+  def setMesa
+    dia = params[:dia].split('_')[0]
+    relacion = RelacionAgendaPlantilla.find(params[:id])
+    agenda = relacion.agenda_id
+    relaciones = RelacionAgendaPlantilla.where(dia_nombre:dia,agenda_id:agenda.id,plantilla_id:params[:plantilla_id])
+    if relaciones.count == 0
+      detalle = DetallePlantilla.where(plantilla_id:params[:plantilla_id],dia:dia)  #MESAS
+    else
+      detalle = DetallePlantilla.where(plantilla_id:params[:plantilla_id],dia:dia).where.not(id:relaciones.pluck(:detalle_plantilla_id))
+    end        
+    respond_to do |format|
+      format.turbo_stream { render partial: "relacion_agenda_plantillas/cargar_mesas", 
+      locals: { detalles: detalle}}
+    end
+  end
   def create   
     if params[:mesas].blank? && params[:dias].blank? && params[:user_id].blank?
       redirect_to new_relacion_agenda_plantilla_path(agenda_id:params[:relacion_agenda_plantilla][:agenda_id]), alert: "No se pudo crear la relación de agenda con plantilla. Debe seleccionar un médico, un día y una mesa."
@@ -88,7 +100,7 @@ class RelacionAgendaPlantillasController < ApplicationController
         @nombre_dias.push({dias:dias_semana[dia.wday],num:dia.strftime("%d")})      
       end
     end
-    @agenda = Agenda.find(@relacion_agenda.agenda_id)
+    @agenda = Agenda.find(@relacion_agenda.agenda_id)   
     @users = User.all
   end
 end

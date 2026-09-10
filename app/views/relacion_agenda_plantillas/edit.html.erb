@@ -1,48 +1,62 @@
-<div class="relacion-card">
-  <div class="relacion-fields">
-    Relacion de Agenda
+<div class="container" data-controller="relacion">
+  <div class="relacion-card">
+    <div class="relacion-fields">
+      Relacion de Agenda
+    </div>
   </div>
-</div>
-<%= form_with model: @relacion_agenda do |form| %>
-  <div class="relacion-selectores">
-    <div  class="relacion-medicos">
-      <i for="user_id" class="bi bi-people"></i>
-      <%= label_tag @relacion_agenda.user_id,"Médicos" %>
-      <%= form.select :user_id,
+  <%= form_with model: @relacion_agenda do |form| %>
+    <%= form.hidden_field :agenda_id,value:@relacion_agenda.agenda_id%>
+    <%= form.hidden_field :plantilla_id,value:@relacion_agenda.plantilla_id%>    
+    <div class="relacion-selectores">
+      <div  class="relacion-medicos">
+        <i for="user_id" class="bi bi-people"></i>
+        <%= label_tag @relacion_agenda.user_id,"Médicos" %>
+        <%= form.select :user_id,
                 @users.map { |user| [user.nombre, user.id] },
                 { selected: @relacion_agenda.user_id, prompt: "Selecciona un Médico" },
                 { class: "form-select" } %>
-    </div>
-    <div id="renglones_ref" class="relacion-medicos">
-      <div class="relacion-section-header">
-        <!-- Dias -->
-        <div class="relacion-field">
-          <label from="detalles_id">Dias</label>
-          <select id="dias" name="dias" class="form-select">            
-            <% @nombre_dias.each do |det|%>
-              <% if det[:dias] == @relacion_agenda.dia_nombre  && det[:num] == @relacion_agenda.dia %>
-                <option selected value="<%=det[:dias]+"_"+det[:num]%>" ><%= det[:dias]+" - "+det[:num].to_s %></option>
-              <% else %>
-                <option value="<%=det[:dias]+"_"+det[:num]%>"><%= det[:dias]+" - "+det[:num].to_s %></option>
+      </div>
+      <div id="renglones_ref" class="relacion-medicos">
+        <div class="relacion-section-header">
+          <!-- Dias -->
+          <div class="relacion-field">
+            <label from="detalles_id">Dias</label>
+            <select id="dias" name="dias" class="form-select">
+              <% @nombre_dias.each do |det|%>
+                <% if det[:dias] == @relacion_agenda.dia_nombre  && det[:num] == @relacion_agenda.dia %>
+                  <option selected value="<%=det[:dias]+"_"+det[:num]%>" ><%= det[:dias]+" - "+det[:num].to_s %></option>
+                <% else %>
+                  <option value="<%=det[:dias]+"_"+det[:num]%>"><%= det[:dias]+" - "+det[:num].to_s %></option>
+                <% end %>
               <% end %>
-            <% end %>
-          </select>
+            </select>
+          </div>
         </div>
       </div>
-    </div>    
-    <!-- Mesas -->
-    <div class="relacion-field" id="mesas_ref">
+      <!-- Mesas -->
+      <div class="relacion-field" id="mesas_ref">
+        <label from="mesas_id">Mesas</label>
+        <select id="mesas" name="mesas" class="form-select">
+          <% @detalle.each do |mesa|%>
+            <% if mesa.mesa_id == @relacion_agenda.detalle_plantilla.mesa.id %>
+              <option selected >Selecciona una mesa</option>
+            <% else %>
+              <option value="<%=mesa.mesa_id %>"><%= mesa.mesa.nombre_mesa %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </div>
     </div>
-  </div>
-  <!-- ACCIONES -->
-  <div class="relacion-actions">
-    <%= link_to agendas_path,
+    <!-- ACCIONES -->
+    <div class="relacion-actions">
+      <%= link_to agendas_path,
             class: "btn-relacion-secondary" do %>
-      <i class="bi bi-x-lg"></i>
-      Cancelar
-    <% end %>
-    <%= form.submit "Guardar relación",
+        <i class="bi bi-x-lg"></i>
+        Cancelar
+      <% end %>
+      <%= form.submit "Guardar relación",
             class: "btn-relacion-primary" %>
-  </div>
-<% end %>
+    </div>
+    <br>
+  <% end %>
 </div>
