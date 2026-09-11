@@ -47,11 +47,11 @@ class RelacionAgendaPlantillasController < ApplicationController
     dia = params[:dia].split('_')[0]
     relacion = RelacionAgendaPlantilla.find(params[:id])
     agenda = relacion.agenda_id
-    relaciones = RelacionAgendaPlantilla.where(dia_nombre:dia,agenda_id:agenda.id,plantilla_id:params[:plantilla_id])
-    if relaciones.count == 0
-      detalle = DetallePlantilla.where(plantilla_id:params[:plantilla_id],dia:dia)  #MESAS
-    else
-      detalle = DetallePlantilla.where(plantilla_id:params[:plantilla_id],dia:dia).where.not(id:relaciones.pluck(:detalle_plantilla_id))
+    relaciones = RelacionAgendaPlantilla.where(dia_nombre:dia,agenda_id:agenda,plantilla_id:relacion.plantilla_id)
+    if relaciones.count == 0      
+      detalle = DetallePlantilla.where(plantilla_id:relacion.plantilla_id,dia:dia)  #MESAS
+    else      
+      detalle = DetallePlantilla.where(plantilla_id:relacion.plantilla_id,dia:dia).where.not(id:relaciones.pluck(:detalle_plantilla_id))
     end        
     respond_to do |format|
       format.turbo_stream { render partial: "relacion_agenda_plantillas/cargar_mesas", 
