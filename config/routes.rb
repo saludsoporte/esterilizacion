@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+ 
   # Plantillas
   resources :plantillas do
     collection do
@@ -43,8 +43,9 @@ Rails.application.routes.draw do
   post "relacion_agenda_plantillas/editRelacion", to: "relacion_agenda_plantillas#editRelacion"
   get "relacion_agenda_plantillas/editar_relaciones", to: "relacion_agenda_plantillas#editar_relaciones"
   resources :users
-  resources :relacion_agenda_plantillas
-
+  resources :relacion_agenda_plantillas     
+  resources :citas
+  
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 

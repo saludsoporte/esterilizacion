@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @cita %>
+
+<div>
+  <%= link_to "Edit this cita", edit_cita_path(@cita) %> |
+  <%= link_to "Back to citas", citas_path %>
+
+  <%= button_to "Destroy this cita", @cita, method: :delete %>
+</div>

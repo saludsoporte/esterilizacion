@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "div_dia" do %>
+    <div id="div_dia" class="col-md-4">
+        <label class="form-label" for="relacion_agenda_plantilla_id" >Dias disponibles</label>
+        <%= select_tag :relacion_agenda_plantilla_id, @relaciones_agenda, :id, :dia_nombre,
+        { prompt: "Selecciona una dia..." }, class: "form-select" %>
+    </div>
+<% end %>

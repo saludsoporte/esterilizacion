@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_08_28_203915) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_18_161310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,37 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_28_203915) do
     t.date "fecha_fin"
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_agendas_on_user_id"
+  end
+
+  create_table "citas", force: :cascade do |t|
+    t.string "estado"
+    t.string "nombre_dueño"
+    t.string "especie"
+    t.string "sexo"
+    t.string "telefono"
+    t.string "motivo"
+    t.date "fecha"
+    t.integer "edad_dueño"
+    t.string "calle"
+    t.string "colonia"
+    t.string "localidad"
+    t.string "municipio"
+    t.boolean "vacuna"
+    t.string "nombre_mascota"
+    t.string "edad_mascota"
+    t.string "raza"
+    t.string "medico"
+    t.string "curp"
+    t.string "sexo_dueño"
+    t.string "apellido_p_dueño"
+    t.string "apellido_m_dueño"
+    t.bigint "relacion_agenda_plantilla_id", null: false
+    t.bigint "detalle_mesa_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.index ["detalle_mesa_id"], name: "index_citas_on_detalle_mesa_id"
+    t.index ["relacion_agenda_plantilla_id"], name: "index_citas_on_relacion_agenda_plantilla_id"
   end
 
   create_table "detalle_extras", force: :cascade do |t|
@@ -112,6 +143,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_28_203915) do
   end
 
   add_foreign_key "agendas", "users"
+  add_foreign_key "citas", "detalle_mesas"
+  add_foreign_key "citas", "relacion_agenda_plantillas"
   add_foreign_key "detalle_extras", "agendas"
   add_foreign_key "detalle_extras", "mesas"
   add_foreign_key "detalle_mesas", "mesas"

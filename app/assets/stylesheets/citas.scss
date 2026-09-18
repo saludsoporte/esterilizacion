@@ -1,0 +1,140 @@
+
+/* =========================================
+   FORMULARIO DE CITAS
+   ========================================= */
+
+.cita-formulario {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+/* Título principal */
+.cita-titulo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.cita-titulo h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cita-titulo p {
+  color: #6c757d;
+  margin: 0;
+}
+
+
+/* =========================================
+   TARJETAS
+   ========================================= */
+
+.cita-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cita-card:hover {
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.09);
+}
+
+
+/* Encabezado de cada sección */
+.cita-card-header {
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cita-card-header i {
+  font-size: 1.2rem;
+}
+
+.cita-card-header h5 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+
+/* Contenido */
+.cita-card-body {
+  padding: 25px;
+}
+
+
+/* =========================================
+   CAMPOS
+   ========================================= */
+
+.cita-formulario .form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #343a40;
+}
+
+.cita-formulario .form-control,
+.cita-formulario .form-select {
+  min-height: 44px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.cita-formulario .form-control:focus,
+.cita-formulario .form-select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
+}
+
+
+/* Textarea */
+.cita-formulario textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+
+/* =========================================
+   CAMPOS OBLIGATORIOS
+   ========================================= */
+
+.cita-formulario .campo-obligatorio::after {
+  content: " *";
+  color: #dc3545;
+}
+
+
+/* =========================================
+   SECCIÓN DE AGENDA
+   ========================================= */
+
+.cita-agenda {
+  border: 2px solid #198754;
+  border-radius: 14px;
+  background: #f8fffb;
+  padding: 5px;
+}
+
+.cita-agenda .cita-card-header {
+  background: #e9f7ef;
+  border-bottom-color: #c9ead7;
+}
+
+.cita-agenda .cita-card-header i {
+  color: #198754;
+}
+
+

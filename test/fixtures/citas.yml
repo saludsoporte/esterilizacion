@@ -1,0 +1,51 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estado: MyString
+  nombre_dueño: MyString
+  especie: MyString
+  sexo: MyString
+  telefono: MyString
+  motivo: MyString
+  fecha: 2026-09-17
+  edad_dueño: 1
+  calle: MyString
+  colonia: MyString
+  localidad: MyString
+  municipio: MyString
+  vacuna: false
+  nombre_mascota: MyString
+  edad_mascota: MyString
+  raza: MyString
+  medico: MyString
+  curp: MyString
+  sexo_dueño: MyString
+  apellido_p_dueño: MyString
+  apellido_m_dueño: MyString
+  relacion_agenda_plantilla: one
+  detalle_mesa: one
+
+two:
+  estado: MyString
+  nombre_dueño: MyString
+  especie: MyString
+  sexo: MyString
+  telefono: MyString
+  motivo: MyString
+  fecha: 2026-09-17
+  edad_dueño: 1
+  calle: MyString
+  colonia: MyString
+  localidad: MyString
+  municipio: MyString
+  vacuna: false
+  nombre_mascota: MyString
+  edad_mascota: MyString
+  raza: MyString
+  medico: MyString
+  curp: MyString
+  sexo_dueño: MyString
+  apellido_p_dueño: MyString
+  apellido_m_dueño: MyString
+  relacion_agenda_plantilla: two
+  detalle_mesa: two
