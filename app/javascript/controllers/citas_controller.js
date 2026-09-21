@@ -1,16 +1,20 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 import $ from "jquery";
 // Connects to data-controller="citas"
 export default class extends Controller {
   connect() {
-   $("#cita_sexo").on('change',function(){
-    if($("#cita_especie").val()!=null){
-      ajaxTurbo("setDiasDisponibles",{
-        paciente: $("#cita_especie").val(),
-        sexo: $(this).val()
-      })
-    }
-   }) 
+    $("#cita_sexo").on("change", function () {
+      if ($(this).val() != "") {
+        if ($("#cita_especie").val() != null) {
+          ajaxTurbo("setDiasDisponibles",{});
+        }
+      }
+    });
+     $(document).on("change", "#dias", function () {
+       if ($(this).val() != null) {
+         ajaxTurbo("setHorarioDisponibles", {});
+       }
+     });    
   }
 }
 function ajaxTurbo(ruta, parametros) {

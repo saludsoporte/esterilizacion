@@ -42,6 +42,8 @@ Rails.application.routes.draw do
   post "relacion_agenda_plantillas/:id/setMesa", to: "relacion_agenda_plantillas#setMesa"  
   post "relacion_agenda_plantillas/editRelacion", to: "relacion_agenda_plantillas#editRelacion"
   get "relacion_agenda_plantillas/editar_relaciones", to: "relacion_agenda_plantillas#editar_relaciones"
+  post "citas/setDiasDisponibles", to: "citas#setDiasDisponibles"
+  post "citas/setHorarioDisponibles", to: "citas#setHorarioDisponibles"
   resources :users
   resources :relacion_agenda_plantillas     
   resources :citas

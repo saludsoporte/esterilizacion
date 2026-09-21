@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "div_hora" do %>
+  <div id="div_dia" class="col-md-4">
+    <label class="form-label" for="detalle_mesa_id" >Horario</label>
+    <%= select_tag :detalle_mesa_id, @detalles_mesa, :id, :dia_nombre,
+        { prompt: "Selecciona una dia..." }, class: "form-select" %>
+  </div>
+<% end %>

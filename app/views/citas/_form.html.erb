@@ -66,10 +66,11 @@
         <h5>Datos de la cita</h5>
       </div>
       <div class="cita-card-body">
-        <div class="row g-3">          
+        <div class="row g-2">          
           <div id="div_dia" class="col-md-4"> 
           </div>
-          <div id="div_hora"  class="col-md-4"> <%= form.label :detalle_mesa_id, "Horario", class: "form-label" %> <%= form.collection_select :detalle_mesa_id, @detalles_mesa, :id, :horario, { prompt: "Selecciona un horario..." }, class: "form-select" %> </div>
+          <div id="div_hora"  class="col-md-4">
+          </div>
         </div>
       </div>
     </div>

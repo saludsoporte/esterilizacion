@@ -35,6 +35,39 @@ class CitasController < ApplicationController
     end
   end
 
+  def setDiasDisponibles
+    @agenda = Agenda.where(activo:true).order(id: :desc).first
+    @relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id).distinct.pluck(:dia,:dia_nombre)
+    #@relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id)
+    #@citas = Citas.where("relacion_agenda_plantilla in ?",@relaciones_agenda.pluck(:id))
+    #@relaciones_disponibles
+    respond_to do |format|
+      format.turbo_stream { render partial: "citas/cargar_dia", 
+      locals: { relaciones: @relaciones_agenda}}
+    end
+  end
+  def setHorarioDisponibles
+    paciente = params[:paciente] == 'Perro' ? 'P' : 'F'
+    sexo = params[:sexo] == 'Hembra' ? 'H' : 'M'
+    relacion = RelacionAgendaPlantilla.find(params[:dia])    
+    #mesa = relacion.detalle_plantilla.mesa_id
+    relacion.each do |rel|
+      citas = Citas.where(relacion_agenda_plantilla:rel.id)
+      mesa = rel.detalle_plantilla.mesa_id        
+      if !citas.pluck(:detalle_mesa_id).include?(mesa)
+        #cita nueva
+      end
+    end
+    
+
+
+    @horarios = DetalleMesa.where("paciente = ? and sexo = ? and mesa_id = ?",paciente,sexo,mesa)
+    
+    respond_to do |format|
+      format.turbo_stream { render partial: "citas/carga_horario", 
+      locals: { horarios: @horarios}}
+    end
+  end
   # PATCH/PUT /citas/1 or /citas/1.json
   def update
     respond_to do |format|
