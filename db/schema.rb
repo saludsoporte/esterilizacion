@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_09_18_161310) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_22_205306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_18_161310) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.bigint "agenda_id", null: false
+    t.index ["agenda_id"], name: "index_citas_on_agenda_id"
     t.index ["detalle_mesa_id"], name: "index_citas_on_detalle_mesa_id"
     t.index ["relacion_agenda_plantilla_id"], name: "index_citas_on_relacion_agenda_plantilla_id"
   end
@@ -143,6 +145,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_18_161310) do
   end
 
   add_foreign_key "agendas", "users"
+  add_foreign_key "citas", "agendas"
   add_foreign_key "citas", "detalle_mesas"
   add_foreign_key "citas", "relacion_agenda_plantillas"
   add_foreign_key "detalle_extras", "agendas"

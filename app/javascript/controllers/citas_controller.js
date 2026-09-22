@@ -10,9 +10,9 @@ export default class extends Controller {
         }
       }
     });
-     $(document).on("change", "#dias", function () {
+     $(document).on("change", "#dia_disponible", function () {
        if ($(this).val() != null) {
-         ajaxTurbo("setHorarioDisponibles", {});
+         ajaxTurbo("setHorarioDisponibles", {agenda_id:$("#agenda_id").val(),dias:$(this).val(),paciente:$("#cita_especie").val(),sexo:$("#cita_sexo").val()});
        }
      });    
   }

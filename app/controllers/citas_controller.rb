@@ -38,33 +38,38 @@ class CitasController < ApplicationController
   def setDiasDisponibles
     @agenda = Agenda.where(activo:true).order(id: :desc).first
     @relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id).distinct.pluck(:dia,:dia_nombre)
-    #@relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id)
-    #@citas = Citas.where("relacion_agenda_plantilla in ?",@relaciones_agenda.pluck(:id))
+    #@relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id)    
     #@relaciones_disponibles
     respond_to do |format|
       format.turbo_stream { render partial: "citas/cargar_dia", 
-      locals: { relaciones: @relaciones_agenda}}
+      locals: { relaciones: @relaciones_agenda,agenda:@agenda}}
     end
   end
   def setHorarioDisponibles
-    paciente = params[:paciente] == 'Perro' ? 'P' : 'F'
+    dia=params[:dias].split("_")[0]
+    numero_dia = params[:dias].split("_")[1]
+    paciente = params[:paciente] == 'Perro' ? 'C' : 'F'
     sexo = params[:sexo] == 'Hembra' ? 'H' : 'M'
-    relacion = RelacionAgendaPlantilla.find(params[:dia])    
-    #mesa = relacion.detalle_plantilla.mesa_id
-    relacion.each do |rel|
-      citas = Citas.where(relacion_agenda_plantilla:rel.id)
-      mesa = rel.detalle_plantilla.mesa_id        
-      if !citas.pluck(:detalle_mesa_id).include?(mesa)
-        #cita nueva
+    citas_posibles = []
+    relacion = RelacionAgendaPlantilla.where(agenda:params[:agenda_id],dia_nombre:dia)    
+    relacion.each do |rel|   
+      mesa = rel.detalle_plantilla.mesa_id
+      detalle_mesa = DetalleMesa.where(paciente: paciente,sexo: sexo,mesa_id: mesa)            
+      detalle_mesa.each do |dm|
+        citas_posibles.push(dm.id)          
+      end      
+    end
+    logger.debug("*************** citas_posibles #{citas_posibles}")
+    citas_disponibles = []
+    citas_creadas = Cita.where(agenda_id:params[:agenda])
+    citas_creadas.each do |cita|
+      if !citas_posibles.include?(cita.detalle_mesa_id)
+        citas_disponibles.push(cita.detalle_mesa_id)
       end
     end
-    
-
-
-    @horarios = DetalleMesa.where("paciente = ? and sexo = ? and mesa_id = ?",paciente,sexo,mesa)
-    
+    @horarios = DetalleMesa.where("id in ?",citas_disponibles)    
     respond_to do |format|
-      format.turbo_stream { render partial: "citas/carga_horario", 
+      format.turbo_stream { render partial: "citas/cargar_horarios", 
       locals: { horarios: @horarios}}
     end
   end
