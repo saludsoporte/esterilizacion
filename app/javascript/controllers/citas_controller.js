@@ -6,7 +6,10 @@ export default class extends Controller {
     $("#cita_sexo").on("change", function () {
       if ($(this).val() != "") {
         if ($("#cita_especie").val() != null) {
-          ajaxTurbo("setDiasDisponibles",{});
+          ajaxTurbo("setDiasDisponibles", {
+            paciente: $("#cita_especie").val(),
+            sexo: $("#cita_sexo").val(),
+          });
         }
       }
     });
