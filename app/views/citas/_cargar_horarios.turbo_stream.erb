@@ -1,7 +1,7 @@
 <%= turbo_stream.replace "div_hora" do %>
   <div id="div_dia" class="col-md-4">
     <label class="form-label" for="detalle_mesa_id" >Horario</label>
-    <select class="form-select" id="detalle_mesa_id">
+    <select class="form-select" id="detalle_mesa_id" name="detalle_mesa_id">
       <option selected valule="">Selecciona un dia</option>
       <% horarios.each do |hora|%>
         <option value="<%= hora.id%>"><%= hora.horario.strftime("%H:%M") %> - <%= hora.mesa.nombre_mesa %></option>

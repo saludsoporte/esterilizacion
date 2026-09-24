@@ -21,9 +21,16 @@ class CitasController < ApplicationController
   end
 
   # POST /citas or /citas.json
-  def create
+  def create    
+    adasd
+    #bucar la relacion con la mesa el dia y la plantilla 
+    dia= params[:dia_disponible].split('_')[0]
+    dia_numero = params[:dia_disponible].split('_')[1]
+    detalle_mesa = DetalleMesa.find(params[:detalle_mesa_id])
+    agenda = Agenda.find(params[:agenda_id])
+    det_plantilla = DetallePlantilla.find_by(dia:dia,mesa:detalle_mesa.mesa_id,plantilla:agenda.plantilla_id)
+    relacion = RelacionAgendaPlantilla.where(detalle_plantilla_id:det_plantilla.detalle_plantilla_id,dia_nombre:dia,dia:dia_numero)
     @cita = Cita.new(cita_params)
-
     respond_to do |format|
       if @cita.save
         format.html { redirect_to @cita, notice: "Cita was successfully created." }

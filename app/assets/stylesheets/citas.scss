@@ -138,3 +138,48 @@
 }
 
 
+.cita-acciones {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Botones generales */
+.cita-acciones .btn {
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+/* Cancelar */
+.btn-cancelar-cita {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.btn-cancelar-cita:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+/* Registrar */
+.btn-registrar-cita {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-registrar-cita:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
