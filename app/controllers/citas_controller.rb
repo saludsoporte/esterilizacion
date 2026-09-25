@@ -21,15 +21,22 @@ class CitasController < ApplicationController
   end
 
   # POST /citas or /citas.json
-  def create    
-    adasd
+  def create            
     #bucar la relacion con la mesa el dia y la plantilla 
     dia= params[:dia_disponible].split('_')[0]
     dia_numero = params[:dia_disponible].split('_')[1]
     detalle_mesa = DetalleMesa.find(params[:detalle_mesa_id])
     agenda = Agenda.find(params[:agenda_id])
-    det_plantilla = DetallePlantilla.find_by(dia:dia,mesa:detalle_mesa.mesa_id,plantilla:agenda.plantilla_id)
-    relacion = RelacionAgendaPlantilla.where(detalle_plantilla_id:det_plantilla.detalle_plantilla_id,dia_nombre:dia,dia:dia_numero)
+    det_plantilla = DetallePlantilla.find_by(dia:dia,mesa:detalle_mesa.mesa_id,plantilla:agenda.plantilla)
+    relacion = RelacionAgendaPlantilla.find_by(detalle_plantilla_id:det_plantilla.id,dia_nombre:dia,dia:dia_numero)
+    params[:cita][:estado]= "PENDIENTE"
+    params[:cita][:relacion_agenda_plantilla_id] = relacion.id
+    params[:cita][:detalle_mesa_id]=detalle_mesa.id
+    params[:cita][:agenda_id]=agenda.id
+    params[:cita][:medico]=relacion.user.nombre
+    params[:cita][:fecha]=Time.now()
+    logger.debug("************ #{params}")
+    
     @cita = Cita.new(cita_params)
     respond_to do |format|
       if @cita.save
@@ -52,36 +59,36 @@ class CitasController < ApplicationController
   end
   def setDiasDisponibles
     @agenda = Agenda.where(activo:true).order(id: :desc).first
-    
-    
-    paciente = params[:paciente] == 'Perro' ? 'C' : 'F'
-    sexo = params[:sexo] == 'Hembra' ? 'H' : 'M'
-    dias_citas = [      
-      ["LUNES", citasPosibles("LUNES",paciente,sexo,@agenda.plantilla.id)],
-      ["MARTES", citasPosibles("MARTES",paciente,sexo,@agenda.plantilla.id)],
-      ["MIERCOLES",citasPosibles("MIERCOLES",paciente,sexo,@agenda.plantilla.id)],
-      ["JUEVES", citasPosibles("JUEVES",paciente,sexo,@agenda.plantilla.id)],
-      ["VIERNES",citasPosibles("VIERNES",paciente,sexo,@agenda.plantilla.id)]      
-    ]
-    logger.debug(dias_citas)        
-    relacion = []
-    relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id).distinct.pluck(:dia,:dia_nombre)             
-    logger.debug("******** relaicon agenda ******** #{relaciones_agenda}")
-    dias_citas.each do |dia|
-      logger.debug("******** dia ******** #{dia}")
-      citas_creadas = Cita.where(agenda_id: @agenda.id).joins(:relacion_agenda_plantilla).where(relacion_agenda_plantillas: { dia_nombre: dia[0]})      
-      if citas_creadas.count  ==  dia[1] # || dia[0]=="VIERNES"
-        logger.debug("******** ENTRO")
-        relacion = relaciones_agenda.delete_if  {|rel| rel[1]==dia[0]} 
-        logger.debug("******** relacion ******** #{relacion}")
-        
-      else
-        relacion = relaciones_agenda
+    unless @agenda.nil?    
+      paciente = params[:paciente] == 'Perro' ? 'C' : 'F'
+      sexo = params[:sexo] == 'Hembra' ? 'H' : 'M'
+      dias_citas = [      
+        ["LUNES", citasPosibles("LUNES",paciente,sexo,@agenda.plantilla.id)],
+        ["MARTES", citasPosibles("MARTES",paciente,sexo,@agenda.plantilla.id)],
+        ["MIERCOLES",citasPosibles("MIERCOLES",paciente,sexo,@agenda.plantilla.id)],
+        ["JUEVES", citasPosibles("JUEVES",paciente,sexo,@agenda.plantilla.id)],
+        ["VIERNES",citasPosibles("VIERNES",paciente,sexo,@agenda.plantilla.id)]      
+      ]
+      logger.debug(dias_citas)        
+      relacion = []
+      relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id).distinct.pluck(:dia,:dia_nombre)             
+      logger.debug("******** relaicon agenda ******** #{relaciones_agenda}")
+      dias_citas.each do |dia|
+        logger.debug("******** dia ******** #{dia}")
+        citas_creadas = Cita.where(agenda_id: @agenda.id).joins(:relacion_agenda_plantilla).where(relacion_agenda_plantillas: { dia_nombre: dia[0]})      
+        if citas_creadas.count  ==  dia[1] # || dia[0]=="VIERNES"
+          logger.debug("******** ENTRO")
+          relacion = relaciones_agenda.delete_if  {|rel| rel[1]==dia[0]} 
+          logger.debug("******** relacion ******** #{relacion}")
+          
+        else
+          relacion = relaciones_agenda
+        end
       end
+      logger.debug("******** relacion ******** #{relacion}")
+      #@relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id)    
+      #@relaciones_disponibles
     end
-    logger.debug("******** relacion ******** #{relacion}")
-    #@relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id)    
-    #@relaciones_disponibles
     respond_to do |format|
       format.turbo_stream { render partial: "citas/cargar_dia", 
       locals: { relaciones: relacion,agenda:@agenda}}
@@ -156,6 +163,6 @@ class CitasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cita_params
-      params.require(:cita).permit(:estado, :nombre_dueño, :especie, :sexo, :telefono, :motivo, :fecha, :edad_dueño, :calle, :colonia, :localidad, :municipio, :vacuna, :nombre_mascota, :edad_mascota, :raza, :medico, :curp, :sexo_dueño, :apellido_p_dueño, :apellido_m_dueño, :relacion_agenda_plantilla_id, :detalle_mesa_id)
+      params.require(:cita).permit(:email,:estado, :nombre_dueño, :especie, :sexo, :telefono, :motivo, :fecha, :edad_dueño, :calle, :colonia, :localidad, :municipio, :vacuna, :nombre_mascota, :edad_mascota, :raza, :medico, :curp, :sexo_dueño, :apellido_p_dueño, :apellido_m_dueño, :relacion_agenda_plantilla_id, :detalle_mesa_id,:agenda_id)
     end
 end

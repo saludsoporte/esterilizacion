@@ -1,12 +1,18 @@
 <%= turbo_stream.replace "div_dia" do %>
-    <div id="div_dia" class="col-md-4">
-        <label class="form-label" for="relacion_agenda_plantilla_id" >Dias disponibles</label>
-        <select class="form-select" id="dia_disponible" name="dia_disponible">
-            <option selected valule="">Selecciona un dia</option>
-            <% relaciones.each do |rel|%>
-                <option value="<%= rel[1].to_s+"_"+rel[0].to_s %>"><%= rel[1].to_s+" - "+rel[0].to_s %></option>
-            <% end %>
-        </select>        
-    </div>
-    <input id="agenda_id" name="agenda_id" hidden type="number" value="<%=agenda.id%>">
+    <% if relaciones.nil? %>
+        <div id="div_dia" class="col-md-4">
+            <p>No hay agendas disponibles</p>
+        </div>
+    <% else %>
+        <div id="div_dia" class="col-md-4">
+            <label class="form-label" for="relacion_agenda_plantilla_id" >Dias disponibles</label>
+            <select class="form-select" id="dia_disponible" name="dia_disponible">
+                <option selected valule="">Selecciona un dia</option>
+                <% relaciones.each do |rel|%>
+                    <option value="<%= rel[1].to_s+"_"+rel[0].to_s %>"><%= rel[1].to_s+" - "+rel[0].to_s %></option>
+                <% end %>
+            </select>        
+        </div>
+        <input id="agenda_id" name="agenda_id" hidden type="number" value="<%=agenda.id%>">
+    <% end %>
 <% end %>

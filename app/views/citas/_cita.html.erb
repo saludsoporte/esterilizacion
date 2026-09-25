@@ -1,117 +1,140 @@
-<div id="<%= dom_id cita %>">
-  <p>
-    <strong>Estado:</strong>
-    <%= cita.estado %>
-  </p>
-
-  <p>
-    <strong>Nombre dueño:</strong>
-    <%= cita.nombre_dueño %>
-  </p>
-
-  <p>
-    <strong>Especie:</strong>
-    <%= cita.especie %>
-  </p>
-
-  <p>
-    <strong>Sexo:</strong>
-    <%= cita.sexo %>
-  </p>
-
-  <p>
-    <strong>Telefono:</strong>
-    <%= cita.telefono %>
-  </p>
-
-  <p>
-    <strong>Motivo:</strong>
-    <%= cita.motivo %>
-  </p>
-
-  <p>
-    <strong>Fecha:</strong>
-    <%= cita.fecha %>
-  </p>
-
-  <p>
-    <strong>Edad dueño:</strong>
-    <%= cita.edad_dueño %>
-  </p>
-
-  <p>
-    <strong>Calle:</strong>
-    <%= cita.calle %>
-  </p>
-
-  <p>
-    <strong>Colonia:</strong>
-    <%= cita.colonia %>
-  </p>
-
-  <p>
-    <strong>Localidad:</strong>
-    <%= cita.localidad %>
-  </p>
-
-  <p>
-    <strong>Municipio:</strong>
-    <%= cita.municipio %>
-  </p>
-
-  <p>
-    <strong>Vacuna:</strong>
-    <%= cita.vacuna %>
-  </p>
-
-  <p>
-    <strong>Nombre mascota:</strong>
-    <%= cita.nombre_mascota %>
-  </p>
-
-  <p>
-    <strong>Edad mascota:</strong>
-    <%= cita.edad_mascota %>
-  </p>
-
-  <p>
-    <strong>Raza:</strong>
-    <%= cita.raza %>
-  </p>
-
-  <p>
-    <strong>Medico:</strong>
-    <%= cita.medico %>
-  </p>
-
-  <p>
-    <strong>Curp:</strong>
-    <%= cita.curp %>
-  </p>
-
-  <p>
-    <strong>Sexo dueño:</strong>
-    <%= cita.sexo_dueño %>
-  </p>
-
-  <p>
-    <strong>Apellido p dueño:</strong>
-    <%= cita.apellido_p_dueño %>
-  </p>
-
-  <p>
-    <strong>Apellido m dueño:</strong>
-    <%= cita.apellido_m_dueño %>
-  </p>
-
-  <p>
-    <strong>Relacion agenda plantilla:</strong>
-    <%= cita.relacion_agenda_plantilla_id %>
-  </p>
-
-  <p>
-    <strong>Detalle mesa:</strong>
-    <%= cita.detalle_mesa_id %>
-  </p>
-
+<div id="<%= dom_id cita %>" class="cita-detalle">
+  <!-- ENCABEZADO -->
+  <div class="cita-detalle-header">
+    <div>
+      <span class="cita-detalle-label">CITA</span>
+      <h2>Información de la cita</h2>
+    </div>
+    <span class="cita-estado <%= cita.estado.to_s.downcase %>">
+      <%= cita.estado.presence || "Pendiente" %>
+    </span>
+  </div>
+  <!-- INFORMACIÓN DE LA CITA -->
+  <div class="cita-seccion">
+    <h3>📅 Datos de la cita</h3>
+    <div class="cita-grid">
+      <div class="cita-dato">
+        <span>Fecha de creacion</span>
+        <strong>
+          <%= cita.fecha.present? ? cita.fecha.strftime("%d/%m/%Y") : "No especificada" %>
+        </strong>
+      </div>
+      <div class="cita-dato">
+        <span>Dia</span>
+        <strong>
+          <%= cita.relacion_agenda_plantilla.dia_cita %>
+        </strong>
+      </div>
+      <div class="cita-dato">
+        <span>Hora</span>
+        <strong>
+          <%= cita.detalle_mesa.horario.strftime("%H:%M") %>
+        </strong>
+      </div>
+      <div class="cita-dato">
+        <span>Motivo de la cita</span>
+        <strong><%= cita.motivo.presence || "No especificado" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Médico</span>
+        <strong><%= cita.medico.presence || "No asignado" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Vacunación</span>
+        <strong>
+          <% if cita.vacuna %>
+            <span class="vacuna-confirmada">✓</span>
+          <% else %>
+            <span class="vacuna-no-confirmada">✕</span>
+          <% end %>
+        </strong>
+      </div>
+    </div>
+  </div>
+  <!-- PROPIETARIO -->
+  <div class="cita-seccion">
+    <h3>👤 Datos del propietario</h3>
+    <div class="cita-grid">
+      <div class="cita-dato cita-dato-grande">
+        <span>Nombre completo</span>
+        <strong>
+          <%= [
+        cita.nombre_dueño,
+        cita.apellido_p_dueño,
+        cita.apellido_m_dueño
+      ].compact_blank.join(" ") %>
+        </strong>
+      </div>
+      <div class="cita-dato">
+        <span>CURP</span>
+        <strong><%= cita.curp.presence || "No especificada" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Teléfono</span>
+        <strong><%= cita.telefono.presence || "No especificado" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Sexo</span>
+        <strong><%= cita.sexo_definido.presence || "No especificado" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Edad</span>
+        <strong>
+          <%= cita.edad_dueño.present? ? "#{cita.edad_dueño} años" : "No especificada" %>
+        </strong>
+      </div>
+    </div>
+  </div>
+  <!-- MASCOTA -->
+  <div class="cita-seccion">
+    <h3>🐾 Datos de la mascota</h3>
+    <div class="cita-mascota">
+      <div class="cita-mascota-nombre">
+        <span>Nombre de la mascota</span>
+        <strong><%= cita.nombre_mascota.presence || "Sin nombre" %></strong>
+      </div>
+      <div class="cita-grid">
+        <div class="cita-dato">
+          <span>Especie</span>
+          <strong><%= cita.especie.presence || "No especificada" %></strong>
+        </div>
+        <div class="cita-dato">
+          <span>Raza</span>
+          <strong><%= cita.raza.presence || "No especificada" %></strong>
+        </div>
+        <div class="cita-dato">
+          <span>Sexo</span>
+          <strong><%= cita.sexo.presence || "No especificado" %></strong>
+        </div>
+        <div class="cita-dato">
+          <span>Edad</span>
+          <strong>
+            <%= cita.edad_mascota.present? ? "#{cita.edad_mascota} años" : "No especificada" %>
+          </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- DOMICILIO -->
+  <div class="cita-seccion">
+    <h3>📍 Domicilio</h3>
+    <div class="cita-domicilio">
+      <div class="cita-dato">
+        <span>Calle</span>
+        <strong><%= cita.calle.presence || "No especificada" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Colonia</span>
+        <strong><%= cita.colonia.presence || "No especificada" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Localidad</span>
+        <strong><%= cita.localidad.presence || "No especificada" %></strong>
+      </div>
+      <div class="cita-dato">
+        <span>Municipio</span>
+        <strong><%= cita.municipio.presence || "No especificado" %></strong>
+      </div>
+    </div>
+  </div>
 </div>

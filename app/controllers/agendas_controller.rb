@@ -3,6 +3,9 @@ class AgendasController < ApplicationController
   # GET /agendas or /agendas.json
   def index
     @agendas = Agenda.all
+    Agenda.where(activo: true)
+      .where("fecha_fin < ?", Time.current)
+      .update_all(activo: false)    
   end
 
   # GET /agendas/1 or /agendas/1.json

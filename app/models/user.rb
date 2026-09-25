@@ -12,4 +12,7 @@ class User < ApplicationRecord
   def apellidos
     "#{apellido_p} #{apellido_m}".strip
   end
+  def nombre_completo
+    self.nombre+" "+self.apellido_p+" "+self.apellido_m
+  end
 end
