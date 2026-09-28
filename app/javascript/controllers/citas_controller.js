@@ -3,21 +3,25 @@ import $ from "jquery";
 // Connects to data-controller="citas"
 export default class extends Controller {
   connect() {
-    $("#cita_sexo").on("change", function () {
-      if ($(this).val() != "") {
+    $("#cita_especie").on("change",function(){      
+      $("#cita_sexo").val(null).trigger('change')
+    })
+    $("#cita_sexo").on("change", function () {      
+      if ($(this).val() != "") {        
         if ($("#cita_especie").val() != null) {
           ajaxTurbo("setDiasDisponibles", {
             paciente: $("#cita_especie").val(),
             sexo: $("#cita_sexo").val(),
           });
         }
-      }
+        $("#detalle_mesa_id").val("").trigger("change")
+      }      
     });
-     $(document).on("change", "#dia_disponible", function () {
-       if ($(this).val() != null) {
-         ajaxTurbo("setHorarioDisponibles", {agenda_id:$("#agenda_id").val(),dias:$(this).val(),paciente:$("#cita_especie").val(),sexo:$("#cita_sexo").val()});
-       }
-     });    
+    $(document).on("change", "#dia_disponible", function () {
+      if ($(this).val() != null) {
+        ajaxTurbo("setHorarioDisponibles", {agenda_id:$("#agenda_id").val(),dias:$(this).val(),paciente:$("#cita_especie").val(),sexo:$("#cita_sexo").val()});
+      }
+    });    
   }
 }
 function ajaxTurbo(ruta, parametros) {

@@ -6,9 +6,11 @@
   <%= form_with(model: cita, local: true) do |form| %> <% if cita.errors.any? %>
       <div class="alert alert-danger">
         <h5> <%= pluralize(cita.errors.count, "error") %> impidieron guardar la cita: </h5>
-        <ul class="mb-0"> <% cita.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %> </ul>
+        <ul class="mb-0">
+          <% cita.errors.each do |error| %>
+            <li><%= error.message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %> <!-- ========================================== DATOS DEL PROPIETARIO ========================================== -->
     <div class="cita-card">
@@ -43,7 +45,7 @@
         </div>
       </div>
     </div>
-    <!-- ========================================== DATOS DE LA MASCOTA ========================================== -->    
+    <!-- ========================================== DATOS DE LA MASCOTA ========================================== -->
     <div class="cita-card">
       <div class="cita-card-header"> <i class="bi bi-heart-fill"></i>
         <h5>Datos de la mascota</h5>
@@ -66,8 +68,8 @@
         <h5>Datos de la cita</h5>
       </div>
       <div class="cita-card-body">
-        <div class="row g-2">          
-          <div id="div_dia" class="col-md-4"> 
+        <div class="row g-2">
+          <div id="div_dia" class="col-md-4">
           </div>
           <div id="div_hora"  class="col-md-4">
           </div>

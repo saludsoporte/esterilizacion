@@ -22,20 +22,21 @@ class CitasController < ApplicationController
 
   # POST /citas or /citas.json
   def create            
-    #bucar la relacion con la mesa el dia y la plantilla 
-    dia= params[:dia_disponible].split('_')[0]
-    dia_numero = params[:dia_disponible].split('_')[1]
-    detalle_mesa = DetalleMesa.find(params[:detalle_mesa_id])
-    agenda = Agenda.find(params[:agenda_id])
-    det_plantilla = DetallePlantilla.find_by(dia:dia,mesa:detalle_mesa.mesa_id,plantilla:agenda.plantilla)
-    relacion = RelacionAgendaPlantilla.find_by(detalle_plantilla_id:det_plantilla.id,dia_nombre:dia,dia:dia_numero)
-    params[:cita][:estado]= "PENDIENTE"
-    params[:cita][:relacion_agenda_plantilla_id] = relacion.id
-    params[:cita][:detalle_mesa_id]=detalle_mesa.id
-    params[:cita][:agenda_id]=agenda.id
-    params[:cita][:medico]=relacion.user.nombre
-    params[:cita][:fecha]=Time.now()
-    logger.debug("************ #{params}")
+    #buscar la relacion con la mesa el dia y la plantilla     
+    if params[:dia_disponible].nil? == false && params[:detalle_mesa_id].nil? == false
+      agenda = Agenda.find(params[:agenda_id])
+      dia= params[:dia_disponible].split('_')[0]
+      dia_numero = params[:dia_disponible].split('_')[1]
+      detalle_mesa = DetalleMesa.find(params[:detalle_mesa_id])  
+      det_plantilla = DetallePlantilla.find_by(dia:dia,mesa:detalle_mesa.mesa_id,plantilla:agenda.plantilla)
+      relacion = RelacionAgendaPlantilla.find_by(detalle_plantilla_id:det_plantilla.id,dia_nombre:dia,dia:dia_numero)    
+      params[:cita][:estado]= "PENDIENTE"
+      params[:cita][:relacion_agenda_plantilla_id] = relacion.id
+      params[:cita][:detalle_mesa_id]=detalle_mesa.id
+      params[:cita][:agenda_id]=agenda.id
+      params[:cita][:medico]=relacion.user.nombre
+      params[:cita][:fecha]=Time.now()
+    end
     
     @cita = Cita.new(cita_params)
     respond_to do |format|
