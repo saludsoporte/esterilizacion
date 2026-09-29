@@ -1,6 +1,7 @@
 class PlantillasController < ApplicationController
+  include Pagy::Backend
   def index
-    @plantillas = Plantilla.all
+    @pagy,@plantillas = pagy(Plantilla.all,limit:1)
   end
 
   def new

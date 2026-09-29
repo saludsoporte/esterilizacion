@@ -1,6 +1,7 @@
 class Cita < ApplicationRecord
   belongs_to :relacion_agenda_plantilla,optional: true
   belongs_to :detalle_mesa,optional: true
+  belongs_to :agenda
 
   validates :relacion_agenda_plantilla_id, 
             presence: { message: "Debe escoger un dia para la cita"}

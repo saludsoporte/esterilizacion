@@ -55,67 +55,67 @@
                   <div class="col-md-6 col-lg-4">
                     <div class="mesa-card ">
                       <div class="accordion-item">
-                      <!-- ENCABEZADO MESA -->
-                      <div class="accordion-header">
-                        <button
+                        <!-- ENCABEZADO MESA -->
+                        <div class="accordion-header">
+                          <button
                             class="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#acordion<%= detalle.id %>"
                             aria-expanded="false"
                             aria-controls="acordion<%= detalle.id %>">
-                          <h6>
-                            <%= mesa.nombre_mesa %>
-                          </h6>
-                        </button>
-                      </div>
-                      <!-- INFORMACIÓN DE LA MESA -->
-                      <div
+                            <h6>
+                              <%= mesa.nombre_mesa %>
+                            </h6>
+                          </button>
+                        </div>
+                        <!-- INFORMACIÓN DE LA MESA -->
+                        <div
                           id="acordion<%= detalle.id %>"
                           class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                          <!-- ENCABEZADOS -->
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="mesa-dato">
-                                <span>
-                                  Paciente
-                                </span>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="mesa-dato">
-                                <span>
-                                  Horario
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- DETALLES DE LA MESA -->
-                          <% mesa.detalle_mesas.each do |detalle_mesa|%>
+                          <div class="accordion-body">
+                            <!-- ENCABEZADOS -->
                             <div class="row">
-                              <!-- PACIENTE -->
                               <div class="col-md-6">
                                 <div class="mesa-dato">
-                                  <strong>
-                                    <%= detalle_mesa.paciente+detalle_mesa.sexo %>
-                                  </strong>
+                                  <span>
+                                    Paciente
+                                  </span>
                                 </div>
                               </div>
-                              <!-- HORARIO -->
                               <div class="col-md-6">
                                 <div class="mesa-dato">
-                                  <strong>
-                                    <%= detalle_mesa.horario&.strftime("%H:%M") %>
-                                  </strong>
+                                  <span>
+                                    Horario
+                                  </span>
                                 </div>
                               </div>
                             </div>
-                          <% end %>
+                            <!-- DETALLES DE LA MESA -->
+                            <% mesa.detalle_mesas.each do |detalle_mesa|%>
+                              <div class="row">
+                                <!-- PACIENTE -->
+                                <div class="col-md-6">
+                                  <div class="mesa-dato">
+                                    <strong>
+                                      <%= detalle_mesa.paciente+detalle_mesa.sexo %>
+                                    </strong>
+                                  </div>
+                                </div>
+                                <!-- HORARIO -->
+                                <div class="col-md-6">
+                                  <div class="mesa-dato">
+                                    <strong>
+                                      <%= detalle_mesa.horario&.strftime("%H:%M") %>
+                                    </strong>
+                                  </div>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 <% end %>
               </div>
@@ -123,6 +123,10 @@
           <% end %>
         </div>
       <% end %>
+      <div class="paginacion-citas">
+        <div class="paginacion-info"> <%== pagy_info(@pagy) %> </div>
+        <div class="paginacion-nav"> <%== pagy_nav(@pagy) %> </div>
+      </div>
     </div>
   <% else %>
     <div class="sin-plantillas">
