@@ -21,3 +21,14 @@ es:
             password:
               blank: "La contraseña es obligatoria"
               too_short: "La contraseña es demasiado corta"
+es:
+  pagy:
+    item_name:
+      one: "elemento"
+      other: "elementos"
+
+    info_tag:
+      no_count: "Página %{page} de %{pages}"
+      no_items: "No se encontraron %{item_name}"
+      single_page: "Mostrando %{count} %{item_name}"
+      multiple_pages: "Mostrando %{item_name} %{from}-%{to} de %{count} en total"

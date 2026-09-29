@@ -1,8 +1,9 @@
 class AgendasController < ApplicationController
   before_action  :authenticate_user!,:set_agenda, only: %i[ show edit update destroy ]
+  include Pagy::Backend
   # GET /agendas or /agendas.json
   def index
-    @agendas = Agenda.all
+    @pagy,@agendas = pagy(Agenda.all)
     Agenda.where(activo: true)
       .where("fecha_fin < ?", Time.current)
       .update_all(activo: false)    
@@ -30,7 +31,8 @@ class AgendasController < ApplicationController
     @agenda.hora_inicio = '8:00'
     respond_to do |format|
       if @agenda.save
-        format.html { redirect_to new_relacion_agenda_plantilla_path(agenda:@agenda.id), notice: "Agenda was successfully created." }
+        agenda = Agenda.last
+        format.html { redirect_to new_relacion_agenda_plantilla_path(agenda:agenda.id), notice: "Agenda was successfully created." }
         format.json { render :show, status: :created, location: @agenda }
       else
         format.html { render :new, status: :unprocessable_content }

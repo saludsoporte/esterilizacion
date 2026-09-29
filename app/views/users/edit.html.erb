@@ -131,8 +131,9 @@
           <i class="bi bi-x-lg"></i>
           Cancelar
         <% end %>
-        <%= form.submit "Guardar cambios",
-            class: "btn-guardar" %>
+        <% if current_user.admin? %>
+          <%= form.submit "Guardar cambios",class: "btn-guardar" %>
+        <% end %>
       </div>
     <% end %>
   </div>

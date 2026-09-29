@@ -3,7 +3,7 @@ class RelacionAgendaPlantillasController < ApplicationController
   def new
     @users = User.all 
     @relacion_agenda = RelacionAgendaPlantilla.new
-    @agenda = Agenda.find(params[:agenda_id])
+    @agenda = Agenda.find(params[:agenda])
   end
   def agregar_medico
     @medico = User.find(params[:user_id])

@@ -41,6 +41,9 @@ class CitasController < ApplicationController
     @cita = Cita.new(cita_params)
     respond_to do |format|
       if @cita.save
+        citas = Cita.where(agenda_id: @cita.agenda_id)
+        @cita.agenda.update(num_citas:citas.count)
+
         format.html { redirect_to @cita, notice: "Cita was successfully created." }
         format.json { render :show, status: :created, location: @cita }
       else
@@ -59,8 +62,8 @@ class CitasController < ApplicationController
     return citas_posibles
   end
   def setDiasDisponibles
-    @agenda = Agenda.where(activo:true).order(id: :desc).first
-    unless @agenda.nil?    
+    @agenda = Agenda.where(activo:true).order(id: :desc).first        
+    if @agenda.nil? == false && @agenda.relacion_agenda_plantillas.exists? == true
       paciente = params[:paciente] == 'Perro' ? 'C' : 'F'
       sexo = params[:sexo] == 'Hembra' ? 'H' : 'M'
       dias_citas = [      
@@ -71,9 +74,8 @@ class CitasController < ApplicationController
         ["VIERNES",citasPosibles("VIERNES",paciente,sexo,@agenda.plantilla.id)]      
       ]
       logger.debug(dias_citas)        
-      relacion = []
-      relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id).distinct.pluck(:dia,:dia_nombre)             
-      logger.debug("******** relaicon agenda ******** #{relaciones_agenda}")
+      relacion = []                       
+      relaciones_agenda = RelacionAgendaPlantilla.where(agenda_id:@agenda.id).distinct.pluck(:dia,:dia_nombre)  
       dias_citas.each do |dia|
         logger.debug("******** dia ******** #{dia}")
         citas_creadas = Cita.where(agenda_id: @agenda.id).joins(:relacion_agenda_plantilla).where(relacion_agenda_plantillas: { dia_nombre: dia[0]})      
