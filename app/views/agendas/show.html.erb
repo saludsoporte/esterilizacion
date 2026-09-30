@@ -14,14 +14,17 @@
         <i class="bi bi-arrow-left"></i>
         Volver a agendas
       <% end %>
-      <%= link_to edit_relacion_agenda_plantilla_path(agenda:@agenda.id),
+      <%= link_to edit_agenda_path(@agenda),
             class: "btn-editar-relacion" do %>
         <i class="bi bi-pencil-square"></i>
-        Editar Relaciones
+        Editar Agenda
       <% end %>
     </div>
   </div>
   <div class="agenda-form-card">
     <%= render @agenda %>
+  </div>
+  <div class="agenda-form-card">
+    <%= render "lista_citas" %>
   </div>
 </div>

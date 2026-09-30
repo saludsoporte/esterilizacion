@@ -1,21 +1,9 @@
 Rails.application.routes.draw do
  
-  # Plantillas
-  resources :plantillas do
-    collection do
-      get :mesas_seleccionadas
-    end
-  end
-
-  # Mesas
-  resources :mesas do
-    member do
-      patch :seleccionar
-    end
-  end
+ 
 
   # Agendas
-  resources :agendas
+
 
   # Agregar detalle de mesa
   get "mesas/agregar_detalle", to: "mesas#agregar_detalle"
@@ -44,6 +32,22 @@ Rails.application.routes.draw do
   get "relacion_agenda_plantillas/editar_relaciones", to: "relacion_agenda_plantillas#editar_relaciones"
   post "citas/setDiasDisponibles", to: "citas#setDiasDisponibles"
   post "citas/setHorarioDisponibles", to: "citas#setHorarioDisponibles"
+  patch "agendas/atender_cita", to: "agendas#atender_cita", as: :agendas_atender_cita
+
+   # Plantillas
+  resources :plantillas do
+    collection do
+      get :mesas_seleccionadas
+    end
+  end
+
+  # Mesas
+  resources :mesas do
+    member do
+      patch :seleccionar
+    end
+  end
+  resources :agendas
   resources :users
   resources :relacion_agenda_plantillas     
   resources :citas

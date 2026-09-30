@@ -1,5 +1,7 @@
 class AgendasController < ApplicationController
-  before_action  :authenticate_user!,:set_agenda, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_agenda, only: [:show, :edit, :update, :destroy]
+
   include Pagy::Backend
   # GET /agendas or /agendas.json
   def index
@@ -19,6 +21,13 @@ class AgendasController < ApplicationController
     @agenda = Agenda.new
   end
 
+  def atender_cita        
+    cita = Cita.find(params[:cita_id])
+
+    cita.update!(estado: "ATENDIENDO")
+
+    redirect_to agenda_path(cita.agenda_id)
+  end
   # GET /agendas/1/edit
   def edit
     agenda = Agenda.find(params[:id])
@@ -67,6 +76,10 @@ class AgendasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_agenda
+      Rails.logger.debug "🔥 SET_AGENDA EJECUTADO"
+  Rails.logger.debug "🔥 ACTION: #{action_name}"
+  Rails.logger.debug "🔥 PARAMS: #{params.inspect}"
+
       @agenda = Agenda.find(params[:id])
     end
 

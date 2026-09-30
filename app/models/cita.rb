@@ -48,4 +48,10 @@ class Cita < ApplicationRecord
   def sexo_definido
     self[:sexo_dueño] == 'M' ? 'Masculino' : 'Femenino'
   end
+  def nombre_completo
+    self.nombre_dueño+" "+self.apellido_p_dueño+" "+self.apellido_m_dueño
+  end
+  def especie_y_sexo
+    self.especie+" | "+self.sexo
+  end
 end
