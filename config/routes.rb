@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   post "citas/setDiasDisponibles", to: "citas#setDiasDisponibles"
   post "citas/setHorarioDisponibles", to: "citas#setHorarioDisponibles"
   patch "agendas/atender_cita", to: "agendas#atender_cita", as: :agendas_atender_cita
+  patch "agendas/finalizar_cita", to: "agendas#finalizar_cita", as: :agendas_finalizar_cita
+  patch "agendas/cancelar_cita", to: "agendas#cancelar_cita", as: :agendas_cancelar_cita
+  get "notificaciones", to: "notificaciones#index", as: :notificaciones
 
    # Plantillas
   resources :plantillas do

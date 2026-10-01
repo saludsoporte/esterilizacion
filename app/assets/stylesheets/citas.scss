@@ -386,3 +386,51 @@ grid-column: span 1;
   font-size: 18px;
   font-weight: bold;
 }
+
+/* =========================================================
+   COLUMNA DE ACCIONES
+   ========================================================= */
+
+.acciones-columna {
+  width: 220px;
+  min-width: 220px;
+}
+
+
+/* Contenedor */
+
+.acciones-cita {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  width: 100%;
+}
+
+
+/* Todos los botones tienen exactamente el mismo tamaño */
+
+.btn-cita {
+  width: 100px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  padding: 0;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* Iconos */
+
+.btn-cita i {
+  font-size: 13px;
+}

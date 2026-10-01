@@ -28,6 +28,12 @@ class AgendasController < ApplicationController
 
     redirect_to agenda_path(cita.agenda_id)
   end
+  def cancelar_cita        
+    cita = Cita.find(params[:cita_id])
+    cita.update!(estado: "CANCELADA")
+    #preguntar si se quiere enviar correo de cancelacion
+    redirect_to agenda_path(cita.agenda_id)
+  end
   # GET /agendas/1/edit
   def edit
     agenda = Agenda.find(params[:id])

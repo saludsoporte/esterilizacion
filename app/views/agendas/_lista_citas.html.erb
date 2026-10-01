@@ -15,6 +15,7 @@
               <th>Propietario</th>
               <th>Mascota</th>
               <th>Especie</th>
+              <th>Horario</th>
               <th>Médico</th>
               <th>Estado</th>
               <th class="text-center">Acciones</th>
@@ -49,23 +50,26 @@
                   <%= cita.especie_y_sexo %>
                 </td>
                 <td>
+                  <%= cita.horarios %>
+                </td>
+                <td>
                   <%= cita.medico %>
                 </td>
                 <td>
                   <% case cita.estado %>
                   <% when "PENDIENTE" %>
                     <span class="badge  bg-warning" >
-                      Pendiente
+                      PENDIENTE
                     </span>
-                  <% when "confirmada" %>
+                  <% when "ATENDIENDO" %>
                     <span class="badge bg-success">
-                      Confirmada
+                      ATENDIENDO
                     </span>
-                  <% when "cancelada" %>
+                  <% when "FINALIZADA" %>
                     <span class="badge bg-danger">
                       Cancelada
                     </span>
-                  <% when "atendida" %>
+                  <% when "CANCELADA" %>
                     <span class="badge bg-primary">
                       Atendida
                     </span>
@@ -75,16 +79,28 @@
                     </span>
                   <% end %>
                 </td>
-                <td class="text-center">
-                  <% case cita.estado %>
-                  <% when "PENDIENTE" %>
-                    <%= link_to "ATENDER",
-                      agendas_atender_cita_path(cita_id: cita.id),
-                      data: { turbo_method: :patch },
-                      class: "btn btn-sm btn-success" %>
-                  <% when "CONFIRMADA" %>
-                  <% when "CANCELADA" %>
-                  <% end %>
+                <td class="text-center acciones-columna">
+                  <div class="acciones-cita">
+                    <% case cita.estado %>
+                    <% when "PENDIENTE" %>
+                      <%= link_to agendas_atender_cita_path(cita_id: cita.id), data: { turbo_method: :patch },
+                       class: "btn btn-sm btn-success btn-cita" do %> <i class="bi bi-play-fill"></i>
+                        <span>ATENDER</span>
+                      <% end %>
+                      <%= link_to agendas_cancelar_cita_path(cita_id: cita.id), data: { turbo_method: :patch }, 
+                      class: "btn btn-sm btn-danger btn-cita" do %> <i class="bi bi-x-lg"></i>
+                        <span>CANCELAR</span>
+                      <% end %>
+                    <% when "ATENDIENDO" %>
+                      <%= link_to agendas_finalizar_cita_path(cita_id: cita.id), data: { turbo_method: :patch }, 
+                      class: "btn btn-sm btn-primary btn-cita" do %> <i class="bi bi-check-lg"></i>
+                        <span>FINALIZAR</span>
+                      <% end %> <%= link_to agendas_cancelar_cita_path(cita_id: cita.id), data: { turbo_method: :patch },
+                       class: "btn btn-sm btn-danger btn-cita" do %> <i class="bi bi-x-lg"></i>
+                        <span>CANCELAR</span>
+                      <% end %>
+                    <% end %>
+                  </div>
                 </td>
               </tr>
             <% end %>
