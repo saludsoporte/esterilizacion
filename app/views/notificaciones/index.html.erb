@@ -1,0 +1,101 @@
+<div class="notificaciones-container">
+  <!-- ENCABEZADO -->
+  <div class="notificaciones-titulo">
+    <div>
+      <h1>
+        <i class="bi bi-bell me-2"></i>
+        Mis notificaciones
+      </h1>
+      <p>
+        Consulta las notificaciones relacionadas con tus citas.
+      </p>
+    </div>
+    <% if current_user.notificaciones.no_leidas.exists? %>
+      <%= button_to marcar_todas_leidas_notificaciones_path,
+                    method: :patch,
+                    class: "btn-marcar-todas",
+                    form: { data: { turbo: true } } do %>
+        <i class="bi bi-check2-all me-1"></i>
+        Marcar todas como leídas
+      <% end %>
+    <% end %>
+  </div>
+  <!-- LISTA DE NOTIFICACIONES -->
+  <div class="notificaciones-card">
+    <% if @notificaciones.any? %>
+      <% @notificaciones.each do |notificacion| %>
+        <div class="notificacion <%= 'no-leida' unless notificacion.leida %>">
+          <!-- ICONO -->
+          <div class="notificacion-icono">
+            <% if notificacion.cita&.estado == "ATENDIENDO" %>
+              <i class="bi bi-person-check"></i>
+            <% elsif notificacion.cita&.estado == "FINALIZADA" %>
+              <i class="bi bi-check-circle"></i>
+            <% elsif notificacion.cita&.estado == "CANCELADA" %>
+              <i class="bi bi-x-circle"></i>
+            <% else %>
+              <i class="bi bi-calendar-event"></i>
+            <% end %>
+          </div>
+          <!-- CONTENIDO -->
+          <div class="notificacion-contenido">
+            <div class="notificacion-mensaje">
+              <%= notificacion.mensaje %>
+            </div>
+            <% if notificacion.cita %>
+              <div class="notificacion-cita">
+                <span>
+                  <i class="bi bi-calendar3 me-1"></i>
+                  <%= notificacion.cita.fecha.strftime("%d/%m/%Y") %>
+                </span>
+                <span>
+                  <i class="bi bi-person me-1"></i>
+                  <%= notificacion.cita.nombre_dueño %>
+                </span>
+                <span>
+                  <i class="bi bi-heart-pulse me-1"></i>
+                  <%= notificacion.cita.nombre_mascota %>
+                </span>
+              </div>
+            <% end %>
+            <div class="notificacion-fecha">
+              <i class="bi bi-clock me-1"></i>
+              <%= notificacion.updated_at.strftime("%d/%m/%Y %H:%M") %>
+            </div>
+          </div>
+          <!-- ESTADO / ACCIÓN -->
+          <div class="notificacion-accion">
+            <% unless notificacion.leida %>
+              <span class="notificacion-nueva">
+                Nueva
+              </span>
+              <%= button_to marcar_leida_notificacion_path(notificacion),
+                            method: :patch,
+                            class: "btn-marcar-leida",
+                            title: "Marcar como leída" do %>
+                <i class="bi bi-check2"></i>
+              <% end %>
+            <% else %>
+              <span class="notificacion-leida">
+                <i class="bi bi-check2"></i>
+                Leída
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <!-- SIN NOTIFICACIONES -->
+      <div class="notificaciones-vacias">
+        <div class="notificaciones-vacias-icono">
+          <i class="bi bi-bell-slash"></i>
+        </div>
+        <h3>No tienes notificaciones</h3>
+        <p>
+          Cuando haya cambios relacionados con tus citas,
+          aparecerán aquí.
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -22,17 +22,33 @@ class AgendasController < ApplicationController
   end
 
   def atender_cita        
-    cita = Cita.find(params[:cita_id])
-
-    cita.update!(estado: "ATENDIENDO")
-
-    redirect_to agenda_path(cita.agenda_id)
+    cita = Cita.find(params[:cita_id])       
+    cambiar_estado_cita( cita, "ATENDIENDO", "La cita de #{cita.nombre_mascota} ha comenzado a ser atendida.", "La cita está siendo atendida." )    
   end
+  def finalizar_cita     
+    cita = Cita.find(params[:cita_id]) 
+    cita.update(estado: "FINALIZADA") 
+    crear_notificacion_cita!( cita, "La cita de #{cita.nombre_mascota} ha sido finalizada." )         
+  end  
   def cancelar_cita        
     cita = Cita.find(params[:cita_id])
-    cita.update!(estado: "CANCELADA")
+    cambiar_estado_cita( cita, "CANCELADA", "La cita de #{cita.nombre_mascota} ha sido cancelada.", "La cita ha sido cancelada." )    
     #preguntar si se quiere enviar correo de cancelacion
-    redirect_to agenda_path(cita.agenda_id)
+    
+  end
+
+  def crear_notificacion_cita(cita, mensaje) 
+    medico = cita.relacion_agenda_plantilla.user 
+    Notificacion.create!( user: medico, cita: cita, mensaje: mensaje ) 
+  end
+
+  def cambiar_estado_cita(cita, estado, mensaje, notice) 
+    if cita.update(estado: estado)   
+      actualizar_notificacion_cita(cita, mensaje) 
+    else
+      flash[:alert] = "No se pudo actualizar el estado de la cita."
+    end
+    redirect_to agenda_path(cita.relacion_agenda_plantilla.agenda)    
   end
   # GET /agendas/1/edit
   def edit
@@ -80,6 +96,13 @@ class AgendasController < ApplicationController
   end
 
   private
+  def actualizar_notificacion_cita(cita, mensaje)     
+    medico = cita.relacion_agenda_plantilla.user 
+    notificacion = Notificacion.find_or_initialize_by( user: medico, cita: cita )     
+    notificacion.mensaje = mensaje
+    notificacion.leida = false 
+    notificacion.save! 
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_agenda
       Rails.logger.debug "🔥 SET_AGENDA EJECUTADO"

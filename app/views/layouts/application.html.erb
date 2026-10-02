@@ -19,9 +19,15 @@
           <li class="nav-item dropdown"> <a class="nav-link usuario-menu d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person-circle me-2"></i> <span><%= current_user.email %></span> <i class="bi bi-chevron-down ms-2"></i> </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                <%= link_to notificaciones_path, class: "dropdown-item" do %>
+                <%= link_to notificaciones_path, class: "dropdown-item d-flex align-items-center" do %>
                   <i class="bi bi-bell me-2"></i>
-                  Mis notificaciones
+                  <span>Mis notificaciones</span>
+                  <% pendientes = current_user.notificaciones.no_leidas.count %>
+                  <% if pendientes > 0 %>
+                    <span class="badge bg-danger ms-auto">
+                      <%= pendientes %>
+                    </span>
+                  <% end %>
                 <% end %>
               </li>
               <li> <hr class="dropdown-divider"> </li>

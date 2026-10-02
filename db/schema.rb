@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_09_22_205306) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_02_175854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,17 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_22_205306) do
     t.boolean "seleccionada", default: false
   end
 
+  create_table "notificacions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "cita_id", null: false
+    t.text "mensaje"
+    t.boolean "leida"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cita_id"], name: "index_notificacions_on_cita_id"
+    t.index ["user_id"], name: "index_notificacions_on_user_id"
+  end
+
   create_table "plantillas", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
@@ -153,6 +164,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_09_22_205306) do
   add_foreign_key "detalle_mesas", "mesas"
   add_foreign_key "detalle_plantillas", "mesas"
   add_foreign_key "detalle_plantillas", "plantillas"
+  add_foreign_key "notificacions", "citas"
+  add_foreign_key "notificacions", "users"
   add_foreign_key "relacion_agenda_plantillas", "agendas"
   add_foreign_key "relacion_agenda_plantillas", "detalle_extras"
   add_foreign_key "relacion_agenda_plantillas", "detalle_plantillas"

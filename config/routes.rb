@@ -37,7 +37,16 @@ Rails.application.routes.draw do
   patch "agendas/cancelar_cita", to: "agendas#cancelar_cita", as: :agendas_cancelar_cita
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
 
-   # Plantillas
+  
+  patch "notificaciones/:id/marcar_leida",
+      to: "notificaciones#marcar_leida",
+      as: :marcar_leida_notificacion
+
+  patch "notificaciones/marcar_todas_leidas",
+      to: "notificaciones#marcar_todas_leidas",
+      as: :marcar_todas_leidas_notificaciones
+
+  # Plantillas
   resources :plantillas do
     collection do
       get :mesas_seleccionadas

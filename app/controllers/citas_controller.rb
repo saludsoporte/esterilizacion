@@ -42,7 +42,12 @@ class CitasController < ApplicationController
     respond_to do |format|
       if @cita.save
         citas = Cita.where(agenda_id: @cita.agenda_id)
-        @cita.agenda.update(num_citas:citas.count)
+        @cita.agenda.update(num_citas:citas.count)        
+        Notificacion.create!(
+          user: @cita.relacion_agenda_plantilla.user,
+          cita: @cita,
+          mensaje: "La cita de #{@cita.nombre_mascota} esta pendiente."
+        )
 
         format.html { redirect_to @cita, notice: "Cita was successfully created." }
         format.json { render :show, status: :created, location: @cita }
