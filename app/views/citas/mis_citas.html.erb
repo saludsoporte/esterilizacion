@@ -1,0 +1,121 @@
+<div class="card shadow-sm">
+  <div class="card-header bg-white">
+    <h5 class="mb-0">
+      Citas registradas
+    </h5>
+  </div>
+  <div class="card-body p-0">
+    <% if @citas.any? %>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Fecha</th>
+              <th>Propietario</th>
+              <th>Mascota</th>
+              <th>Especie</th>
+              <th>Horario</th>
+              <th>Médico</th>
+              <th>Estado</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @citas.each_with_index do |cita, index| %>
+              <tr>
+                <td>
+                  <%= index + 1 %>
+                </td>
+                <td>
+                  <%= cita.fecha&.strftime("%d/%m/%Y") %>
+                </td>
+                <td>
+                  <strong>
+                    <%= cita.nombre_completo %>
+                  </strong>
+                </td>
+                <td>
+                  <strong>
+                    <%= cita.nombre_mascota %>
+                  </strong>
+                  <% if cita.raza.present? %>
+                    <br>
+                    <small class="text-muted">
+                      Raza: <%= cita.raza %>
+                    </small>
+                  <% end %>
+                </td>
+                <td>
+                  <%= cita.especie_y_sexo %>
+                </td>
+                <td>
+                  <%= cita.horarios %>
+                </td>
+                <td>
+                  <%= cita.medico %>
+                </td>
+                <td>
+                  <% case cita.estado %>
+                  <% when "PENDIENTE" %>
+                    <span class="badge  bg-warning" >
+                      PENDIENTE
+                    </span>
+                  <% when "ATENDIENDO" %>
+                    <span class="badge bg-warning text-dark">
+                      ATENDIENDO
+                    </span>
+                  <% when "FINALIZADA" %>
+                    <span class="badge bg-success">
+                      FINALIZADA
+                    </span>
+                  <% when "CANCELADA" %>
+                    <span class="badge bg-danger">
+                      CANCELADA
+                    </span>
+                  <% else %>
+                    <span class="badge bg-secondary">
+                      <%= cita.estado.presence || "Sin estado" %>
+                    </span>
+                  <% end %>
+                </td>
+                <td class="text-center acciones-columna">
+                  <div class="acciones-cita">
+                    <% case cita.estado %>
+                    <% when "PENDIENTE" %>
+                      <%= link_to agendas_atender_cita_path(cita_id: cita.id), data: { turbo_method: :patch },
+                       class: "btn btn-sm btn-success btn-cita" do %> <i class="bi bi-play-fill"></i>
+                        <span>ATENDER</span>
+                      <% end %>
+                      <%= link_to agendas_cancelar_cita_path(cita_id: cita.id), data: { turbo_method: :patch }, 
+                      class: "btn btn-sm btn-danger btn-cita" do %> <i class="bi bi-x-lg"></i>
+                        <span>CANCELAR</span>
+                      <% end %>
+                    <% when "ATENDIENDO" %>
+                      <%= link_to agendas_finalizar_cita_path(cita_id: cita.id), data: { turbo_method: :patch }, 
+                      class: "btn btn-sm btn-primary btn-cita" do %> <i class="bi bi-check-lg"></i>
+                        <span>FINALIZAR</span>
+                      <% end %> <%= link_to agendas_cancelar_cita_path(cita_id: cita.id), data: { turbo_method: :patch },
+                       class: "btn btn-sm btn-danger btn-cita" do %> <i class="bi bi-x-lg"></i>
+                        <span>CANCELAR</span>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center py-5">
+        <h5 class="text-muted">
+          No hay citas registradas
+        </h5>
+        <p class="text-muted mb-0">
+          Esta agenda todavía no tiene citas.
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

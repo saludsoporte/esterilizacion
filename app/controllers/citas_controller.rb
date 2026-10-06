@@ -1,6 +1,41 @@
 class CitasController < ApplicationController
   before_action :set_cita, only: %i[ show edit update destroy ]
-   before_action :cargar_catalogos, only: %i[new edit]
+  before_action :cargar_catalogos, only: %i[new edit]
+  
+  def atender_cita        
+    cita = Cita.find(params[:cita_id])       
+    cambiar_estado_cita( cita, "ATENDIENDO", "La cita de #{cita.nombre_mascota} ha comenzado a ser atendida.", "La cita está siendo atendida." )    
+  end
+  def finalizar_cita     
+    cita = Cita.find(params[:cita_id]) 
+    cita.update(estado: "FINALIZADA") 
+    cambiar_estado_cita( cita, "FINALIZADA", "La cita de #{cita.nombre_mascota} ha finalizado.", "La cita termino." )    
+  end  
+  def cancelar_cita        
+    cita = Cita.find(params[:cita_id])
+    cambiar_estado_cita( cita, "CANCELADA", "La cita de #{cita.nombre_mascota} ha sido cancelada.", "La cita ha sido cancelada." )    
+    #preguntar si se quiere enviar correo de cancelacion
+    
+  end
+  def cambiar_estado_cita(cita, estado, mensaje, notice) 
+    if cita.update(estado: estado)   
+      actualizar_notificacion_cita(cita, mensaje) 
+    else
+      flash[:alert] = "No se pudo actualizar el estado de la cita."
+    end
+    redirect_to mis_citas_path
+  end
+  def actualizar_notificacion_cita(cita, mensaje)     
+    medico = cita.relacion_agenda_plantilla.user 
+    notificacion = Notificacion.find_or_initialize_by( user: medico, cita: cita )     
+    notificacion.mensaje = mensaje
+    notificacion.leida = false 
+    notificacion.save! 
+  end
+
+  def mis_citas
+    @citas = Cita.where(relacion_agenda_plantilla: RelacionAgendaPlantilla.where(user: current_user))
+  end
 
   # GET /citas or /citas.json
   def index
@@ -46,7 +81,8 @@ class CitasController < ApplicationController
         Notificacion.create!(
           user: @cita.relacion_agenda_plantilla.user,
           cita: @cita,
-          mensaje: "La cita de #{@cita.nombre_mascota} esta pendiente."
+          mensaje: "La cita de #{@cita.nombre_mascota} esta pendiente.",
+          leida: false
         )
 
         format.html { redirect_to @cita, notice: "Cita was successfully created." }

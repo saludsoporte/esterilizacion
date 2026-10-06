@@ -31,6 +31,13 @@
                 <% end %>
               </li>
               <li> <hr class="dropdown-divider"> </li>
+              <li>
+                <%= link_to mis_citas_path, class: "dropdown-item", title: "Mis citas" do %>
+                  <i class="bi bi-calendar-check-fill"></i>
+                  Mis citas
+                <% end %>
+              </li>
+              <li> <hr class="dropdown-divider"> </li>
               <%= link_to admin_path, class: "dropdown-item", title: "Ajustes" do %>
                 <i class="bi bi-gear-fill"></i>
                 Ajustes

@@ -5,8 +5,26 @@
       <span class="cita-detalle-label">CITA</span>
       <h2>Información de la cita</h2>
     </div>
-    <span class="cita-estado <%= cita.estado.to_s.downcase %>">
-      <%= cita.estado.presence || "Pendiente" %>
+    <span>      
+      <% case cita.estado %>
+      <% when "PENDIENTE" %>
+        <%= link_to citas_atender_cita_path(cita_id: cita.id), data: { turbo_method: :patch },
+                       class: "btn btn-sm btn-success btn-cita" do %> <i class="bi bi-play-fill"></i>
+          <span>ATENDER</span>
+        <% end %>
+        <%= link_to citas_cancelar_cita_path(cita_id: cita.id), data: { turbo_method: :patch }, 
+                      class: "btn btn-sm btn-danger btn-cita" do %> <i class="bi bi-x-lg"></i>
+          <span>CANCELAR</span>
+        <% end %>
+      <% when "ATENDIENDO" %>
+        <%= link_to citas_finalizar_cita_path(cita_id: cita.id), data: { turbo_method: :patch }, 
+                      class: "btn btn-sm btn-primary btn-cita" do %> <i class="bi bi-check-lg"></i>
+          <span>FINALIZAR</span>
+        <% end %> <%= link_to citas_cancelar_cita_path(cita_id: cita.id), data: { turbo_method: :patch },
+                       class: "btn btn-sm btn-danger btn-cita" do %> <i class="bi bi-x-lg"></i>
+          <span>CANCELAR</span>
+        <% end %>
+      <% end %>
     </span>
   </div>
   <!-- INFORMACIÓN DE LA CITA -->

@@ -5,7 +5,7 @@ class AgendasController < ApplicationController
   include Pagy::Backend
   # GET /agendas or /agendas.json
   def index
-    @pagy,@agendas = pagy(Agenda.all)
+    @pagy,@agendas = pagy(Agenda.all.order(fecha_inicio: :desc))
     Agenda.where(activo: true)
       .where("fecha_fin < ?", Time.current)
       .update_all(activo: false)    
@@ -28,7 +28,7 @@ class AgendasController < ApplicationController
   def finalizar_cita     
     cita = Cita.find(params[:cita_id]) 
     cita.update(estado: "FINALIZADA") 
-    crear_notificacion_cita!( cita, "La cita de #{cita.nombre_mascota} ha sido finalizada." )         
+    cambiar_estado_cita( cita, "FINALIZADA", "La cita de #{cita.nombre_mascota} ha finalizado.", "La cita termino." )    
   end  
   def cancelar_cita        
     cita = Cita.find(params[:cita_id])

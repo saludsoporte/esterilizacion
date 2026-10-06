@@ -35,6 +35,10 @@ Rails.application.routes.draw do
   patch "agendas/atender_cita", to: "agendas#atender_cita", as: :agendas_atender_cita
   patch "agendas/finalizar_cita", to: "agendas#finalizar_cita", as: :agendas_finalizar_cita
   patch "agendas/cancelar_cita", to: "agendas#cancelar_cita", as: :agendas_cancelar_cita
+  patch "citas/atender_cita", to: "citas#atender_cita", as: :citas_atender_cita
+  patch "citas/finalizar_cita", to: "citas#finalizar_cita", as: :citas_finalizar_cita
+  patch "citas/cancelar_cita", to: "citas#cancelar_cita", as: :citas_cancelar_cita
+  get "citas/mis_citas", to: "citas#mis_citas", as: :mis_citas
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
 
   

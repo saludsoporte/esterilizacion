@@ -56,6 +56,6 @@ class Cita < ApplicationRecord
     self.especie+" | "+self.sexo
   end
   def horarios
-    self.detalle_mesa.horario.strftime("%H:%M")+" - "+self.relacion_agenda_plantilla.dia_nombre+" "+self.relacion_agenda_plantilla.dia.to_s
+    self.detalle_mesa.horario.strftime("%H:%M")+" - "+self.relacion_agenda_plantilla.dia_nombre+" "+self.relacion_agenda_plantilla.dia.to_s+" "+self.relacion_agenda_plantilla.mes
   end
 end
