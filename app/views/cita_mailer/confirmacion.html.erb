@@ -1,0 +1,36 @@
+<h2>Confirmación de cita</h2>
+<p>Hola <strong><%= @cita.nombre_completo %></strong>,</p>
+<p>
+  Tu cita para esterilización ha sido registrada correctamente.
+</p>
+<hr>
+<p>
+  <strong>Datos de la cita:</strong>
+</p>
+<ul>
+  <li>
+    <strong>Mascota:</strong>
+    <%= @cita.nombre_mascota %>
+  </li>
+  <li>
+    <strong>Raza:</strong>
+    <%= @cita.raza %>
+  </li>  
+  <li>
+    <strong>Horario:</strong>
+    <%= @cita.horarios %>
+  </li>
+</ul>
+<p>
+  Te recomendamos llegar unos minutos antes de la hora indicada.
+</p>
+<p>
+  Si necesitas cancelar o modificar tu cita, comunícate con nosotros.
+</p>
+<hr>
+<p>
+  <strong>Servicios de Salud de San Luis Potosí</strong>
+</p>
+<p>
+  Este es un correo automático, por favor no respondas a este mensaje.
+</p>

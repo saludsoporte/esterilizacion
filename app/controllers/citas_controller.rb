@@ -84,7 +84,8 @@ class CitasController < ApplicationController
           mensaje: "La cita de #{@cita.nombre_mascota} esta pendiente.",
           leida: false
         )
-
+        CitaMailer.with(cita: @cita).confirmacion.deliver_later
+        flash[:notice] = "Cita creada exitosamente. Se ha enviado un correo de confirmación a #{@cita.email}."
         format.html { redirect_to @cita, notice: "Cita was successfully created." }
         format.json { render :show, status: :created, location: @cita }
       else
