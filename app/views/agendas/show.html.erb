@@ -14,10 +14,12 @@
         <i class="bi bi-arrow-left"></i>
         Volver a agendas
       <% end %>
-      <%= link_to edit_agenda_path(@agenda),
+      <% if Time.now().to_date <= @agenda.fecha_fin %>
+        <%= link_to edit_agenda_path(@agenda),
             class: "btn-editar-relacion" do %>
         <i class="bi bi-pencil-square"></i>
-        Editar Agenda
+          Editar Agenda
+        <% end %>
       <% end %>
     </div>
   </div>

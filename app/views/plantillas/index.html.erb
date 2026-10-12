@@ -1,140 +1,49 @@
-<div class="container plantillas-container">
-  <div class="plantillas-header">
+<div class="container-fluid plantillas-container py-3"> <!-- ENCABEZADO GENERAL -->
+  <div class="plantillas-header mb-3">
     <div>
-      <h1>
-        <i class="bi bi-file-earmark-text-fill"></i>
-        Plantillas
-      </h1>
-      <p>
-        Administra las plantillas disponibles en el sistema.
-      </p>
+      <h2 class="mb-1"> <i class="bi bi-file-earmark-text-fill"></i> Plantillas </h2>
+      <p class="text-muted mb-0"> Administra las plantillas y su distribución de horarios. </p>
     </div>
-    <%= link_to new_plantilla_path, class: "btn-nueva-plantilla" do %>
-      <i class="bi bi-plus-lg"></i>
-      Crear plantilla
-    <% end %>
-  </div>
-  <% if @plantillas.any? %>
-    <div class="row g-4">
-      <% @plantillas.each do |plantilla| %>
-        <div class="container py-4">
-          <!-- ENCABEZADO DE LA PLANTILLA -->
-          <div class="plantilla-header mb-4">
-            <div>
-              <h1>
-                <i class="bi bi-grid-3x3-gap-fill"></i>
-                <%= plantilla.nombre %>
-              </h1>
-              <p class="text-muted mb-0">
-                Detalle de mesas y distribución por día
-              </p>
+    <%= link_to new_plantilla_path, class: "btn-nueva-plantilla" do %> <i class="bi bi-plus-lg"></i> Crear plantilla <% end %> </div>
+  <% if @plantillas.any? %> <!-- LISTADO DE PLANTILLAS -->
+    <div class="plantillas-lista"> <% @plantillas.each do |plantilla| %> <% dias = plantilla.detalle_plantillas.group_by(&:dia) %>
+        <section class="plantilla-compacta mb-3"> <!-- NOMBRE DE LA PLANTILLA -->
+          <div class="plantilla-compacta-header">
+            <div class="d-flex align-items-center gap-2"> <i class="bi bi-grid-3x3-gap-fill plantilla-icono"></i>
+              <div>
+                <h5 class="mb-0"> <%= plantilla.nombre %> </h5>
+                <small class="text-muted"> <%= dias.size %> días · <%= plantilla.detalle_plantillas.size %> asignaciones de mesa </small> </div>
             </div>
-            <%= link_to plantillas_path, class: "btn btn-secondary" do %>
-              <i class="bi bi-arrow-left"></i>
-              Regresar
-            <% end %>
+            <%# link_to edit_plantilla_path(plantilla), class: "btn btn-sm btn-outline-primary", title: "Editar plantilla" do %> 
+            <!--i class="bi bi-pencil-square"></i>-->
+            <%# end %> 
           </div>
-          <!-- DÍAS -->
-          <% dias = plantilla.detalle_plantillas.group_by(&:dia) %>
-          <% dias.each do |dia, detalles| %>
-            <div class="dia-card mb-4 ">
-              <!-- TÍTULO DEL DÍA -->
-              <div class="dia-header">
-                <h3>
-                  <i class="bi bi-calendar3"></i>
-                  <%= dia.upcase %>
-                </h3>
-                <span class="badge bg-primary">
-                  <%= detalles.count %> mesas
-                </span>
+          <!-- DISTRIBUCIÓN POR DÍA -->
+          <div class="plantilla-dias"> <% dias.each do |dia, detalles| %>
+              <div class="plantilla-dia">
+                <div class="plantilla-dia-header"> <span> <i class="bi bi-calendar3"></i> <%= dia.to_s.upcase %> </span> <span class="dia-total"> <%= detalles.size %> </span> </div>
+                <!-- MESAS Y HORARIOS -->
+                <div class="plantilla-mesas"> <% detalles.each do |detalle| %> <% mesa = detalle.mesa %>
+                    <div class="plantilla-mesa">
+                      <div class="plantilla-mesa-titulo"> <i class="bi bi-grid"></i> <strong> <%= mesa&.nombre_mesa || "Mesa sin nombre" %> </strong> </div>
+                      <% if mesa && mesa.detalle_mesas.any? %> <% mesa.detalle_mesas.each do |detalle_mesa| %>
+                          <div class="plantilla-horario"> <span class="paciente"> <%= [detalle_mesa.paciente, detalle_mesa.sexo] .compact_blank.join(" ") %> </span> <span class="hora"> <i class="bi bi-clock"></i> <%= detalle_mesa.horario&.strftime("%H:%M") || "--:--" %> </span> </div>
+                        <% end %> <% else %>
+                        <div class="plantilla-sin-horarios"> Sin horarios registrados </div>
+                      <% end %> </div>
+                  <% end %> </div>
               </div>
-              <!-- MESAS -->
-              <div class="row g-3 p-3">
-                <% detalles.each do |detalle| %>
-                  <% mesa = detalle.mesa %>
-                  <div class="col-md-6 col-lg-4">
-                    <div class="mesa-card ">
-                      <div class="accordion-item">
-                        <!-- ENCABEZADO MESA -->
-                        <div class="accordion-header">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#acordion<%= detalle.id %>"
-                            aria-expanded="false"
-                            aria-controls="acordion<%= detalle.id %>">
-                            <h6>
-                              <%= mesa.nombre_mesa %>
-                            </h6>
-                          </button>
-                        </div>
-                        <!-- INFORMACIÓN DE LA MESA -->
-                        <div
-                          id="acordion<%= detalle.id %>"
-                          class="accordion-collapse collapse">
-                          <div class="accordion-body">
-                            <!-- ENCABEZADOS -->
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="mesa-dato">
-                                  <span>
-                                    Paciente
-                                  </span>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="mesa-dato">
-                                  <span>
-                                    Horario
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- DETALLES DE LA MESA -->
-                            <% mesa.detalle_mesas.each do |detalle_mesa|%>
-                              <div class="row">
-                                <!-- PACIENTE -->
-                                <div class="col-md-6">
-                                  <div class="mesa-dato">
-                                    <strong>
-                                      <%= detalle_mesa.paciente+detalle_mesa.sexo %>
-                                    </strong>
-                                  </div>
-                                </div>
-                                <!-- HORARIO -->
-                                <div class="col-md-6">
-                                  <div class="mesa-dato">
-                                    <strong>
-                                      <%= detalle_mesa.horario&.strftime("%H:%M") %>
-                                    </strong>
-                                  </div>
-                                </div>
-                              </div>
-                            <% end %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <div class="paginacion-citas">
+            <% end %> </div>
+        </section>
+      <% end %> </div>
+    <!-- PAGINACIÓN --> <% if defined?(@pagy) && @pagy %>
+      <div class="paginacion-citas mt-3">
         <div class="paginacion-info"> <%== pagy_info(@pagy) %> </div>
         <div class="paginacion-nav"> <%== pagy_nav(@pagy) %> </div>
       </div>
+    <% end %> <% else %>
+    <div class="sin-plantillas"> <i class="bi bi-file-earmark-x"></i>
+      <h5>No hay plantillas</h5>
+      <p>Actualmente no existen plantillas registradas.</p>
     </div>
-  <% else %>
-    <div class="sin-plantillas">
-      <i class="bi bi-file-earmark-x"></i>
-      <h3>No hay plantillas</h3>
-      <p>
-        Actualmente no existen plantillas registradas.
-      </p>
-    </div>
-  <% end %>
-</div>
+  <% end %> </div>

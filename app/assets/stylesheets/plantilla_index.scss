@@ -1,0 +1,199 @@
+/* CONTENEDOR GENERAL */
+.plantillas-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  color: #263445;
+  font-size: 0.9rem;
+} /* ENCABEZADO */
+.plantillas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.plantillas-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.plantillas-header p {
+  font-size: 0.82rem;
+}
+.btn-nueva-plantilla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: #0d6efd;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.btn-nueva-plantilla:hover {
+  background: #0b5ed7;
+  color: #fff;
+} /* TARJETA DE PLANTILLA */
+.plantilla-compacta {
+  border: 1px solid #dfe5ec;
+  border-radius: 9px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgb(25 45 70 / 4%);
+}
+.plantilla-compacta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 13px;
+  background: #f5f8fc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.plantilla-compacta-header h5 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #233b59;
+}
+.plantilla-compacta-header small {
+  font-size: 0.76rem;
+}
+.plantilla-icono {
+  color: #0d6efd;
+  font-size: 1.3rem;
+} /* COLUMNAS DE LOS DÍAS */
+.plantilla-dias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  align-items: start;
+}
+.plantilla-dia {
+  min-width: 0;
+  border: 1px solid #e3e9f0;
+  border-radius: 7px;
+  overflow: hidden;
+}
+.plantilla-dia-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 9px;
+  background: #edf4ff;
+  color: #244d83;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.plantilla-dia-header i {
+  margin-right: 4px;
+}
+.dia-total {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  background: #d6e6ff;
+  color: #164b91;
+  border-radius: 5px;
+  font-size: 0.72rem;
+} /* MESAS */
+.plantilla-mesas {
+  padding: 5px;
+}
+.plantilla-mesa {
+  margin-bottom: 5px;
+  border: 1px solid #e8edf3;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.plantilla-mesa:last-child {
+  margin-bottom: 0;
+}
+.plantilla-mesa-titulo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #f8fafc;
+  color: #34465c;
+  font-size: 0.78rem;
+  border-bottom: 1px solid #e8edf3;
+}
+.plantilla-mesa-titulo i {
+  color: #647d9b;
+} /* FILAS DE PACIENTE Y HORARIO */
+.plantilla-horario {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 8px;
+  font-size: 0.77rem;
+  border-bottom: 1px solid #f0f2f5;
+}
+.plantilla-horario:last-child {
+  border-bottom: 0;
+}
+.plantilla-horario .paciente {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #35465a;
+}
+.plantilla-horario .hora {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 3px 6px;
+  background: #e9f7ef;
+  color: #17663a;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.73rem;
+}
+.plantilla-sin-horarios {
+  padding: 7px 8px;
+  color: #788596;
+  font-size: 0.76rem;
+  font-style: italic;
+} /* ESTADO VACÍO */
+.sin-plantillas {
+  padding: 35px 15px;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 9px;
+}
+.sin-plantillas > i {
+  font-size: 2rem;
+  color: #94a3b8;
+}
+.sin-plantillas h5 {
+  margin-top: 8px;
+  font-weight: 700;
+} /* MÓVILES */
+@media (max-width: 576px) {
+  .plantillas-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .plantillas-header h2 {
+    font-size: 1.2rem;
+  }
+  .plantilla-dias {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 7px;
+  }
+  .plantilla-compacta-header {
+    padding: 9px;
+  }
+}
