@@ -11,6 +11,150 @@
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
 
+// ======================================== // RECUPERAR CONTRASEÑA // ========================================
+.recuperar-container {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.recuperar-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(30, 55, 80, 0.08);
+}
+.recuperar-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.recuperar-icono {
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  border-radius: 22px;
+  background: #eaf3ff;
+  color: #2463a6;
+  font-size: 2.2rem;
+}
+.recuperar-header h1 {
+  color: #243447;
+  font-size: 1.75rem;
+  font-weight: 750;
+  margin-bottom: 14px;
+}
+.recuperar-header p {
+  color: #687789;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+.recuperar-campo {
+  margin-bottom: 24px;
+}
+.recuperar-campo label {
+  display: block;
+  color: #344456;
+  font-size: 0.9rem;
+  font-weight: 650;
+  margin-bottom: 9px;
+}
+.recuperar-input {
+  position: relative;
+}
+.recuperar-input > i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7b8b9c;
+  font-size: 1.1rem;
+  z-index: 2;
+}
+.recuperar-input .form-control {
+  height: 52px;
+  padding-left: 45px;
+  border: 1px solid #d8e0e8;
+  border-radius: 10px;
+  color: #243447;
+  background: #fff;
+  box-shadow: none;
+}
+.recuperar-input .form-control:focus {
+  border-color: #3679c7;
+  box-shadow: 0 0 0 3px rgba(54, 121, 199, 0.12);
+}
+.btn-recuperar {
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: 10px;
+  background: #2869ad;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.98rem;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.btn-recuperar:hover {
+  background: #1e548d;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.recuperar-enlaces {
+  text-align: center;
+  margin-top: 25px;
+}
+.recuperar-enlaces a {
+  color: #2869ad;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.recuperar-enlaces a:hover {
+  text-decoration: underline;
+}
+.recuperar-enlaces i {
+  margin-right: 5px;
+}
+.recuperar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-top: 1px solid #edf0f4;
+  margin-top: 30px;
+  padding-top: 22px;
+  color: #7b8794;
+  font-size: 0.82rem;
+}
+.recuperar-footer i {
+  color: #2869ad;
+  font-size: 1.1rem;
+}
+// ======================================== // RESPONSIVE // ========================================
+@media (max-width: 576px) {
+  .recuperar-container {
+    min-height: auto;
+    padding: 30px 15px;
+  }
+  .recuperar-card {
+    padding: 28px 22px;
+    border-radius: 16px;
+  }
+  .recuperar-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
 .paginacion-citas {
   display: flex;
   justify-content: space-between;

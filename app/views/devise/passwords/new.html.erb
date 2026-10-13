@@ -1,16 +1,19 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Send me password reset instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<div class="recuperar-container"> 
+  <div class="recuperar-card"> <!-- ENCABEZADO --> 
+    <div class="recuperar-header"> 
+      <div class="recuperar-icono"> <i class="bi bi-shield-lock"></i> </div>
+ 
+      <h1>Recuperar contraseña</h1>
+ 
+      <p> ¿Olvidaste tu contraseña? No te preocupes. Ingresa tu correo electrónico y te enviaremos las instrucciones para restablecerla. </p>
+ </div>
+ <!-- FORMULARIO --> <%= form_for( resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "recuperar-form" } ) do |f| %> <%= render "devise/shared/error_messages", resource: resource %> 
+      <div class="recuperar-campo"> <%= f.label :email, "Correo electrónico" %> 
+        <div class="recuperar-input"> <i class="bi bi-envelope"></i> <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "correo@ejemplo.com", required: true, class: "form-control" %> </div>
+ </div>
+ <%= f.submit "Enviar instrucciones", class: "btn-recuperar" %> <% end %> <!-- ENLACES --> 
+    <div class="recuperar-enlaces"> <%= link_to new_user_session_path do %> <i class="bi bi-arrow-left"></i> Volver a iniciar sesión <% end %> </div>
+ <!-- PIE --> 
+    <div class="recuperar-footer"> <i class="bi bi-heart-pulse"></i> Esterilización Canina y Felina </div>
+ </div>
+ </div>

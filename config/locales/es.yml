@@ -32,3 +32,46 @@ es:
       no_items: "No se encontraron %{item_name}"
       single_page: "Mostrando %{count} %{item_name}"
       multiple_pages: "Mostrando %{item_name} %{from}-%{to} de %{count} en total"
+
+es: 
+  errors: 
+    messages: 
+      not_saved: 
+        one: "No se pudo guardar %{resource}: se encontró 1 error." 
+        other: "No se pudo guardar %{resource}: se encontraron %{count} errores." 
+        not_found: "No se encontró el registro solicitado." 
+  activerecord: 
+    errors: 
+      models: 
+        user: 
+          attributes: 
+            email: 
+              not_found: "No existe una cuenta registrada con ese correo electrónico."
+
+              
+es:
+  errors:
+    messages:
+      not_saved:
+        one: "No se pudo guardar %{resource}: se encontró 1 error."
+        other: "No se pudo guardar %{resource}: se encontraron %{count} errores."
+      invalid: "no es válido"
+      expired: "ha expirado"
+      blank: "no puede estar vacío"
+
+  activerecord:
+    attributes:
+      user:
+        reset_password_token: "Token de recuperación"
+    errors:
+      models:
+        user:
+          attributes:
+            reset_password_token:
+              invalid: "no es válido o ha expirado"
+
+es:
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: "Instrucciones para restablecer tu contraseña"

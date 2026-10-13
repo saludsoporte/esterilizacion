@@ -1,25 +1,67 @@
-<h2>Change your password</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <p><%= f.label :password, "New password" %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+<div class="recuperar-container">
+  <div class="recuperar-card">
+    <div class="recuperar-header">
+      <div class="recuperar-icono">
+        <i class="bi bi-key"></i>
+      </div>
+      <h1>Nueva contraseña</h1>
+      <p>
+        Crea una nueva contraseña para acceder
+        de forma segura a tu cuenta.
+      </p>
+    </div>
+    <%= form_for(
+      resource,
+      as: resource_name,
+      url: password_path(resource_name),
+      html: { method: :put, class: "recuperar-form" }
+    ) do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <%= render "devise/shared/error_messages",
+          resource: resource %>
+      <div class="recuperar-campo">
+        <%= f.label :password, "Nueva contraseña" %>
+        <div class="recuperar-input">
+          <i class="bi bi-lock"></i>
+          <%= f.password_field :password,
+              autofocus: true,
+              autocomplete: "new-password",
+              placeholder: "Ingresa tu nueva contraseña",
+              required: true,
+              class: "form-control" %>
+        </div>
+        <% if @minimum_password_length %>
+          <small class="text-muted">
+            Mínimo <%= @minimum_password_length %> caracteres.
+          </small>
+        <% end %>
+      </div>
+      <div class="recuperar-campo">
+        <%= f.label :password_confirmation,
+            "Confirmar contraseña" %>
+        <div class="recuperar-input">
+          <i class="bi bi-shield-check"></i>
+          <%= f.password_field :password_confirmation,
+              autocomplete: "new-password",
+              placeholder: "Repite tu nueva contraseña",
+              required: true,
+              class: "form-control" %>
+        </div>
+      </div>
+      <%= f.submit "Restablecer contraseña",
+          class: "btn-recuperar" %>
     <% end %>
-    <p><%= f.password_field :password, autofocus: true, autocomplete: "new-password" %></p>
+    <div class="recuperar-enlaces">
+      <%= link_to new_user_session_path do %>
+        <i class="bi bi-arrow-left"></i>
+        Volver a iniciar sesión
+      <% end %>
+    </div>
+    <div class="recuperar-footer">
+      <i class="bi bi-heart-pulse"></i>
+      Esterilización Canina y Felina
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation, "Confirm new password" %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
