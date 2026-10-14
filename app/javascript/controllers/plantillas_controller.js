@@ -28,12 +28,17 @@ export default class extends Controller {
     $("#modal").empty();
   }
   siguiente() {
-    if (this.currentStep === 1) {
-      this.cargarMesasSeleccionadas();
-    }
-    if (this.currentStep < this.pageTargets.length - 1) {
-      this.currentStep++;
-      this.mostrarPaso();
+    if ($("#plantilla_nombre").val() === "") {
+      alert("Por favor, ingrese un nombre para la plantilla.");
+      return;
+    } else {
+      if (this.currentStep === 1) {
+        this.cargarMesasSeleccionadas();
+      }
+      if (this.currentStep < this.pageTargets.length - 1) {
+        this.currentStep++;
+        this.mostrarPaso();
+      }
     }
   }
 
