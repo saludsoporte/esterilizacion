@@ -13,16 +13,20 @@
     <div class="wizard-line"></div>
     <div class="wizard-step" data-plantillas-target="stepIndicator">
       <span>3</span>
-      <small>Agregar o seleccionar días</small>
+      <small>Agregar horarios a las mesas</small>
     </div>
     <div class="wizard-line"></div>
     <div class="wizard-step" data-plantillas-target="stepIndicator">
       <span>4</span>
+      <small>Agregar o seleccionar días</small>
+    </div>
+    <div class="wizard-line"></div>
+    <div class="wizard-step" data-plantillas-target="stepIndicator">
+      <span>5</span>
       <small>Confirmar</small>
     </div>
   </div>
   <%= form_with model: @plantilla,id: "plantilla-form" do |f| %>
-    
     <!-- PASO 1 -->
     <div class="wizard-page active" data-plantillas-target="page">
       <div class="wizard-header">
@@ -45,24 +49,6 @@
       <div class="wizard-header">
         <h2>Configuración de mesas</h2>
       </div>
-      <div class="mesas-container">
-        <div class="mesas-header">
-          <div class="hstack gap-2">
-            <h2>
-              <i class="bi bi-grid-3x3-gap-fill"></i>
-              Mesas
-            </h2>
-            <%= link_to new_mesa_path,
-              class: "btn-agregar-mesa",
-              data: { turbo_frame: "modal" } do %>
-                <i class="bi bi-plus-circle-fill"></i>
-                <span>Agregar mesa</span>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <br>
-      <%= turbo_frame_tag "modal" %>
       <%= turbo_frame_tag "lista_mesas" do %>
         <div class="mesas-lista" id="mesas_lista">
           <% if @mesas.any? %>
@@ -93,6 +79,18 @@
       </div>
     </div>
     <!-- PASO 3 -->
+    <div class="wizard-page" data-plantillas-target="page">
+      <%= turbo_frame_tag "mesas_seleccionadas",
+      data: { url: mesas_seleccionadas_plantillas_path } do %>
+        <div class="text-center py-4">
+          <div class="spinner-border"></div>
+          <p class="mt-2">
+            Cargando mesas seleccionadas...
+          </p>
+        </div>
+      <% end %>
+    </div>
+    <!-- PASO 4 -->
     <div class="wizard-page" data-plantillas-target="page">
       <div class="wizard-header">
         <h2>Configuración de días</h2>

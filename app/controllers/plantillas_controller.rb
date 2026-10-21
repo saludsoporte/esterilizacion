@@ -6,7 +6,7 @@ class PlantillasController < ApplicationController
 
   def new
     @plantilla = Plantilla.new
-    @mesas = Mesa.all
+    @mesas = Mesa.all.order(:nombre_mesa)
   end
   def mesas_seleccionadas
 
