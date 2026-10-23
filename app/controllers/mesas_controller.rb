@@ -34,22 +34,14 @@ class MesasController < ApplicationController
     end
   end
   def seleccionar
-
-  @mesa = Mesa.find(params[:id])
-
-  @mesa.update(
-    seleccionada: params[:seleccionada]
-  )
-
-  respond_to do |format|
-
-    format.turbo_stream
-
-    format.html do
-      redirect_to mesas_lista_path
+    @mesa = Mesa.find(params[:id])
+    @mesa.update(seleccionada: params[:seleccionada])
+    
+    respond_to do |format|
+      format.turbo_stream    
+      format.html do
+        redirect_to mesas_lista_path
+      end
     end
-
-  end
-
   end
 end

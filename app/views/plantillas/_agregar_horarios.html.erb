@@ -1,0 +1,70 @@
+<div id="agregar_nuevos_horarios">
+  <div class="mesas-configuracion" data-controller="mesas">
+    <% mesas.each do |mesa| %>
+      <div class="mesa-card mb-3"
+         data-mesa-id="<%= mesa.id %>">
+        <!-- ENCABEZADO -->
+        <div class="mesa-header">
+          <div class="mesa-header-info">
+            <h5>
+              <i class="bi bi-grid-3x3-gap-fill"></i>
+              <%= mesa.nombre_mesa %>
+            </h5>
+            <span class="mesa-dato">
+              <%= mesa.detalle_mesas.size %> horarios disponibles
+            </span>
+          </div>
+          <div class="mesa-header-acciones">
+            <button type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  data-action="click->mesas#agregarDetalle"
+              data-mesa-id="<%= mesa.id %>">
+              <i class="bi bi-plus-lg"></i>
+              Agregar horario
+            </button>
+          </div>
+        </div>
+        <!-- TABLA DE HORARIOS -->
+        <div class="mesa-tabla-container">
+          <table class="table table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th class="text-center">Seleccionar</th>
+                <th>Paciente</th>
+                <th>Horario</th>                
+              </tr>
+            </thead>
+            <tbody data-mesas-target="detalles">
+              <% mesa.detalle_mesas.each do |detalle| %>
+                <tr>
+                  <!-- SELECCIONAR HORARIO -->
+                  <td class="text-center">
+                    <input type="checkbox"
+                         name="plantilla[detalles_ids][]"
+                         value="<%= detalle.id %>"
+                         class="form-check-input">
+                  </td>
+                  <td>
+                    <%= detalle.paciente %>-<%= detalle.sexo %>
+                  </td>
+                  <!-- HORARIO -->
+                  <td>
+                    <div class="mesa-horario">
+                      <i class="bi bi-clock"></i>
+                      <%= detalle.horario.strftime("%H:%M") %>                                            
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!-- CONTENEDOR PARA NUEVOS HORARIOS -->
+        <div data-mesas-target="nuevosDetalles"
+           class="mesa-nuevos-detalles">
+        </div>
+      </div>
+    <% end %>
+  </div>
+  Numero de mesas seleccionadas: <%= mesas.count %>
+</div>

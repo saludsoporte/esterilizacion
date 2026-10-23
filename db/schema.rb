@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_02_175854) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_23_171915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,7 +78,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_02_175854) do
     t.bigint "mesa_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "plantilla_id"
     t.index ["mesa_id"], name: "index_detalle_mesas_on_mesa_id"
+    t.index ["plantilla_id"], name: "index_detalle_mesas_on_plantilla_id"
   end
 
   create_table "detalle_plantillas", force: :cascade do |t|
@@ -162,6 +164,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_02_175854) do
   add_foreign_key "detalle_extras", "agendas"
   add_foreign_key "detalle_extras", "mesas"
   add_foreign_key "detalle_mesas", "mesas"
+  add_foreign_key "detalle_mesas", "plantillas"
   add_foreign_key "detalle_plantillas", "mesas"
   add_foreign_key "detalle_plantillas", "plantillas"
   add_foreign_key "notificacions", "citas"

@@ -32,16 +32,19 @@ export default class extends Controller {
       alert("Por favor, ingrese un nombre para la plantilla.");
       return;
     } else {
-      if (this.currentStep === 1) {
-        this.cargarMesasSeleccionadas();
-      }
       if (this.currentStep < this.pageTargets.length - 1) {
         this.currentStep++;
         this.mostrarPaso();
       }
     }
   }
-
+  siguientePaso3() {
+    if (this.currentStep < this.pageTargets.length - 1) {
+      this.currentStep++;
+      this.mostrarPaso();
+    }
+    this.cargarMesasSeleccionadas();
+  }
   anterior() {
     if (this.currentStep > 0) {
       this.currentStep--;
@@ -76,10 +79,16 @@ export default class extends Controller {
       }),
     });
   }
-  cargarMesasSeleccionadas() {
-    const frame = document.getElementById("mesas_seleccionadas");
 
-    frame.src = frame.dataset.url;
+  cargarMesasSeleccionadas() {
+    let horarios = $('input[name="plantilla[mesa_ids][]"]')
+      .map(function () {
+        return $(this).val();
+      })
+      .get();
+
+    console.log(horarios);
+    ajaxTurbo("/plantillas/mesas_seleccionadas", { seleccionada: true });    
   }
   eliminarMesa(event) {
     const boton = event.currentTarget;
@@ -112,4 +121,20 @@ export default class extends Controller {
         alert("No se pudo eliminar la mesa.");
       });
   }
+}
+function ajaxTurbo(ruta, parametros) {
+  const csrtToken = document.querySelector("meta[name='csrf-token']").content;
+  fetch(ruta, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrtToken,
+    },
+    body: JSON.stringify(parametros),
+  })
+    .then((response) => response.text())
+    .then(Turbo.renderStreamMessage);
 }

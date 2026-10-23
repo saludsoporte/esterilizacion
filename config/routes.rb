@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   # Usuarios
   # La creación (new/create) la maneja Devise.
   # Estas acciones las maneja UsersController.
+  post "plantillas/mesas_seleccionadas", to: "plantillas#mesas_seleccionadas"
   post "relacion_agenda_plantillas/setDiasMeses", to: "relacion_agenda_plantillas#setDiasMeses"
   post "relacion_agenda_plantillas/setMesas", to: "relacion_agenda_plantillas#setMesas"  
   post "relacion_agenda_plantillas/:id/setMesa", to: "relacion_agenda_plantillas#setMesa"  
@@ -49,20 +50,14 @@ Rails.application.routes.draw do
   patch "notificaciones/marcar_todas_leidas",
       to: "notificaciones#marcar_todas_leidas",
       as: :marcar_todas_leidas_notificaciones
-
-  # Plantillas
-  resources :plantillas do
-    collection do
-      get :mesas_seleccionadas
-    end
-  end
-
+   
   # Mesas
   resources :mesas do
     member do
       patch :seleccionar
     end
   end
+  resources :plantillas
   resources :agendas
   resources :users
   resources :relacion_agenda_plantillas     

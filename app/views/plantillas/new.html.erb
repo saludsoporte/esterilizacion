@@ -72,7 +72,7 @@
         </button>
         <button type="button"
                 class="btn-siguiente"
-                data-action="click->plantillas#siguiente">
+                data-action="click->plantillas#siguientePaso3">
           Siguiente
           <i class="bi bi-arrow-right"></i>
         </button>
@@ -86,18 +86,27 @@
             <h2>
               <i class="bi bi-grid-3x3-gap-fill"></i>
               Agregar Horario
-            </h2>
-            <%= link_to new_mesa_path,
-              class: "btn-agregar-mesa",
-              data: { turbo_frame: "modal" } do %>
-              <i class="bi bi-plus-circle-fill"></i>
-              <span>Agregar mesa</span>
-            <% end %>
+            </h2>            
           </div>
         </div>
       </div>
-      <br>
-      <%= turbo_frame_tag "modal" %>
+      <br>      
+      <div id="agregar_nuevos_horarios">
+      </div>
+      <div class="wizard-actions">
+        <button type="button"
+                class="btn-atras"
+                data-action="click->plantillas#anterior">
+          <i class="bi bi-arrow-left"></i>
+          Atrás
+        </button>
+        <button type="button"
+                class="btn-siguiente"
+                data-action="click->plantillas#siguiente">
+          Siguiente
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
     </div>
     <!-- PASO 4 -->
     <div class="wizard-page" data-plantillas-target="page">
@@ -106,7 +115,7 @@
         <p>Estas son las mesas seleccionadas.</p>
       </div>
       <br>
-      <%= turbo_frame_tag "mesas_seleccionadas",
+      <%# turbo_frame_tag "mesas_seleccionadas",
       data: { url: mesas_seleccionadas_plantillas_path } do %>
         <div class="text-center py-4">
           <div class="spinner-border"></div>
@@ -114,7 +123,7 @@
             Cargando mesas seleccionadas...
           </p>
         </div>
-      <% end %>
+      <%# end %>
       <div class="wizard-actions">
         <button type="button"
             class="btn-atras"

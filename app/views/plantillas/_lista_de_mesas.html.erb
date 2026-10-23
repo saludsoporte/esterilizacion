@@ -15,16 +15,29 @@
           <% @mesas.each do |mesa| %>
             <tr>
               <td >
-                <%= check_box_tag "plantilla[mesa_ids][]",
-                  mesa.id,
-                  false,                  
-                  id: "mesa_select_#{mesa.id}",
-                  data: {
-                    action: "change->plantillas#seleccionarMesa",
-                    plantillas_target: "mesa",
-                    nombre: mesa.nombre_mesa
-                  }
+                <% if mesa.seleccionada %>
+                  <%= check_box_tag "plantilla[mesa_ids][]",
+                    mesa.id,
+                    true,
+                    id: "mesa_select_#{mesa.id}",
+                    data: {
+                      action: "change->plantillas#seleccionarMesa",
+                      plantillas_target: "mesa",
+                      nombre: mesa.nombre_mesa
+                    }                  
                 %>
+                <% else %>
+                  <%= check_box_tag "plantilla[mesa_ids][]",
+                    mesa.id,
+                    false,
+                    id: "mesa_select_#{mesa.id}",
+                    data: {
+                      action: "change->plantillas#seleccionarMesa",
+                      plantillas_target: "mesa",
+                      nombre: mesa.nombre_mesa
+                    }                  
+                  %>
+                <% end %>
               </td>
               <td>
                 <span class="fw-semibold">
