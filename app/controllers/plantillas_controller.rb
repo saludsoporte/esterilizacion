@@ -9,12 +9,15 @@ class PlantillasController < ApplicationController
     @mesas = Mesa.all.order(:nombre_mesa)    
   end
   def mesas_seleccionadas     
-    @mesas_seleccionadas = Mesa.where(seleccionada: params[:seleccionada])
+    @mesas_seleccionadas = Mesa.where(seleccionada: params[:seleccionada]).order(:nombre_mesa)
     logger.info "Mesas seleccionadas: #{@mesas_seleccionadas.map(&:id).join(', ')}"
     respond_to do |format|
       format.turbo_stream { render partial: "plantillas/cargar_mesas_select", 
       locals: { mesas: @mesas_seleccionadas }}
     end
+  end
+  def detalle
+     render partial: "template_detalle_mesa"
   end
   def create
     plantilla = Plantilla.new(nombre: params[:plantilla][:nombre])  

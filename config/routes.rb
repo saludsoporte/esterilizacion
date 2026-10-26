@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   patch "citas/cancelar_cita", to: "citas#cancelar_cita", as: :citas_cancelar_cita
   get "citas/mis_citas", to: "citas#mis_citas", as: :mis_citas
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
-
+  get "plantillas/detalle", to: "plantillas#detalle"
   
   patch "notificaciones/:id/marcar_leida",
       to: "notificaciones#marcar_leida",

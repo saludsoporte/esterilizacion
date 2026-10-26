@@ -6,13 +6,13 @@ import "select2";
 // Connects to data-controller="plantillas"
 export default class extends Controller {
   static targets = [
-    "contenedor",
-    "template",
+    "contenedor",    
     "page",
     "stepIndicator",
     "button",
     "detalles",
     "template",
+    "horario",
     "mesa",
     "mesasSeleccionadas",
   ];
@@ -20,6 +20,7 @@ export default class extends Controller {
     console.log("plantillas CONTROLLER CONECTADO");
     this.currentStep = 0;
     this.mostrarPaso();
+    this.index2 = 0;
   }
   cambiar() {
     $("#sbmBtn").prop("disabled", false);
@@ -59,6 +60,31 @@ export default class extends Controller {
     this.stepIndicatorTargets.forEach((step, index) => {
       step.classList.toggle("active", index === this.currentStep);
       step.classList.toggle("completed", index < this.currentStep);
+    });
+  }
+  agregarDetalle(event){
+    console.log("entra en agregarDetalle")
+  
+    console.log("Índice actual:", this.index2);
+
+    let html = this.templateTarget.innerHTML;
+
+/*    html = html.replaceAll("INDEX", this.index2);
+
+    //console.log("HTML generado:", html);
+
+    this.detallesTarget.insertAdjacentHTML("beforeend", html);
+*/
+    this.index2++;
+    $.ajax({
+      url: "detalle",
+      type: "GET",
+      success: function (html) {
+        $("#template").append(html);
+      },
+      error: function () {
+        alert("Error al cargar el formulario");
+      },
     });
   }
 
