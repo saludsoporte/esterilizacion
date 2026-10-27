@@ -1,5 +1,6 @@
 <div id="agregar_nuevos_horarios">
   <div class="mesas-configuracion" data-controller="plantillas">
+    <input id="index" type="number" value=0 >
     <% mesas.each do |mesa| %>
       <div class="mesa-card mb-3"
          data-mesa-id="<%= mesa.id %>">
@@ -11,7 +12,7 @@
               <%= mesa.nombre_mesa %>
             </h5>
           </div>
-          <div class="mesa-header-acciones">
+          <div class="mesa-header-acciones" data-plantillas-target="mesa">
             <button type="button"
                   class="btn btn-outline-primary btn-sm"
                   data-action="click->plantillas#agregarDetalle"
@@ -24,20 +25,16 @@
         <!-- TABLA DE HORARIOS -->
         <div class="mesa-tabla-container">
           <div class="card" >
-            <div class="card-body">
-              <!-- DETALLES EXISTENTES -->
-              <div data-mesas-target="detalles">
-              </div>
-              <%# turbo_frame_tag "template" do %>
-                <%# end %>
+            <div class="card-body">              
+              <!-- DETALLES EXISTENTES -->              
+                <%= turbo_frame_tag "template"+mesa.id.to_s do %>
+                <% end %>
               </div>
             </div>
           </div>
           <!-- CONTENEDOR PARA NUEVOS HORARIOS -->
-          <div data-mesas-target="nuevosDetalles"
-           class="mesa-nuevos-detalles">
-          </div>
-          <%= render "template_detalle_mesa" %>
+          <div data-pl-target="nuevosDetalles" class="mesa-nuevos-detalles">
+          </div>          
         </div>
       <% end %>
     </div>

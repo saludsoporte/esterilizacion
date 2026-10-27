@@ -6,7 +6,7 @@ import "select2";
 // Connects to data-controller="plantillas"
 export default class extends Controller {
   static targets = [
-    "contenedor",    
+    "contenedor",
     "page",
     "stepIndicator",
     "button",
@@ -62,30 +62,36 @@ export default class extends Controller {
       step.classList.toggle("completed", index < this.currentStep);
     });
   }
-  agregarDetalle(event){
-    console.log("entra en agregarDetalle")
-  
+  agregarDetalle(event) {
+    console.log("entra en agregarDetalle");
     console.log("Índice actual:", this.index2);
+    let mesaId = event.currentTarget.dataset.mesaId;
 
-    let html = this.templateTarget.innerHTML;
+    console.log(mesaId);
+    /*    let html = this.templateTarget.innerHTML;
 
-/*    html = html.replaceAll("INDEX", this.index2);
+    html = html.replaceAll("INDEX", this.index2);
 
     //console.log("HTML generado:", html);
 
     this.detallesTarget.insertAdjacentHTML("beforeend", html);
 */
-    this.index2++;
     $.ajax({
       url: "detalle",
       type: "GET",
       success: function (html) {
-        $("#template").append(html);
+        console.log($("#index").val());
+        html = html.replaceAll("INDEX", $("#index").val());
+        $("#template" + mesaId).append(html);
       },
       error: function () {
         alert("Error al cargar el formulario");
       },
     });
+    var int = $("#index").val();
+    int++;
+    console.log(int);
+    $("#index").val(int);
   }
 
   seleccionarMesa(event) {
@@ -114,7 +120,7 @@ export default class extends Controller {
       .get();
 
     console.log(horarios);
-    ajaxTurbo("/plantillas/mesas_seleccionadas", { seleccionada: true });    
+    ajaxTurbo("/plantillas/mesas_seleccionadas", { seleccionada: true });
   }
   eliminarMesa(event) {
     const boton = event.currentTarget;
