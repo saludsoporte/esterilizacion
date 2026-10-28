@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   # La creación (new/create) la maneja Devise.
   # Estas acciones las maneja UsersController.
   post "plantillas/mesas_seleccionadas", to: "plantillas#mesas_seleccionadas"
+  post "plantillas/mesas_seleccionadas_2", to: "plantillas#mesas_seleccionadas_2"
   post "relacion_agenda_plantillas/setDiasMeses", to: "relacion_agenda_plantillas#setDiasMeses"
   post "relacion_agenda_plantillas/setMesas", to: "relacion_agenda_plantillas#setMesas"  
   post "relacion_agenda_plantillas/:id/setMesa", to: "relacion_agenda_plantillas#setMesa"  

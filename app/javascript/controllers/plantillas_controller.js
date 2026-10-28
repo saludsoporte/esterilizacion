@@ -44,7 +44,14 @@ export default class extends Controller {
       this.currentStep++;
       this.mostrarPaso();
     }
-    this.cargarMesasSeleccionadas();
+    this.cargarMesasSeleccionadas(1);
+  }
+  siguientePaso4() {
+    if (this.currentStep < this.pageTargets.length - 1) {
+      this.currentStep++;
+      this.mostrarPaso();
+    }
+    this.cargarMesasSeleccionadas(2);
   }
   anterior() {
     if (this.currentStep > 0) {
@@ -82,8 +89,8 @@ export default class extends Controller {
       success: function (html) {
         console.log($("#index").val());
         html = html.replaceAll("INDEX", $("#index").val());
-        html = html.replaceAll("MESAID",mesaId)
-        console.log(html)
+        html = html.replaceAll("MESAID", mesaId);
+        console.log(html);
         $("#template" + mesaId).append(html);
       },
       error: function () {
@@ -114,16 +121,14 @@ export default class extends Controller {
     });
   }
 
-  cargarMesasSeleccionadas() {
+  cargarMesasSeleccionadas(paso) {
     let horarios = $('input[name="plantilla[mesa_ids][]"]')
       .map(function () {
         return $(this).val();
       })
-      .get();
-
-    console.log(horarios);
-    ajaxTurbo("/plantillas/mesas_seleccionadas", { seleccionada: true });
-  }
+      .get();    
+    ajaxTurbo("/plantillas/mesas_seleccionadas_2", { seleccionada: true,ruta: paso });
+  }  
   eliminarMesa(event) {
     const boton = event.currentTarget;
     const mesaId = boton.dataset.mesaId;

@@ -1,0 +1,50 @@
+
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+# Verificar las herramientas necesarias
+for cmd in yarn node; do
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "Error: no se encontró $cmd"
+    exit 1
+  }
+done
+
+# Compilar los archivos antes de iniciar Rails
+echo "Compilando JavaScript..."
+yarn build
+
+echo "Compilando SCSS..."
+yarn build:css
+
+# Iniciar los procesos de vigilancia
+echo "Iniciando vigilancia de JavaScript..."
+yarn build --watch &
+JS_PID=$!
+
+echo "Iniciando vigilancia de SCSS..."
+yarn watch:css &
+CSS_PID=$!
+
+# Iniciar Rails
+echo "Iniciando servidor Rails..."
+bin/rails server "$@" &
+RAILS_PID=$!
+
+# Cerrar todos los procesos al detener el servidor
+cleanup() {
+  trap - EXIT INT TERM
+  echo "Deteniendo Rails y los compiladores..."
+
+  kill "$RAILS_PID" "$JS_PID" "$CSS_PID" 2>/dev/null || true
+
+  wait "$RAILS_PID" "$JS_PID" "$CSS_PID" 2>/dev/null || true
+}
+
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+wait "$RAILS_PID"

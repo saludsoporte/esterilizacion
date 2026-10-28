@@ -1,0 +1,53 @@
+  
+<div class="dias-mesas" id="turbo_mesas_seleccionadas">
+  <% dias = {
+        lunes: "Lunes",
+        martes: "Martes",
+        miercoles: "Miércoles",
+        jueves: "Jueves",
+        viernes: "Viernes"
+      } %>
+  <% dias.each do |valor, nombre| %>
+    <div class="dia-mesa card mb-4">
+      <div class="card-header">
+        <div class="dia-titulo">
+          <i class="bi bi-calendar-day"></i>
+          <div>
+            <strong><%= nombre %></strong>
+            <small>Selecciona las mesas</small>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mesas-opciones">
+          <% @mesas_seleccionadas.each do |mesa| %>
+            <label class="mesa-option">
+              <%= check_box_tag(
+                    "plantilla[dias][#{valor}][mesa_ids][]",
+                    mesa.id,
+                    false,
+                    class: "mesa-checkbox"
+                  ) %>
+              <span class="mesa-option-contenido">
+                <i class="bi bi-card-list"></i>
+                <span>
+                  <%= mesa.nombre_mesa %>
+                </span>
+              </span>
+              <i class="bi bi-check-circle-fill mesa-check"></i>
+            </label>
+          <% end %>
+          <%# select_tag "plantilla[dias][#{valor}][mesa_id]",
+                      options_from_collection_for_select(
+                        @mesas_seleccionadas,
+                        :id,
+                        :nombre_mesa
+                      ),multiple:true,
+                      include_blank: "Selecciona una mesa",
+                      class: "form-select" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>
