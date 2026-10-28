@@ -82,6 +82,8 @@ export default class extends Controller {
       success: function (html) {
         console.log($("#index").val());
         html = html.replaceAll("INDEX", $("#index").val());
+        html = html.replaceAll("MESAID",mesaId)
+        console.log(html)
         $("#template" + mesaId).append(html);
       },
       error: function () {

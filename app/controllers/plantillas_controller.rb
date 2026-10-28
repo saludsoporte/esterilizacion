@@ -20,6 +20,7 @@ class PlantillasController < ApplicationController
      render partial: "template_detalle_mesa"
   end
   def create
+    dasdas
     plantilla = Plantilla.new(nombre: params[:plantilla][:nombre])  
     if plantilla.save
       params[:plantilla][:dias].each do |dia, datos|      
