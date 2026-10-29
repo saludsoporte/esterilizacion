@@ -14,6 +14,7 @@ export default class extends Controller {
     "template",
     "horario",
     "mesa",
+    "mesaID",
     "mesasSeleccionadas",
   ];
   connect() {
@@ -90,7 +91,6 @@ export default class extends Controller {
         console.log($("#index").val());
         html = html.replaceAll("INDEX", $("#index").val());
         html = html.replaceAll("MESAID", mesaId);
-        console.log(html);
         $("#template" + mesaId).append(html);
       },
       error: function () {
@@ -102,7 +102,23 @@ export default class extends Controller {
     console.log(int);
     $("#index").val(int);
   }
+  cambiarHorario() {
+    this.actualizarHorarios(this.mesaIDTargets[0].value);
+  }
+  actualizarHorarios(mesaId) {
+    const seleccionados = this.horarioTargets
+      .map((select) => select.value)
+      .filter((value) => value !== "");
 
+    this.horarioTargets.forEach((select) => {
+      Array.from(select.options).forEach((option) => {
+        if (option.value === "") return;
+
+        option.disabled =
+          seleccionados.includes(option.value) && option.value !== select.value;
+      });
+    });
+  }
   seleccionarMesa(event) {
     const checkbox = event.currentTarget;
     const mesaId = checkbox.value;
@@ -126,9 +142,12 @@ export default class extends Controller {
       .map(function () {
         return $(this).val();
       })
-      .get();    
-    ajaxTurbo("/plantillas/mesas_seleccionadas_2", { seleccionada: true,ruta: paso });
-  }  
+      .get();
+    ajaxTurbo("/plantillas/mesas_seleccionadas_2", {
+      seleccionada: true,
+      ruta: paso,
+    });
+  }
   eliminarMesa(event) {
     const boton = event.currentTarget;
     const mesaId = boton.dataset.mesaId;

@@ -29,9 +29,21 @@ class PlantillasController < ApplicationController
   def detalle
      render partial: "template_detalle_mesa"
   end
-  def create    
+  def create        
     plantilla = Plantilla.new(nombre: params[:plantilla][:nombre])  
-    if plantilla.save
+    if plantilla.save      
+      params[:mesa][:detalle_mesas_attributes].each do |indice, detalle|
+        logger.debug"******* detalle *********** #{detalle}"
+        logger.debug"******* detalle mesa *********** #{detalle[:mesa]}"
+        tipo = detalle[:tipo].split("_")
+        paciente = tipo[0]
+        sexo = tipo[1]
+        hora = detalle[:horario].split("_")
+        horario = hora[1]
+        detalle_mesa = DetalleMesa.new(paciente: paciente, sexo: sexo,horario: horario, mesa_id: detalle[:mesa],plantilla_id:plantilla.id)
+        detalle_mesa.save
+      end            
+
       params[:plantilla][:dias].each do |dia, datos|      
         # Process each day
         logger.info "Processing day: #{dia.upcase} at index #{datos}"

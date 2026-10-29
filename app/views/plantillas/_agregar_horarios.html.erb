@@ -1,6 +1,6 @@
 <div id="agregar_nuevos_horarios">
   <div class="mesas-configuracion" data-controller="plantillas">
-    <input id="index" type="number" value=0 >
+    <input id="index" type="number" value=0 hidden>
     <% mesas.each do |mesa| %>
       <div class="mesa-card mb-3"
          data-mesa-id="<%= mesa.id %>">

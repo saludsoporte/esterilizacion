@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_23_171915) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_29_202539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_23_171915) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.bigint "agenda_id", null: false
+    t.string "observaciones"
     t.index ["agenda_id"], name: "index_citas_on_agenda_id"
     t.index ["detalle_mesa_id"], name: "index_citas_on_detalle_mesa_id"
     t.index ["relacion_agenda_plantilla_id"], name: "index_citas_on_relacion_agenda_plantilla_id"

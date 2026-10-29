@@ -2,7 +2,7 @@
 
   <div class="form-mesa hstack gap-3 mb-3 p-3 border rounded">
     <div class="opciones-checkbox">
-      <input type="number" name="mesa[detalle_mesas_attributes][INDEX][mesa]" value="MESAID" hidden >
+      <input type="number" name="mesa[detalle_mesas_attributes][INDEX][mesa]" data-plantillas-target="mesaID" value="MESAID" hidden >
       <label class="opcion-checkbox">
         <input type="radio" name="mesa[detalle_mesas_attributes][INDEX][tipo]" value="P_P">
         <span>
@@ -34,53 +34,53 @@
         </span>
       </label>
       <div class="campo-horario">
-        <select name="mesa[detalle_mesas_attributes][INDEX][horario]" class="form-select" data-mesas-target="horario" data-action="change->plantillas#cambiarHorario">
+        <select name="mesa[detalle_mesas_attributes][INDEX][horario]" class="form-select" data-plantillas-target="horario" data-action="change->plantillas#cambiarHorario">
           <option value="">
             Selecciona horario
           </option>
-          <option value="08:00">
+          <option value="MESAID_08:00">
             08:00
           </option>
-          <option value="08:25">
+          <option value="MESAID_08:25">
             08:25
           </option>
-          <option value="08:50">
+          <option value="MESAID_08:50">
             08:50
           </option>
-          <option value="09:15">
+          <option value="MESAID_09:15">
             09:15
           </option>
-          <option value="09:40">
+          <option value="MESAID_09:40">
             09:40
           </option>
-          <option value="10:05">
+          <option value="MESAID_10:05">
             10:05
           </option>
-          <option value="10:30">
+          <option value="MESAID_10:30">
             10:30
           </option>
-          <option value="10:55">
+          <option value="MESAID_10:55">
             10:55
           </option>
-          <option value="11:20">
+          <option value="MESAID_11:20">
             11:20
           </option>
-          <option value="11:45">
+          <option value="MESAID_11:45">
             11:45
           </option>
-          <option value="12:10">
+          <option value="MESAID_12:10">
             12:10
           </option>
-          <option value="12:35">
+          <option value="MESAID_12:35">
             12:35
           </option>
-          <option value="13:00">
+          <option value="MESAID_13:00">
             13:00
           </option>
-          <option value="13:25">
+          <option value="MESAID_13:25">
             13:25
           </option>
-          <option value="13:50">
+          <option value="MESAID_13:50">
             13:50
           </option>
         </select>
