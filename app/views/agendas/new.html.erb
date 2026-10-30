@@ -58,38 +58,7 @@
             <%= form.date_field :fecha_fin,
                                 class: "form-control" %>
           </div>
-        </div>
-        <!-- USUARIO -->
-        <div class="col-md-6">
-          <%= form.label :user_id,
-                         "Usuario",
-                         class: "form-label" %>
-          <div class="input-icon">
-            <i class="bi bi-person"></i>
-            <%= form.collection_select :user_id,
-                                       User.where("id = ?",current_user.id),
-                                       :id,
-                                       :nombre ,{selected:current_user.id},
-                                       { class: "form-select",disabled: true  } %>
-            <%= form.hidden_field :user_id, value: current_user.id %>
-          </div>
-        </div>
-        <!-- ESTADO -->
-        <div class="col-md-6">
-          <%= form.label :activo,
-                         "Estado",
-                         class: "form-label" %>
-          <div class="agenda-switch">
-            <%= form.check_box :activo,
-                               class: "form-check-input" %>
-            <div>
-              <strong>Agenda activa</strong>
-              <small>
-                La agenda estará disponible para utilizarse.
-              </small>
-            </div>
-          </div>
-        </div>
+        </div>        
       </div>
       <!-- BOTONES -->
       <div class="form-actions">
@@ -97,7 +66,7 @@
           <i class="bi bi-x-lg"></i>
           Cancelar
         <% end %>
-        <%= form.submit "Guardar agenda",
+        <%= form.submit "Crear Agenda",
                         class: "btn-guardar-agenda" %>
       </div>
     <% end %>
