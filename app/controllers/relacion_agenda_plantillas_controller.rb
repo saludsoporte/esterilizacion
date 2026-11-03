@@ -1,13 +1,42 @@
 class RelacionAgendaPlantillasController < ApplicationController
   before_action :authenticate_user!
+  def dias_disponibles
+    mesa_id = params[:mesa_id]
+    plantilla_id = params[:plantilla_id]
+
+    dias = DetalleMesa
+             .where(
+               mesa_id: mesa_id,
+               plantilla_id: plantilla_id
+             )
+             .distinct
+             .pluck(:dia)
+
+    dias_normalizados = dias.map do |dia|
+      I18n.transliterate(dia.to_s.strip).downcase
+    end.uniq
+
+    render json: dias_normalizados
+  end
+  
   def new
     @users = User.all 
     @relacion_agenda = RelacionAgendaPlantilla.new
-    @agenda = Agenda.find(params[:agenda])
+    @agenda = Agenda.find(params[:agenda_id])
+
+    @relaciones = RelacionAgendaPlantilla
+                   .includes(:user, :plantilla)
+                   .all
+
+    @mesas = Mesa.all
+    @dias_semana = %w[
+      lunes martes miércoles jueves viernes sábado domingo
+    ]
   end
   def agregar_medico
     @medico = User.find(params[:user_id])
   end  
+  
   def setDiasMeses
       dias_semana = {      
       1 => "LUNES",
@@ -58,8 +87,10 @@ class RelacionAgendaPlantillasController < ApplicationController
       locals: { detalles: detalle}}
     end
   end
-  def create   
-    if params[:mesas].blank? && params[:dias].blank? && params[:user_id].blank?
+
+
+  def create          
+    if params[:relacion_agenda_plantilla][:plantilla_id].blank?            
       redirect_to new_relacion_agenda_plantilla_path(agenda_id:params[:relacion_agenda_plantilla][:agenda_id]), alert: "No se pudo crear la relación de agenda con plantilla. Debe seleccionar un médico, un día y una mesa."
       return
     else

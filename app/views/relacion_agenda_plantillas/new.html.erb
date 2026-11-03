@@ -31,7 +31,70 @@
         </div>
       </div>
       <br>
-        
+        <div class="container mt-4"
+     data-controller="asignaciones"
+     data-asignaciones-url-value="<%= dias_disponibles_asignaciones_path %>">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h4>Asignación de médicos</h4>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <label class="form-label">Médico</label>
+          <%= select_tag :relacion_agenda_plantilla_id,
+            options_from_collection_for_select(
+              @relaciones,
+              :id,
+              ->(r) { r.user.nombre_completo }
+            ),
+            prompt: "Selecciona un médico",
+            class: "form-select",
+            data: {
+              asignaciones_target: "medico",
+              action: "change->asignaciones#cambiarMedico"
+            } %>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Mesa</label>
+          <%= select_tag :mesa_id,
+            options_from_collection_for_select(
+              @mesas,
+              :id,
+              :nombre_mesa
+            ),
+            prompt: "Selecciona una mesa",
+            class: "form-select",
+            data: {
+              asignaciones_target: "mesa",
+              action: "change->asignaciones#cargarDias"
+            } %>
+        </div>
+      </div>
+      <div class="calendario-asignaciones">
+        <h5 class="mb-3">Días de asignación</h5>
+        <div class="calendario-grid">
+          <% @dias_semana.each do |dia| %>
+            <label class="dia-card disabled"
+                   data-asignaciones-target="dia"
+                   data-dia="<%= dia %>">
+              <input type="checkbox"
+                     name="asignaciones[dias][]"
+                     value="<%= dia %>"
+                     disabled>
+              <span class="dia-nombre">
+                <%= dia.capitalize %>
+              </span>
+              <span class="dia-estado">
+                No disponible
+              </span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       <!-- ACCIONES -->
       <div class="relacion-actions">
         <%= link_to agendas_path,
