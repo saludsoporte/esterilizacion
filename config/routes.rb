@@ -44,6 +44,11 @@ Rails.application.routes.draw do
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
   get "plantillas/detalle", to: "plantillas#detalle"
   
+  resources :asignaciones, only: [:new, :create] do
+    collection do
+      get :dias_disponibles
+    end
+  end
   patch "notificaciones/:id/marcar_leida",
       to: "notificaciones#marcar_leida",
       as: :marcar_leida_notificacion
