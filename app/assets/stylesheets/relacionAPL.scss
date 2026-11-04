@@ -1,3 +1,205 @@
+.calendario-container {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.calendario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-bottom: 4px;
+    color: #263746;
+  }
+
+  span {
+    color: #84919d;
+    font-size: 13px;
+  }
+}
+
+.calendario-navegacion {
+  display: flex;
+  gap: 8px;
+}
+
+.calendario-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  background: #f5f7fa;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #e5e7eb;
+  border-bottom: none;
+
+  div {
+    padding: 13px 5px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #526575;
+  }
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-left: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb;
+}
+
+.calendario-celda {
+  min-width: 0;
+  min-height: 105px;
+  padding: 10px;
+  border: none;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  transition: background .2s ease;
+
+  .numero-dia {
+    font-size: 16px;
+    font-weight: 700;
+    color: #34495e;
+  }
+
+  .estado-dia {
+    font-size: 11px;
+    border-radius: 20px;
+    padding: 4px 8px;
+  }
+
+  &.dia-disponible {
+    background: #f0faf4;
+    cursor: pointer;
+
+    .estado-dia {
+      background: #d8f3e2;
+      color: #198754;
+    }
+
+    &:hover {
+      background: #dff3e7;
+    }
+  }
+
+  &.dia-bloqueado {
+    background: #fafafa;
+    cursor: not-allowed;
+
+    .numero-dia {
+      color: #aeb8c1;
+    }
+
+    .estado-dia {
+      color: #adb5bd;
+    }
+  }
+
+  &.dia-seleccionado {
+    background: #dceeff;
+    box-shadow: inset 0 0 0 2px #0d6efd;
+
+    .numero-dia {
+      color: #0d6efd;
+    }
+
+    .estado-dia {
+      background: #0d6efd;
+      color: white;
+    }
+  }
+
+  &.fuera-mes {
+    background: #f8f9fa;
+    cursor: default;
+
+    .numero-dia {
+      color: #c7cdd2;
+    }
+  }
+}
+
+.calendario-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #667582;
+  }
+
+  i {
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+    display: inline-block;
+
+    &.disponible {
+      background: #198754;
+    }
+
+    &.seleccionado {
+      background: #0d6efd;
+    }
+
+    &.bloqueado {
+      background: #dfe3e7;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  .calendario-container {
+    padding: 10px;
+  }
+
+  .calendario-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .calendario-dias-semana div {
+    font-size: 10px;
+    padding: 10px 1px;
+  }
+
+  .calendario-celda {
+    min-height: 75px;
+    padding: 5px;
+
+    .numero-dia {
+      font-size: 13px;
+    }
+
+    .estado-dia {
+      font-size: 9px;
+      padding: 3px;
+    }
+  }
+}
+
 /* ==========================================
    RELACION AGENDA - PLANTILLA
    ========================================== */

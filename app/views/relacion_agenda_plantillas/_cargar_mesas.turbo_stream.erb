@@ -1,10 +1,10 @@
 <%= turbo_stream.replace "mesas_ref" do %>
   <div class="relacion-field" id="mesas_ref">
     <label from="mesas_id">Mesas</label>
-    <select id="mesas" name="mesas" class="form-select">
+    <select id="mesas" name="mesas" class="form-select" data-agenda-target="mesa" data-action="change->agenda#cargarDias" >
       <option selected >Selecciona una mesa</option>
-      <% detalles.each do |detalle|%>
-        <option value="<%=detalle.mesa_id %>"><%= detalle.mesa.nombre_mesa %></option>
+      <% mesas.each do |mesa|%>
+        <option value="<%=mesa.id %>"><%= mesa.nombre_mesa %></option>
       <% end %>
     </select>
   </div>

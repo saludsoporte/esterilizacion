@@ -43,8 +43,9 @@ Rails.application.routes.draw do
   get "citas/mis_citas", to: "citas#mis_citas", as: :mis_citas
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
   get "plantillas/detalle", to: "plantillas#detalle"
+  post "relacion_agenda_plantillas/setMesas", to: "relacion_agenda_plantillas#setMesas"
   
-  resources :asignaciones, only: [:new, :create] do
+  resources :relacion_agenda_plantillas, only: [:new, :create] do
     collection do
       get :dias_disponibles
     end

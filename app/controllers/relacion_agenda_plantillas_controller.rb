@@ -4,14 +4,7 @@ class RelacionAgendaPlantillasController < ApplicationController
     mesa_id = params[:mesa_id]
     plantilla_id = params[:plantilla_id]
 
-    dias = DetalleMesa
-             .where(
-               mesa_id: mesa_id,
-               plantilla_id: plantilla_id
-             )
-             .distinct
-             .pluck(:dia)
-
+    dias = DetallePlantilla.where(mesa_id: mesa_id,plantilla_id: plantilla_id).distinct.pluck(:dia)    
     dias_normalizados = dias.map do |dia|
       I18n.transliterate(dia.to_s.strip).downcase
     end.uniq
@@ -20,15 +13,10 @@ class RelacionAgendaPlantillasController < ApplicationController
   end
   
   def new
-    @users = User.all 
+    @medicos = User.where("rols_id in (2,3)").order(:nombre)  
     @relacion_agenda = RelacionAgendaPlantilla.new
     @agenda = Agenda.find(params[:agenda_id])
-
-    @relaciones = RelacionAgendaPlantilla
-                   .includes(:user, :plantilla)
-                   .all
-
-    @mesas = Mesa.all
+    @relaciones = RelacionAgendaPlantilla.includes(:user, :plantilla).all    
     @dias_semana = %w[
       lunes martes miércoles jueves viernes sábado domingo
     ]
@@ -60,16 +48,12 @@ class RelacionAgendaPlantillasController < ApplicationController
       locals: { detalles: detalles, dias: nombre_dias }}
     end
   end
-  def setMesas    
-    dia = params[:dia].split('_')[0]
-    num_dia = params[:dia].split('_')[1]   
-    relacion = RelacionAgendaPlantilla.where(agenda_id:params[:agenda_id])   
-    logger.debug "********************* relacion "+relacion.to_s
-    detalle = DetallePlantilla.where(plantilla_id:params[:plantilla_id],dia:dia).where.not(id:relacion.pluck(:detalle_plantilla_id))
-    logger.debug "********************* mesas "+detalle.count.to_s    
+  def setMesas        
+    @mesas=Mesa.joins(:detalle_plantillas).where(detalle_plantillas: {plantilla_id: params[:plantilla_id]}).distinct
+    logger.debug "********************* mesas "+@mesas.to_s                
     respond_to do |format|
       format.turbo_stream { render partial: "relacion_agenda_plantillas/cargar_mesas", 
-      locals: { detalles: detalle}}
+      locals: { mesas: @mesas }}
     end
   end
   def setMesa
