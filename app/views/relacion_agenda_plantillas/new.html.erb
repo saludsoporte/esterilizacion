@@ -38,7 +38,7 @@
           <div class="row mb-4">
             <div class="col-md-6">
               <label>Médico</label>
-              <%= select_tag :relacion_agenda_plantilla_id,options_from_collection_for_select(@medicos, :id, :nombre),prompt: "Selecciona un médico",        class: "form-select"
+              <%= select_tag :medico_id,options_from_collection_for_select(@medicos, :id, :nombre),prompt: "Selecciona un médico",        class: "form-select"
               %>
             </div>
             <div class="col-md-6">
