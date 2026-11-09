@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "medicos_select" do %>
+  <%= render "medicos_select" %>
+<% end %>
+<%= turbo_stream.update "notificaciones" do %>
+  <%= render "alerta_exito",
+      mensaje: "¡Relación guardada correctamente!" %>
+<% end %>

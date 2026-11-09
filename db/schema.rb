@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_29_202539) do
+ActiveRecord::Schema[7.1].define(version: 2026_11_09_202510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -128,6 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_29_202539) do
     t.bigint "detalle_extra_id"
     t.integer "dia"
     t.string "dia_nombre"
+    t.date "fecha_agendada"
     t.index ["agenda_id"], name: "index_relacion_agenda_plantillas_on_agenda_id"
     t.index ["detalle_extra_id"], name: "index_relacion_agenda_plantillas_on_detalle_extra_id"
     t.index ["detalle_plantilla_id"], name: "index_relacion_agenda_plantillas_on_detalle_plantilla_id"

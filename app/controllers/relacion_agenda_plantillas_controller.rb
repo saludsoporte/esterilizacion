@@ -29,7 +29,7 @@ class RelacionAgendaPlantillasController < ApplicationController
       dias_semana = {      
       1 => "LUNES",
       2 => "MARTES",
-      3 => "MIERCOLES",
+      3 => "MIÉRCOLES",
       4 => "JUEVES",
       5 => "VIERNES"      
     }
@@ -78,16 +78,42 @@ class RelacionAgendaPlantillasController < ApplicationController
       redirect_to new_relacion_agenda_plantilla_path(agenda_id:params[:relacion_agenda_plantilla][:agenda_id]), alert: "No se pudo crear la relación de agenda con plantilla. Debe seleccionar un médico, un día y una mesa."
       return
     else
-      dia = params[:dias].split('_')[0]
-      num_dia = params[:dias].split('_')[1]
-      logger.debug "********************* dIAS "+params[:dias]
-      logger.debug "********************* dIA "+dia
-      logger.debug "********************* num_dia "+num_dia
-      detalle = DetallePlantilla.find_by(plantilla_id:params[:relacion_agenda_plantilla][:plantilla_id],dia:dia,mesa_id:params[:mesas])
-      relacion_agenda = RelacionAgendaPlantilla.new(agenda_id: params[:relacion_agenda_plantilla][:agenda_id],
-      plantilla_id: params[:relacion_agenda_plantilla][:plantilla_id],detalle_plantilla_id:detalle.id,user_id:params[:user_id],dia:num_dia,dia_nombre:dia)
-      if relacion_agenda.save      
-      redirect_to new_relacion_agenda_plantilla_path(agenda_id:params[:relacion_agenda_plantilla][:agenda_id]), notice: "Se ha creado la relación de agenda con plantilla correctamente."
+      error = false
+      params[:asignaciones][:fechas].each do |fecha_str|
+        fecha = Date.parse(fecha_str)
+        dia = I18n.l(fecha, format: "%A").upcase #dia de la semana en mayúsculas
+        num_dia = I18n.l(fecha, format: "%d") #numero del dia del mes
+        logger.debug "********************* dia "+dia.to_s
+        logger.debug "********************* num_dia "+num_dia.to_s
+        detalle = DetallePlantilla.find_by(plantilla_id:params[:relacion_agenda_plantilla][:plantilla_id],dia:dia,mesa_id:params[:mesas])  
+        logger.debug "********************* detalle "+detalle.id.to_s
+        relacion_agenda = RelacionAgendaPlantilla.new(
+          agenda_id: params[:relacion_agenda_plantilla][:agenda_id],
+          plantilla_id: params[:relacion_agenda_plantilla][:plantilla_id],
+          detalle_plantilla_id:detalle.id,
+          user_id:params[:medico_id],
+          dia:num_dia,
+          dia_nombre:dia,
+          fecha_agendada:fecha)
+        unless relacion_agenda.save  
+          logger.debug "********************* error "+relacion_agenda.errors.full_messages.to_s
+          error = true
+          break
+        end        
+      end     
+      
+      if !error
+        @medicos = User
+        .where("rols_id in (2,3)")
+        .where.not(
+          id: params[:medico_id]
+        )
+        respond_to do |format|
+          format.turbo_stream
+          format.html do
+            redirect_to redirect_to new_relacion_agenda_plantilla_path(agenda_id:params[:relacion_agenda_plantilla][:agenda_id]), notice: "Se ha creado la relación de agenda con plantilla correctamente."            
+          end  
+        end        
       else
         redirect_to agenda_path(params[:relacion_agenda_plantilla][:agenda_id]), alert: "No se pudo crear la relación de agenda con plantilla."
       end
@@ -104,7 +130,7 @@ class RelacionAgendaPlantillasController < ApplicationController
     dias_semana = {      
       1 => "LUNES",
       2 => "MARTES",
-      3 => "MIERCOLES",
+      3 => "MIÉRCOLES",
       4 => "JUEVES",
       5 => "VIERNES"      
     }   

@@ -1,0 +1,34 @@
+<div class="agenda-relaciones-lista">
+  <% @agenda.relacion_agenda_plantillas.each do |relacion| %>
+    <div class="agenda-relacion">
+      <div class="agenda-relacion-seccion">
+        <span class="agenda-relacion-label">Plantilla</span>
+        <div class="agenda-relacion-valor">
+          <i class="bi bi-file-earmark-text"></i>
+          <%= relacion.plantilla.nombre %>
+        </div>
+      </div>
+      <div class="agenda-relacion-seccion">
+        <span class="agenda-relacion-label">Responsable</span>
+        <div class="agenda-relacion-valor">
+          <i class="bi bi-person"></i>
+          <%= relacion.user.nombre %>
+        </div>
+      </div>
+      <div class="agenda-relacion-seccion">
+        <span class="agenda-relacion-label">Día</span>
+        <div class="agenda-relacion-valor">
+          <i class="bi bi-calendar3"></i>
+          <%= relacion.dia_nombre %>
+          <%= relacion.dia %>
+        </div>
+      </div>
+      <div class="agenda-relacion-seccion">
+        <span class="agenda-relacion-label">Mesa</span>
+        <div class="agenda-relacion-valor">
+          <%= relacion.detalle_plantilla.mesa.nombre_mesa %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

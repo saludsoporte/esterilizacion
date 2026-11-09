@@ -3,7 +3,7 @@
     <div>
       <h1>
         <i class="bi bi-link-45deg"></i>
-        Relacionar agenda
+        Agendar médicos
       </h1>
       <p>
         Selecciona la agenda, plantilla y médicos que participarán.
@@ -36,10 +36,9 @@
         <div class="container" data-agenda-url-value="<%= dias_disponibles_relacion_agenda_plantillas_path %>">
           <h3>Asignación de médico</h3>
           <div class="row mb-4">
-            <div class="col-md-6">
-              <label>Médico</label>
-              <%= select_tag :medico_id,options_from_collection_for_select(@medicos, :id, :nombre),prompt: "Selecciona un médico",        class: "form-select"
-              %>
+            <div class="col-md-6">              
+              <%= render "medicos_select" %>
+              <%# select_tag :medico_id,options_from_collection_for_select(@medicos, :id, :nombre),prompt: "Selecciona un médico",        class: "form-select"              %>
             </div>
             <div class="col-md-6">
               <%= turbo_frame_tag "mesas_ref" do %>
@@ -91,55 +90,7 @@
         </div>
       </div>
     <% end %>
-  </div>
-  <div class="agenda-relaciones">
-    <div class="agenda-relaciones-header">
-      <h3>Relaciones de la agenda</h3>
-    </div>
-    <div class="agenda-relaciones-lista">
-      <% @agenda.relacion_agenda_plantillas.each do |relacion| %>
-        <div class="agenda-relacion">
-          <!-- Plantilla -->
-          <div class="agenda-relacion-seccion">
-            <span class="agenda-relacion-label">
-              Plantilla
-            </span>
-            <div class="agenda-relacion-valor">
-              <i class="bi bi-file-earmark-text"></i>
-              <%= relacion.plantilla.nombre %>
-            </div>
-          </div>
-          <!-- Usuario -->
-          <div class="agenda-relacion-seccion">
-            <span class="agenda-relacion-label">
-              Responsable
-            </span>
-            <div class="agenda-relacion-valor">
-              <i class="bi bi-person"></i>
-              <%= relacion.user.nombre %>
-            </div>
-          </div>
-          <!-- Día -->
-          <div class="agenda-relacion-seccion">
-            <span class="agenda-relacion-label">
-              Día
-            </span>
-            <div class="agenda-relacion-valor">
-              <i class="bi bi-calendar3"></i>
-              <%= relacion.dia_nombre %>
-              <%= relacion.dia %>
-            </div>
-          </div>
-          <div class="agenda-relacion-seccion ">
-            <span class="agenda-relacion-label">
-              Mesa
-            </span>
-            <div class="agenda-relacion-valor">
-              <%= relacion.detalle_plantilla.mesa.nombre_mesa %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  </div>  
+</div>
+<div id="notificaciones">
 </div>

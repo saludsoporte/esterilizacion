@@ -75,3 +75,22 @@ es:
     mailer:
       reset_password_instructions:
         subject: "Instrucciones para restablecer tu contraseña"
+
+es:
+  date:
+    day_names:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    abbr_day_names:
+      - Dom
+      - Lun
+      - Mar
+      - Mié
+      - Jue
+      - Vie
+      - Sáb
