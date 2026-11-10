@@ -309,6 +309,271 @@
     min-width: 750px;
   }
 }
+.agendas-header {
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #243447;
+
+    i {
+      color: #258477;
+      margin-right: 8px;
+    }
+  }
+
+  p {
+    font-size: .9rem;
+  }
+}
+
+.agenda-breadcrumb {
+  font-size: .8rem;
+  color: #82909e;
+  margin-bottom: 8px;
+
+  i {
+    font-size: .65rem;
+    margin: 0 6px;
+  }
+
+   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: nowrap;
+
+  > span {
+    white-space: nowrap;
+  }
+
+  .btn-regresar-agenda {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+.agenda-form-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e9eef2;
+  border-radius: 16px;
+  box-shadow: 0 5px 22px rgba(30, 50, 70, .06);
+  overflow: hidden;
+}
+
+.agenda-form-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 25px 30px;
+  border-bottom: 1px solid #edf0f3;
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #293b4d;
+    margin-bottom: 5px;
+  }
+
+  span {
+    font-size: .85rem;
+    color: #8794a1;
+  }
+}
+
+.agenda-icon-header,
+.agenda-preview-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #e9f5f2;
+  color: #258477;
+  font-size: 1.4rem;
+}
+
+.agenda-form-body {
+  padding: 35px 30px 40px;
+}
+
+.agenda-section-title {
+  font-size: .95rem;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 30px;
+
+  i {
+    color: #258477;
+    margin-right: 7px;
+  }
+}
+
+.agenda-form-body .form-label {
+  font-size: .9rem;
+  font-weight: 600;
+  color: #405264;
+  margin-bottom: 10px;
+}
+
+.agenda-month-input {
+  position: relative;
+
+  > i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    color: #258477;
+    font-size: 1.15rem;
+  }
+
+  .form-control {
+    height: 55px;
+    padding-left: 48px;
+    border: 1px solid #dce5e9;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #34495e;
+    background-color: #fff;
+
+    &:focus {
+      border-color: #258477;
+      box-shadow: 0 0 0 3px rgba(37, 132, 119, .12);
+    }
+  }
+}
+
+.agenda-periodo-preview {
+  padding: 22px;
+  border: 1px solid #dcece7;
+  background: #f6fbf9;
+  border-radius: 12px;
+
+  h5 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #28796e;
+    margin-top: 5px;
+  }
+
+  strong {
+    color: #28796e;
+    font-size: .95rem;
+  }
+}
+
+.agenda-preview-label {
+  font-size: .78rem;
+  color: #84958f;
+}
+
+.agenda-preview-divider {
+  height: 1px;
+  background: #e1ece7;
+  margin: 20px 0;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 30px;
+  background: #fafcfd;
+  border-top: 1px solid #edf0f3;
+}
+
+.btn-regresar-agenda,
+.btn-cancelar-agenda,
+.btn-guardar-agenda {
+  display: inline-flex;
+  align-items: right;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  border-radius: 9px;
+  padding: 11px 19px;
+  font-size: .88rem;
+  font-weight: 600;
+  transition: all .2s ease;
+  float: right;
+}
+
+.btn-regresar-agenda {
+  color: #526575;
+  background: #fff;
+  border: 1px solid #dce5e9;
+
+  &:hover {
+    color: #258477;
+    border-color: #258477;
+  }
+}
+
+.btn-cancelar-agenda {
+  color: #647484;
+  border: 1px solid #dce5e9;
+  background: #fff;
+
+  &:hover {
+    color: #34495e;
+    background: #f0f3f5;
+  }
+}
+
+.btn-guardar-agenda {
+  color: #fff;
+  background: #258477;
+  border: 1px solid #258477;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background: #1d6c62;
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 576px) {
+  .agendas-header {
+    align-items: flex-start !important;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    h1 {
+      font-size: 1.4rem;
+    }
+  }
+
+  .agenda-form-header,
+  .agenda-form-body {
+    padding: 22px 18px;
+  }
+
+  .form-actions {
+    padding: 18px;
+    flex-direction: column-reverse;
+
+    a,
+    input {
+      width: 100%;
+    }
+  }
+
+  .agenda-periodo-preview {
+    padding: 16px;
+  }
+}
+
 
 /* ==========================================
    DETALLE DE AGENDA

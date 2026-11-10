@@ -1,64 +1,96 @@
 <div class="container-fluid py-4" data-controller="agenda">
   <!-- ENCABEZADO -->
-  <div class="agendas-header d-flex align-items-center justify-content-between">
-    <div class="d-flex align-items-center gap-3">
-      <h1 class="mb-0">
-        <i class="bi bi-calendar-plus"></i>
-        Nueva agenda
-      </h1>      
-    </div>
+  <div class="agendas-header mb-4">
+  <div class="agenda-breadcrumb">
+    <span>
+      Administración <i class="bi bi-chevron-right"></i> Agendas
+    </span>
     <%= link_to agendas_path, class: "btn-regresar-agenda" do %>
       <i class="bi bi-arrow-left"></i>
       Regresar
     <% end %>
   </div>
+</div>
   <!-- FORMULARIO -->
   <div class="agenda-form-card">
     <div class="agenda-form-header">
-      <i class="bi bi-calendar2-week"></i>
-      <div>
+      <div class="agenda-icon-header">
+        <i class="bi bi-calendar2-week"></i>
+      </div>
+      <div >
         <h4>Información de la agenda</h4>
-        <span>Completa los datos para registrar la agenda.</span>
+        <span>Selecciona el mes en el que estará vigente la agenda.</span>
       </div>
     </div>
     <%= form_with model: @agenda do |form| %>
       <% if @agenda.errors.any? %>
         <div class="alert alert-danger">
           <strong>
+            <i class="bi bi-exclamation-circle"></i>
             No se pudo crear la agenda:
           </strong>
           <ul class="mb-0 mt-2">
             <% @agenda.errors.full_messages.each do |message| %>
-              <li>
-                <%= message %>
-              </li>
+              <li><%= message %></li>
             <% end %>
           </ul>
         </div>
       <% end %>
-      <div class="row g-4">
-        <!-- FECHA INICIO -->
-        <div class="col-md-6">
-          <%= form.label :fecha_inicio,
-                         "Fecha de inicio",
-                         class: "form-label" %>
-          <div class="input-icon">
-            <i class="bi bi-calendar-event"></i>
-            <%= form.date_field :fecha_inicio,
-                                class: "form-control" %>
+      <div class="agenda-form-body">        
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-xl-7">
+            <label for="mes" class="form-label">
+              Mes de la agenda
+            </label>
+            <div class="input-icon agenda-month-input">
+              <i class="bi bi-calendar3"></i>
+              <%= month_field_tag :mes,
+                  (@agenda.fecha_inicio || Date.current).strftime("%Y-%m"),
+                  id: "mes",
+                  class: "form-control",
+                  data: {
+                    agenda_target: "mes",
+                    action: "change->agenda#actualizarRango"
+                  } %>
+            </div>
+            <small class="text-muted mt-2 d-block">
+              La agenda abarcará automáticamente desde el primer
+              hasta el último día del mes seleccionado.
+            </small>
+            <!-- VISTA PREVIA -->
+            <div class="agenda-periodo-preview mt-4">
+              <div class="d-flex align-items-center gap-3">
+                <div class="agenda-preview-icon">
+                  <i class="bi bi-calendar-check"></i>
+                </div>
+                <div>
+                  <span class="agenda-preview-label">
+                    Periodo de vigencia
+                  </span>
+                  <h5 class="mb-0" data-agenda-target="periodo">
+                    <%= (@agenda.fecha_inicio || Date.current).beginning_of_month.strftime("%d/%m/%Y") %>
+                    —
+                    <%= (@agenda.fecha_inicio || Date.current).end_of_month.strftime("%d/%m/%Y") %>
+                  </h5>
+                </div>
+              </div>
+              <div class="agenda-preview-divider"></div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-muted">
+                  Duración del periodo
+                </span>
+                <strong data-agenda-target="dias">
+                  <%= (@agenda.fecha_inicio || Date.current).end_of_month.day %> días
+                </strong>
+              </div>
+            </div>
+            <!-- FECHAS QUE SE GUARDARÁN EN RAILS -->
+            <%= form.hidden_field :fecha_inicio,
+                data: { agenda_target: "fechaInicio" } %>
+            <%= form.hidden_field :fecha_fin,
+                data: { agenda_target: "fechaFin" } %>
           </div>
         </div>
-        <!-- FECHA FIN -->
-        <div class="col-md-6">
-          <%= form.label :fecha_fin,
-                         "Fecha de finalización",
-                         class: "form-label" %>
-          <div class="input-icon">
-            <i class="bi bi-calendar-check"></i>
-            <%= form.date_field :fecha_fin,
-                                class: "form-control" %>
-          </div>
-        </div>        
       </div>
       <!-- BOTONES -->
       <div class="form-actions">
@@ -67,7 +99,8 @@
           Cancelar
         <% end %>
         <%= form.submit "Crear Agenda",
-                        class: "btn-guardar-agenda" %>
+            class: "btn-guardar-agenda" do %>
+        <% end %>
       </div>
     <% end %>
   </div>

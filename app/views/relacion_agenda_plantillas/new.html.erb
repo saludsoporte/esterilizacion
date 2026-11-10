@@ -1,4 +1,4 @@
-<div class="relacion-container" data-controller="agenda">
+<div class="relacion-container" data-controller="relacion-agenda">
   <div class="relacion-header">
     <div>
       <h1>
@@ -15,8 +15,32 @@
       <div class="relacion-fields">
         <!-- Agenda -->
         <div class="relacion-field">
-          <%= form.label :agenda_id, "Agenda" %>
-          <p><%="#{@agenda.fecha_inicio} - #{@agenda.fecha_fin}"%></p>
+          <div class="agenda-periodo-preview mt-4">
+            <div class="d-flex align-items-center gap-3">
+              <div class="agenda-preview-icon">
+                <i class="bi bi-calendar-check"></i>
+              </div>
+              <div>
+                <span class="agenda-preview-label">
+                  Periodo de vigencia
+                </span>
+                <h5 class="mb-0" data-relacion-agenda-target="periodo">
+                  <%= (@agenda.fecha_inicio || Date.current).beginning_of_month.strftime("%d/%m/%Y") %>
+                  —
+                  <%= (@agenda.fecha_inicio || Date.current).end_of_month.strftime("%d/%m/%Y") %>
+                </h5>
+              </div>
+            </div>
+            <div class="agenda-preview-divider"></div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted">
+                Duración del periodo
+              </span>
+              <strong data-relacion-agenda-target="dias">
+                <%= (@agenda.fecha_inicio || Date.current).end_of_month.day %> días
+              </strong>
+            </div>
+          </div>                    
           <%= form.hidden_field :agenda_id,value:@agenda.id %>
         </div>
         <!-- Plantilla -->
@@ -31,12 +55,12 @@
         </div>
       </div>
       <br>
-      <div class="container mt-4" data-agenda-url-value="<%= dias_disponibles_relacion_agenda_plantillas_path %>">
+      <div class="container mt-4" data-relacion-agenda-url-value="<%= dias_disponibles_relacion_agenda_plantillas_path %>">
         <!-- ACCIONES -->
-        <div class="container" data-agenda-url-value="<%= dias_disponibles_relacion_agenda_plantillas_path %>">
+        <div class="container" data-relacion-agenda-url-value="<%= dias_disponibles_relacion_agenda_plantillas_path %>">
           <h3>Asignación de médico</h3>
           <div class="row mb-4">
-            <div class="col-md-6">              
+            <div class="col-md-6">
               <%= render "medicos_select" %>
               <%# select_tag :medico_id,options_from_collection_for_select(@medicos, :id, :nombre),prompt: "Selecciona un médico",        class: "form-select"              %>
             </div>
@@ -48,15 +72,15 @@
           <div class="calendario-container">
             <div class="calendario-header">
               <div>
-                <h3 data-agenda-target="titulo"></h3>
+                <h3 data-relacion-agenda-target="titulo"></h3>
                 <span>Selecciona los días que deseas asignar</span>
               </div>
               <div class="calendario-navegacion">
-                <button type="button" class="btn btn-outline-success" data-action="click->agenda#seleccionarTodos">
+                <button type="button" class="btn btn-outline-success" data-action="click->relacion-agenda#seleccionarTodos">
                   <i class="bi bi-check2-all"></i>
                   Seleccionar todos
                 </button>
-                <button type="button" class="btn btn-outline-secondary" data-action="click->agenda#limpiarSeleccion">
+                <button type="button" class="btn btn-outline-secondary" data-action="click->relacion-agenda#limpiarSeleccion">
                   <i class="bi bi-x-circle"></i>
                   Limpiar selección
                 </button>
@@ -68,9 +92,9 @@
               <% end %>
             </div>
             <div class="calendario-grid"
-         data-agenda-target="calendario">
+         data-relacion-agenda-target="calendario">
             </div>
-            <div data-agenda-target="seleccionados"></div>
+            <div data-relacion-agenda-target="seleccionados"></div>
             <div class="calendario-leyenda">
               <span><i class="disponible"></i> Disponible</span>
               <span><i class="seleccionado"></i> Seleccionado</span>
@@ -90,7 +114,7 @@
         </div>
       </div>
     <% end %>
-  </div>  
+  </div>
 </div>
 <div id="notificaciones">
 </div>

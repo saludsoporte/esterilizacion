@@ -22,5 +22,8 @@ application.register("mesas", MesasController)
 import PlantillasController from "./plantillas_controller"
 application.register("plantillas", PlantillasController)
 
+import RelacionAgendaController from "./relacion_agenda_controller"
+application.register("relacion-agenda", RelacionAgendaController)
+
 import RelacionController from "./relacion_controller"
 application.register("relacion", RelacionController)

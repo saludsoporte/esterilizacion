@@ -57,15 +57,15 @@ class AgendasController < ApplicationController
   end
 
   # POST /agendas or /agendas.json
-  def create    
+  def create   
+     
     @agenda = Agenda.new(agenda_params)
     @agenda.hora_inicio = '8:00'
     @agenda.activo = true
     @agenda.user_id = current_user.id
     respond_to do |format|
-      if @agenda.save
-        agenda = Agenda.last
-        format.html { redirect_to new_relacion_agenda_plantilla_path(agenda:agenda.id), notice: "Agenda was successfully created." }
+      if @agenda.save                
+        format.html { redirect_to new_relacion_agenda_plantilla_path(agenda_id:@agenda.id), notice: "Agenda was successfully created." }
         format.json { render :show, status: :created, location: @agenda }
       else
         format.html { render :new, status: :unprocessable_content }

@@ -9,7 +9,12 @@ export default class extends Controller {
     "titulo",
     "calendario",
     "seleccionados",
-    "dia"
+    "dia",
+    "mes",
+    "fechaInicio",
+    "fechaFin",
+    "periodo",
+    "dias",
   ];
 
   static values = {
@@ -17,258 +22,43 @@ export default class extends Controller {
   };
 
   connect() {
-    console.log("se conecto a agenda");
-    this.fechaActual = new Date();
-    this.mes = this.fechaActual.getMonth();
-    this.anio = this.fechaActual.getFullYear();
-
-    this.diasDisponibles = [];
-    this.fechasSeleccionadas = new Set();
-    this.dibujarCalendario();
-    //iniciarSemana();
-    $("#medico_id").prop("disabled", true);
-    $("#medico_id").val(0).trigger("change");
-    $("#plantilla_id").val(null).trigger("change");
-    $("#plantilla_id").on("change", function () {
-      $("#medico_id").prop("disabled", false);
-      console.log("plantilla_id: " + $(this).val());
-      ajaxTurbo("setMesas", {
-        plantilla_id: $(this).val(),
-      });
-    });
-    /*
-    $("#user_id").on("change", function () {
-      if ($(this).val() != 0) {
-        ajaxTurbo("setDiasMeses", {
-          user_id: $(this).val(),
-          agenda_id: $("#relacion_agenda_plantilla_agenda_id").val(),
-          plantilla_id: $("#relacion_agenda_plantilla_plantilla_id").val(),
-        });
-      } else {
-        $("#renglones_ref").html("");
-      }
-    });
-    */
-    /*
-    $(document).on("change", "#dias", function () {
-      if ($(this).val() != null) {
-        ajaxTurbo("setMesas", {
-          user_id: $("#user_id").val(),
-          agenda_id: $("#relacion_agenda_plantilla_agenda_id").val(),
-          plantilla_id: $("#relacion_agenda_plantilla_plantilla_id").val(),
-          dia: $(this).val(),
-        });
-      }
-    });
-    */
+    this.actualizarRango();
+    console.log("se conecto a agenda"); 
   }
-  async cargarDias() {
-    console.log("cargando dias");
-    //console.log(this.mesaTarget.value);
-    //const relacionId = this.relacionTarget.value;
-    const mesaId = this.mesaTarget.value;
+  
+ 
+   actualizarRango() {
+    const valor = this.mesTarget.value
 
-    this.diasDisponibles = [];
-    this.fechasSeleccionadas.clear();
+    if (!valor) return
 
-    this.actualizarSeleccionados();
-    console.log("mesaId: " + mesaId);
-    if (mesaId == null) {
-      console.log("dibujando calendario");
-      this.dibujarCalendario();
-      return;
-    }
-    var plantillaId = $("#plantilla_id").val();
-    console.log("plantillaId: " + plantillaId);
-    $.ajax({
-      url: "dias_disponibles",
-      type: "GET",
-      dataType: "json",
-      data: {
-        plantilla_id: plantillaId,
-        mesa_id: mesaId,
-      },
-      success: (response) => {
-        this.diasDisponibles = response;
-        console.log("Días disponibles:", this.diasDisponibles);
-        this.dibujarCalendario();
-      },
-      error: (xhr, status, error) => {
-        console.error("Error consultando los días disponibles:", error);
-      },
-    });
-  }
-  seleccionarTodos() {
-    this.diaTargets.forEach((element) => {
-      // Si el día está disponible
-      if (!element.disabled) {
-        const fecha = element.dataset.fecha;
+    const [anio, mes] = valor.split("-").map(Number)
 
-        if (fecha) {
-          this.fechasSeleccionadas.add(fecha);
-        }
-      }
-    });
+    // Primer día del mes
+    const primerDia = `${valor}-01`
 
-    this.dibujarCalendario();
-    this.actualizarSeleccionados();
-  }
+    // Último día del mes
+    const ultimoDiaNumero = new Date(anio, mes, 0).getDate()
 
-  limpiarSeleccion() {
-    this.fechasSeleccionadas.clear();
+    const ultimoDia = `${valor}-${String(ultimoDiaNumero).padStart(2, "0")}`
 
-    this.dibujarCalendario();
-    this.actualizarSeleccionados();
-  }
+    // Asignar fechas al formulario
+    this.fechaInicioTarget.value = primerDia
+    this.fechaFinTarget.value = ultimoDia
 
-  seleccionarFecha(fecha) {
-    if (this.fechasSeleccionadas.has(fecha)) {
-      this.fechasSeleccionadas.delete(fecha);
-    } else {
-      this.fechasSeleccionadas.add(fecha);
+    // Mostrar fechas en formato DD/MM/YYYY
+    const formatoFecha = (fecha) => {
+      const [anio, mes, dia] = fecha.split("-")
+      return `${dia}/${mes}/${anio}`
     }
 
-    this.dibujarCalendario();
-    this.actualizarSeleccionados();
+    this.periodoTarget.textContent =
+      `${formatoFecha(primerDia)} — ${formatoFecha(ultimoDia)}`
+
+    this.diasTarget.textContent = `${ultimoDiaNumero} días`
   }
 
-  actualizarSeleccionados() {
-    this.seleccionadosTarget.innerHTML = "";
-
-    Array.from(this.fechasSeleccionadas)
-      .sort()
-      .forEach((fecha) => {
-        const input = document.createElement("input");
-
-        input.type = "hidden";
-        input.name = "asignaciones[fechas][]";
-        input.value = fecha;
-
-        this.seleccionadosTarget.appendChild(input);
-      });
-  }
-
-  anterior() {
-    this.mes--;
-
-    if (this.mes < 0) {
-      this.mes = 11;
-      this.anio--;
-    }
-
-    this.dibujarCalendario();
-  }
-
-  siguiente() {
-    this.mes++;
-
-    if (this.mes > 11) {
-      this.mes = 0;
-      this.anio++;
-    }
-
-    this.dibujarCalendario();
-  }
-
-  hoy() {
-    this.fechaActual = new Date();
-    this.mes = this.fechaActual.getMonth();
-    this.anio = this.fechaActual.getFullYear();
-
-    this.dibujarCalendario();
-  }
-
-  formatoFecha(fecha) {
-    const anio = fecha.getFullYear();
-    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
-    const dia = String(fecha.getDate()).padStart(2, "0");
-
-    return `${anio}-${mes}-${dia}`;
-  }
-  dibujarCalendario() {
-    const fechaPrimera = new Date(this.anio, this.mes, 1);
-
-    // Convertir domingo (0) a posición 6
-    const desplazamiento = (fechaPrimera.getDay() + 6) % 7;
-
-    // Total de celdas necesarias para cubrir el mes
-    const totalDias = new Date(this.anio, this.mes + 1, 0).getDate();
-
-    const totalCeldas = Math.ceil((desplazamiento + totalDias) / 7) * 7;
-
-    this.tituloTarget.textContent = fechaPrimera.toLocaleDateString("es-MX", {
-      month: "long",
-      year: "numeric",
-    });
-
-    this.calendarioTarget.innerHTML = "";
-
-    for (let i = 0; i < totalCeldas; i++) {
-      const numeroDia = i - desplazamiento + 1;
-
-      const fecha = new Date(this.anio, this.mes, numeroDia);
-
-      const esMesActual = fecha.getMonth() === this.mes;
-
-      const diaSemana = [
-        "domingo",
-        "lunes",
-        "martes",
-        "miercoles",
-        "jueves",
-        "viernes",
-        "sabado",
-      ][fecha.getDay()];
-
-      const fechaISO = this.formatoFecha(fecha);
-
-      const disponible =
-        esMesActual && this.diasDisponibles.includes(diaSemana);
-
-      const seleccionado = this.fechasSeleccionadas.has(fechaISO);
-
-      const celda = document.createElement("button");
-
-      celda.type = "button";
-      celda.className = "calendario-celda";
-
-      celda.classList.toggle("fuera-mes", !esMesActual);
-
-      celda.classList.toggle("dia-disponible", disponible);
-
-      celda.classList.toggle("dia-bloqueado", esMesActual && !disponible);
-
-      celda.classList.toggle("dia-seleccionado", seleccionado);
-      celda.dataset.agendaTarget = "dia";
-      celda.dataset.fecha = fechaISO;
-
-      celda.disabled = !disponible;
-
-      celda.innerHTML = `
-        <span class="numero-dia">
-          ${fecha.getDate()}
-        </span>
-
-        ${
-          disponible
-            ? `<span class="estado-dia">
-                 ${seleccionado ? "Seleccionado" : "Disponible"}
-               </span>`
-            : esMesActual
-              ? `<span class="estado-dia">No disponible</span>`
-              : ""
-        }
-      `;
-
-      if (disponible) {
-        celda.addEventListener("click", () => {
-          this.seleccionarFecha(fechaISO);
-        });
-      }
-
-      this.calendarioTarget.appendChild(celda);
-    }
-  }
+  
 }
 function ajaxTurbo(ruta, parametros) {
   const csrtToken = document.querySelector("meta[name='csrf-token']").content;
@@ -285,17 +75,4 @@ function ajaxTurbo(ruta, parametros) {
   })
     .then((response) => response.text())
     .then(Turbo.renderStreamMessage);
-}
-function iniciarSemana() {
-  const hoy = new Date();
-  const diaActual = hoy.getDay();
-  const diasHastaLunes = diaActual === 0 ? 1 : 8 - diaActual;
-  const proximoLunes = new Date(hoy);
-  proximoLunes.setDate(hoy.getDate() + diasHastaLunes);
-  const proximoViernes = new Date(proximoLunes);
-  proximoViernes.setDate(proximoLunes.getDate() + 4);
-  console.log(proximoLunes.toISOString().split("T")[0]);
-  console.log(proximoViernes.toISOString().split("T")[0]);
-  $("#agenda_fecha_inicio").val(proximoLunes.toISOString().split("T")[0]);
-  $("#agenda_fecha_fin").val(proximoViernes.toISOString().split("T")[0]);
 }
