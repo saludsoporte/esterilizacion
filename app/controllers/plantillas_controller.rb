@@ -1,7 +1,18 @@
 class PlantillasController < ApplicationController
   include Pagy::Backend
   def index
-    @pagy,@plantillas = pagy(Plantilla.all,limit:1)
+    @pagy,@plantillas = pagy(Plantilla.all.order(id: :asc),limit:1)
+  end
+
+  def activar_plantilla    
+    @plantilla = Plantilla.find(params[:plantilla_id])    
+    if @plantilla.activo
+      @plantilla.activo = false
+    else    
+      @plantilla.activo = true        
+    end
+    @plantilla.save
+    redirect_to plantillas_path(page: params[:page]), notice: "Plantilla #{@plantilla.nombre} ha sido #{@plantilla.activo ? 'activada' : 'desactivada'} correctamente."
   end
 
   def new

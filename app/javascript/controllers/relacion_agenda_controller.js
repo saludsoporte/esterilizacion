@@ -20,14 +20,11 @@ export default class extends Controller {
     this.fechasSeleccionadas = new Set();
     this.dibujarCalendario();
     //iniciarSemana();
-    $("#medico_id").prop("disabled", true);
-    $("#medico_id").val(0).trigger("change");
-    $("#plantilla_id").val(null).trigger("change");
-    $("#plantilla_id").on("change", function () {
-      $("#medico_id").prop("disabled", false);
-      console.log("plantilla_id: " + $(this).val());
+    //$("#medico_id").prop("disabled", true);
+    $("#medico_id").val(0).trigger("change");    
+    $("#medico_id").on("change", function () {            
       ajaxTurbo("setMesas", {
-        plantilla_id: $(this).val(),
+        agenda_id: $("#agenda_id").val()
       });
     });
   }

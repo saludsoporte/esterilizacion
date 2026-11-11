@@ -44,7 +44,8 @@ Rails.application.routes.draw do
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
   get "plantillas/detalle", to: "plantillas#detalle"
   post "relacion_agenda_plantillas/setMesas", to: "relacion_agenda_plantillas#setMesas"
-  
+  get "plantillas/activar_plantilla/", to: "plantillas#activar_plantilla"
+
   resources :relacion_agenda_plantillas, only: [:new, :create] do
     collection do
       get :dias_disponibles

@@ -14,7 +14,22 @@
             <div class="d-flex align-items-center gap-2"> <i class="bi bi-grid-3x3-gap-fill plantilla-icono"></i>
               <div>
                 <h5 class="mb-0"> <%= plantilla.nombre %> </h5>
-                <small class="text-muted"> <%= dias.size %> días · <%= plantilla.detalle_plantillas.size %> asignaciones de mesa </small> </div>
+                <small class="text-muted"> <%= dias.size %> días · <%= plantilla.detalle_plantillas.size %> asignaciones de mesa </small>
+              </div>
+              <%= link_to plantillas_activar_plantilla_path(
+                    plantilla_id: plantilla.id,
+                    page: params[:page]
+                  ),
+                  class: "btn-estado-plantilla #{plantilla.activo ? 'activo' : 'inactivo'}",
+                  title: plantilla.activo ? "Desactivar plantilla" : "Activar plantilla" do %>
+                <% if plantilla.activo %>
+                  <i class="bi bi-toggle-on"></i>
+                  <span>Activa</span>
+                <% else %>
+                  <i class="bi bi-toggle-off"></i>
+                  <span>Inactiva</span>
+                <% end %>
+              <% end %>
             </div>
             <%# link_to edit_plantilla_path(plantilla), class: "btn btn-sm btn-outline-primary", title: "Editar plantilla" do %>
               <!--i class="bi bi-pencil-square"></i>-->

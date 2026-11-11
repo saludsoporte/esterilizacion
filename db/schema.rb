@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_11_09_202510) do
+ActiveRecord::Schema[7.1].define(version: 2026_11_10_220215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_09_202510) do
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "activo", default: false
   end
 
   create_table "relacion_agenda_plantillas", force: :cascade do |t|

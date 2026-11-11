@@ -48,15 +48,16 @@ class RelacionAgendaPlantillasController < ApplicationController
       locals: { detalles: detalles, dias: nombre_dias }}
     end
   end
-  def setMesas        
-    @mesas=Mesa.joins(:detalle_plantillas).where(detalle_plantillas: {plantilla_id: params[:plantilla_id]}).distinct
+  def setMesas     
+    @agenda = Agenda.find(params[:agenda_id])           
+    @mesas=Mesa.joins(:detalle_plantillas).where(detalle_plantillas: {plantilla_id:@agenda.plantilla.id}).distinct
     logger.debug "********************* mesas "+@mesas.to_s                
     respond_to do |format|
       format.turbo_stream { render partial: "relacion_agenda_plantillas/cargar_mesas", 
       locals: { mesas: @mesas }}
     end
   end
-  def setMesa
+  def setMesa    
     dia = params[:dia].split('_')[0]
     relacion = RelacionAgendaPlantilla.find(params[:id])
     agenda = relacion.agenda_id

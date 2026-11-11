@@ -1,3 +1,47 @@
+
+.btn-estado-plantilla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+
+  i {
+    font-size: 1.2rem;
+  }
+
+  &.activo {
+    color: #198754;
+    background: #e8f5ee;
+    border-color: #b7e4ca;
+
+    &:hover {
+      color: #fff;
+      background: #198754;
+      border-color: #198754;
+    }
+  }
+
+  &.inactivo {
+    color: #6c757d;
+    background: #f1f2f3;
+    border-color: #d6d8db;
+
+    &:hover {
+      color: #fff;
+      background: #6c757d;
+      border-color: #6c757d;
+    }
+  }
+}
+
+
 .plantillas-container {
   padding-top: 40px;
   padding-bottom: 60px;
