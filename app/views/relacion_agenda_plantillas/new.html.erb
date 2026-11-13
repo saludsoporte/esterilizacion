@@ -40,13 +40,13 @@
         </div>
         <br>
         <div class="d-flex justify-content-between align-items-center">
-          <div class="estado-agenda <%= @agenda.plantilla.activo? ? 'activo' : 'inactivo' %>">
+          <div class="estado-agenda <%= @plantilla.activo==true ? 'activo' : 'inactivo' %>">
             <span class="text-muted">
-              Plantilla: <%= @agenda.plantilla.nombre %>  Activa:
+              Plantilla: <%= @plantilla.nombre %>  Activa:
             </span>
-            <% if @agenda.plantilla.activo? %>            
+            <% if @plantilla.activo? %>
               <span> <i class="bi bi-check-circle-fill "></i></span>
-              <%= form.hidden_field :plantilla_id,value:@agenda.plantilla.id,id: :plantilla_id %>
+              <%= form.hidden_field :plantilla_id,value:@plantilla.id,id: :plantilla_id %>
             <% else %>
               <span>    <i class="bi bi-x-circle-fill"> </i></span>
               <%= form.hidden_field :plantilla_id,value:0,id: :plantilla_id %>

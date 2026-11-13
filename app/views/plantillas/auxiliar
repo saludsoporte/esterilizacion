@@ -1,0 +1,46 @@
+<div class="plantilla-dia">
+                  <div class="plantilla-dia-header"> <span> <i class="bi bi-calendar3"></i> <%= dia.to_s.upcase %> </span> <span class="dia-total"> <%= detalle_plantilla s.size %> </span> </div>
+                  <!-- MESAS Y HORARIOS -->
+                  <div class="plantilla-mesas">
+                    <% if plantilla.dia_protector == dia %>
+                      <% detalle_extra = plantilla.detalle_extras %>                    
+                      <% detalles = plantilla.detalle_mesas.where.not(mesa_id:detalle_extra.pluck(:mesa_id)) %>
+                      <% mesa = detalles.first.mesa %>
+                      <div class="plantilla-mesa">
+                        <div class="plantilla-mesa-titulo"> <i class="bi bi-grid"></i> <strong> <%= mesa.nombre_mesa %> </strong> </div>
+                        <% detalles.each do |detalle| %>
+                          <% if mesa && mesa.detalle_mesas.any? %>
+                            <div class="plantilla-horario"> <span class="paciente"> <%= [detalle.paciente, detalle.sexo] .compact_blank.join(" ") %> </span> <span class="hora"> <i class="bi bi-clock"></i> <%= detalle.horario&.strftime("%H:%M") || "--:--" %> </span> </div>
+                          <% else %>
+                            <div class="plantilla-sin-horarios"> Sin horarios registrados </div>
+                          <% end %>
+                        <% end %>
+                      </div>
+                      <% mesa = detalle_extra.first.mesa %>
+                      <div class="plantilla-mesa">
+                        <div class="plantilla-mesa-titulo"> <i class="bi bi-grid"></i> <strong> <%= mesa&.nombre_mesa || "Mesa sin nombre" %> </strong> </div>
+                        <% detalle_extra.each do |detalle| %>
+                          <% if mesa && mesa.detalle_mesas.any? %>
+                            <div class="plantilla-horario"> <span class="paciente"> <%= [detalle.paciente, detalle.sexo] .compact_blank.join(" ") %> </span> <span class="hora"> <i class="bi bi-clock"></i> <%= detalle.horario&.strftime("%H:%M") || "--:--" %> </span> </div>
+                          <% else %>
+                            <div class="plantilla-sin-horarios"> Sin horarios registrados </div>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <% detalles.each do |detalle| %>
+                        <% mesa = detalle.mesa %>
+                        <div class="plantilla-mesa">
+                          <div class="plantilla-mesa-titulo"> <i class="bi bi-grid"></i> <strong> <%= mesa&.nombre_mesa || "Mesa sin nombre" %> </strong> </div>
+                          <% if mesa && mesa.detalle_mesas.any? %>
+                            <% mesa.detalle_mesas.where(plantilla_id:plantilla.id).each_with_index do |detalle_mesa, index| %>
+                              <div class="plantilla-horario"> <span class="paciente"> <%= [detalle_mesa.paciente, detalle_mesa.sexo] .compact_blank.join(" ") %> </span> <span class="hora"> <i class="bi bi-clock"></i> <%= detalle_mesa.horario&.strftime("%H:%M") || "--:--" %> </span> </div>
+                            <% end %>
+                          <% else %>
+                            <div class="plantilla-sin-horarios"> Sin horarios registrados </div>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>

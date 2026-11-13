@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get "citas/mis_citas", to: "citas#mis_citas", as: :mis_citas
   get "notificaciones", to: "notificaciones#index", as: :notificaciones
   get "plantillas/detalle", to: "plantillas#detalle"
+  get "plantillas/extra", to: "plantillas#extra"
   post "relacion_agenda_plantillas/setMesas", to: "relacion_agenda_plantillas#setMesas"
   get "plantillas/activar_plantilla/", to: "plantillas#activar_plantilla"
 

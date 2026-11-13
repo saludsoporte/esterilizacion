@@ -1,6 +1,7 @@
 <div id="agregar_nuevos_horarios">
   <div class="mesas-configuracion" data-controller="plantillas">
     <input id="index" type="number" value=0 hidden>
+    <input id="index_extra" type="number" value=0 hidden>
     <% mesas.each do |mesa| %>
       <div class="mesa-card mb-3"
          data-mesa-id="<%= mesa.id %>">
@@ -20,22 +21,39 @@
               <i class="bi bi-plus-lg"></i>
               Agregar horario
             </button>
+            <button type="button"
+                  class="btn btn-outline-primary btn-sm"
+                  data-action="click->plantillas#agregarExtra"
+              data-extra-id="<%= mesa.id %>">
+              <i class="bi bi-plus-lg"></i>
+              Agregar Extra
+            </button>
           </div>
         </div>
         <!-- TABLA DE HORARIOS -->
         <div class="mesa-tabla-container">
           <div class="card" >
-            <div class="card-body">              
-              <!-- DETALLES EXISTENTES -->              
-                <%= turbo_frame_tag "template"+mesa.id.to_s do %>
-                <% end %>
-              </div>
+            <div class="card-body">
+              <!-- DETALLES EXISTENTES -->
+              <%= turbo_frame_tag "template"+mesa.id.to_s do %>
+              <% end %>
             </div>
           </div>
-          <!-- CONTENEDOR PARA NUEVOS HORARIOS -->
-          <div data-pl-target="nuevosDetalles" class="mesa-nuevos-detalles">
-          </div>          
         </div>
-      <% end %>
-    </div>  
+         <!-- TABLA DE HORARIOS extras -->
+        <div class="mesa-tabla-container">
+          <div class="card" >
+            <div class="card-body">
+              <!-- DETALLES EXISTENTES -->
+              <%= turbo_frame_tag "extra"+mesa.id.to_s do %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!-- CONTENEDOR PARA NUEVOS HORARIOS -->
+        <div data-pl-target="nuevosDetalles" class="mesa-nuevos-detalles">
+        </div>
+      </div>
+    <% end %>
   </div>
+</div>

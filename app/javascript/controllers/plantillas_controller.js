@@ -14,7 +14,9 @@ export default class extends Controller {
     "template",
     "horario",
     "mesa",
+    "extra",
     "mesaID",
+    "extraID",
     "mesasSeleccionadas",
   ];
   connect() {
@@ -101,6 +103,39 @@ export default class extends Controller {
     int++;
     console.log(int);
     $("#index").val(int);
+  }
+
+  agregarExtra(event) {
+    console.log("entra en agregarExtra");
+    console.log("Índice actual:", this.index2);
+    let extraID = event.currentTarget.dataset.extraId;
+
+    console.log(extraID);
+    /*    let html = this.templateTarget.innerHTML;
+
+    html = html.replaceAll("INDEX", this.index2);
+
+    //console.log("HTML generado:", html);
+
+    this.detallesTarget.insertAdjacentHTML("beforeend", html);
+*/
+    $.ajax({
+      url: "extra",
+      type: "GET",
+      success: function (html) {
+        console.log("succes: " + $("#index_extra").val());
+        html = html.replaceAll("INDEX", $("#index_extra").val());
+        html = html.replaceAll("MESAID", extraID);
+        $("#extra" + extraID).append(html);
+      },
+      error: function () {
+        alert("Error al cargar el formulario");
+      },
+    });
+    var int = $("#index_extra").val();
+    int++;
+    console.log(int);
+    $("#index_extra").val(int);
   }
   cambiarHorario() {
     this.actualizarHorarios(this.mesaIDTargets[0].value);

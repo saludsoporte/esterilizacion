@@ -17,6 +17,7 @@ class RelacionAgendaPlantillasController < ApplicationController
     @relacion_agenda = RelacionAgendaPlantilla.new
     @agenda = Agenda.find(params[:agenda_id])
     @relaciones = RelacionAgendaPlantilla.includes(:user, :plantilla).all    
+    @plantilla = Plantilla.find_by(activo: true)
     @dias_semana = %w[
       lunes martes miércoles jueves viernes sábado domingo
     ]
@@ -47,10 +48,11 @@ class RelacionAgendaPlantillasController < ApplicationController
       format.turbo_stream { render partial: "relacion_agenda_plantillas/cargar_dias_mesas", 
       locals: { detalles: detalles, dias: nombre_dias }}
     end
-  end
+  end  
   def setMesas     
-    @agenda = Agenda.find(params[:agenda_id])           
-    @mesas=Mesa.joins(:detalle_plantillas).where(detalle_plantillas: {plantilla_id:@agenda.plantilla.id}).distinct
+    @agenda = Agenda.find(params[:agenda_id])          
+    @plantilla = Plantilla.find_by(activo: true)
+    @mesas=Mesa.joins(:detalle_plantillas).where(detalle_plantillas: {plantilla_id:@plantilla.id}).distinct
     logger.debug "********************* mesas "+@mesas.to_s                
     respond_to do |format|
       format.turbo_stream { render partial: "relacion_agenda_plantillas/cargar_mesas", 

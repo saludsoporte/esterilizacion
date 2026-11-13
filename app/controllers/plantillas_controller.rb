@@ -7,11 +7,12 @@ class PlantillasController < ApplicationController
   def activar_plantilla    
     @plantilla = Plantilla.find(params[:plantilla_id])    
     if @plantilla.activo
-      @plantilla.activo = false
+      @plantilla.update(activo: false)
     else    
-      @plantilla.activo = true        
+      @plantilla.update(activo: true)
     end
-    @plantilla.save
+    @otras_plantillas = Plantilla.where.not(id: @plantilla.id)
+    @otras_plantillas.update_all(activo: false)
     redirect_to plantillas_path(page: params[:page]), notice: "Plantilla #{@plantilla.nombre} ha sido #{@plantilla.activo ? 'activada' : 'desactivada'} correctamente."
   end
 
@@ -38,10 +39,14 @@ class PlantillasController < ApplicationController
     end
   end
   def detalle
-     render partial: "template_detalle_mesa"
+    render partial: "template_detalle_mesa"
   end
-  def create            
-    plantilla = Plantilla.new(nombre: params[:plantilla][:nombre])  
+  def extra
+    render partial: "template_detalle_extra"
+  end
+  def create                  
+    dia_protector = params[:dia_protector].upcase    
+    plantilla = Plantilla.new(nombre: params[:plantilla][:nombre],dia_protector: dia_protector)  
     if plantilla.save      
       params[:mesa][:detalle_mesas_attributes].each do |indice, detalle|
         logger.debug"******* detalle *********** #{detalle}"
@@ -51,9 +56,20 @@ class PlantillasController < ApplicationController
         sexo = tipo[1]
         hora = detalle[:horario].split("_")
         horario = hora[1]
-        detalle_mesa = DetalleMesa.new(paciente: paciente, sexo: sexo,horario: horario, mesa_id: detalle[:mesa],plantilla_id:plantilla.id)
+        detalle_mesa = DetalleMesa.new(paciente: paciente, sexo: sexo,horario: horario, mesa_id: detalle[:mesa],plantilla_id:plantilla.id)        
         detalle_mesa.save
-      end            
+      end    
+      params[:extra][:detalle_mesas_attributes].each do |indice, detalle|
+        logger.debug"******* detalle *********** #{detalle}"
+        logger.debug"******* detalle mesa *********** #{detalle[:extra]}"
+        tipo = detalle[:tipo].split("_")
+        paciente = tipo[0]
+        sexo = tipo[1]
+        hora = detalle[:horario].split("_")
+        horario = hora[1]
+        detalle_mesa = DetalleExtra.new(paciente: paciente, sexo: sexo,horario: horario, mesa_id: detalle[:extra],plantilla_id:plantilla.id)        
+        detalle_mesa.save             
+      end        
 
       params[:plantilla][:dias].each do |dia, datos|      
         # Process each day

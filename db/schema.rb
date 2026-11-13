@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_11_10_220215) do
+ActiveRecord::Schema[7.1].define(version: 2026_11_13_195111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,9 +67,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_10_220215) do
     t.bigint "mesa_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "agenda_id", null: false
-    t.index ["agenda_id"], name: "index_detalle_extras_on_agenda_id"
+    t.bigint "plantilla_id"
     t.index ["mesa_id"], name: "index_detalle_extras_on_mesa_id"
+    t.index ["plantilla_id"], name: "index_detalle_extras_on_plantilla_id"
   end
 
   create_table "detalle_mesas", force: :cascade do |t|
@@ -117,6 +117,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_10_220215) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "activo", default: false
+    t.string "dia_protector"
   end
 
   create_table "relacion_agenda_plantillas", force: :cascade do |t|
@@ -164,8 +165,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_10_220215) do
   add_foreign_key "citas", "agendas"
   add_foreign_key "citas", "detalle_mesas"
   add_foreign_key "citas", "relacion_agenda_plantillas"
-  add_foreign_key "detalle_extras", "agendas"
   add_foreign_key "detalle_extras", "mesas"
+  add_foreign_key "detalle_extras", "plantillas"
   add_foreign_key "detalle_mesas", "mesas"
   add_foreign_key "detalle_mesas", "plantillas"
   add_foreign_key "detalle_plantillas", "mesas"
